@@ -1,0 +1,290 @@
+html, body, .v-application {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+    overflow: auto !important;
+}
+
+.theme--dark.v-application, .theme--dark.v-sheet {
+    background: #363940 !important;
+}
+
+
+.theme--light.v-application {
+    background: #ECEFF1 !important;
+}
+
+.theme--dark.v-card {
+    background: #32353c !important;
+}
+
+.theme--dark.v-list, .theme--dark.v-data-table {
+    background: transparent !important;
+}
+
+.theme--dark.v-expansion-panels .v-expansion-panel {
+    background: transparent !important;
+}
+
+.theme--dark.v-navigation-drawer {
+    background-color: #2f3136 !important;
+}
+
+.v-tabs-items {
+    background: transparent !important;
+}
+
+.theme--light.v-navigation-drawer {
+    background-color: #ffffff !important;
+}
+
+.theme--light.v-app-bar.v-toolbar.v-sheet {
+    background-color: #fff !important;
+}
+
+.theme--light.v-text-field--solo > .v-input__control > .v-input__slot {
+    background-color: #eeeeee !important;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-corner {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+.v-card__actions {
+    padding: 8px 24px 24px 24px !important;
+}
+
+.v-btn {
+    text-transform: none !important;
+    font-weight: 400 !important;
+    letter-spacing: inherit !important;
+    text-indent: inherit !important;
+}
+
+.v-list-item__title {
+    line-height: 1.3rem !important;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.max-w-100  {max-width: 100px  !important;}
+.max-w-150  {max-width: 150px  !important;}
+.max-w-200  {max-width: 200px  !important;}
+.max-w-300  {max-width: 300px  !important;}
+.max-w-400  {max-width: 400px  !important;}
+.max-w-600  {max-width: 600px  !important;}
+.max-w-800  {max-width: 800px  !important;}
+.max-w-900  {max-width: 900px  !important;}
+.max-w-1000 {max-width: 1000px !important;}
+.max-w-1100 {max-width: 1100px !important;}
+.max-w-1200 {max-width: 1200px !important;}
+
+.min-w-100  {min-width: 100px  !important;}
+.min-w-150  {min-width: 150px  !important;}
+.min-w-200  {min-width: 200px  !important;}
+.min-w-300  {min-width: 300px  !important;}
+.min-w-400  {min-width: 400px  !important;}
+.min-w-600  {min-width: 600px  !important;}
+.min-w-800  {min-width: 800px  !important;}
+.min-w-900  {min-width: 900px  !important;}
+.min-w-1000 {min-width: 1000px !important;}
+.min-w-1100 {min-width: 1100px !important;}
+.min-w-1200 {min-width: 1200px !important;}
+
+.vh100 {height: 100vh}
+.max-vh100 {max-height: 100vh}
+.of-hidden {overflow: hidden}
+.of-y-hidden {overflow-y: hidden}
+.of-x-hidden {overflow-x: hidden}
+.of-scroll {overflow: scroll}
+.of-y-scroll {overflow-y: scroll}
+.of-x-scroll {overflow-x: scroll}
+.of-auto {overflow: auto}
+.of-y-auto {overflow-y: auto}
+.of-x-auto {overflow-x: auto}
+
+.ba-1-1 { border: 1px solid rgba(0, 0, 0, 0.1) !important; }
+.bb-1-1 { border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important; }
+.bt-1-1 { border-top: 1px solid rgba(0, 0, 0, 0.1) !important; }
+.bl-1-1 { border-left: 1px solid rgba(0, 0, 0, 0.1) !important; }
+.br-1-1 { border-right: 1px solid rgba(0, 0, 0, 0.1) !important; }
+
+.bg-darken-01 {background: rgba(0, 0, 0, 0.01) !important}
+.bg-darken-02 {background: rgba(0, 0, 0, 0.02) !important}
+.bg-darken-03 {background: rgba(0, 0, 0, 0.03) !important}
+.bg-darken-04 {background: rgba(0, 0, 0, 0.04) !important}
+.bg-darken-05 {background: rgba(0, 0, 0, 0.05) !important}
+.bg-darken-06 {background: rgba(0, 0, 0, 0.06) !important}
+.bg-darken-07 {background: rgba(0, 0, 0, 0.07) !important}
+.bg-darken-08 {background: rgba(0, 0, 0, 0.08) !important}
+.bg-darken-09 {background: rgba(0, 0, 0, 0.09) !important}
+.bg-darken-1 {background: rgba(0, 0, 0, 0.1) !important}
+.bg-darken-2 {background: rgba(0, 0, 0, 0.2) !important}
+.bg-darken-3 {background: rgba(0, 0, 0, 0.3) !important}
+.bg-lighten-01 {background: rgba(255, 255, 255, 0.01) !important}
+.bg-lighten-02 {background: rgba(255, 255, 255, 0.02) !important}
+.bg-lighten-03 {background: rgba(255, 255, 255, 0.03) !important}
+.bg-lighten-04 {background: rgba(255, 255, 255, 0.04) !important}
+.bg-lighten-05 {background: rgba(255, 255, 255, 0.05) !important}
+.bg-lighten-06 {background: rgba(255, 255, 255, 0.06) !important}
+.bg-lighten-07 {background: rgba(255, 255, 255, 0.07) !important}
+.bg-lighten-08 {background: rgba(255, 255, 255, 0.08) !important}
+.bg-lighten-09 {background: rgba(255, 255, 255, 0.09) !important}
+.bg-lighten-1 {background: rgba(255, 255, 255, 0.1) !important}
+.bg-lighten-2 {background: rgba(255, 255, 255, 0.2) !important}
+.bg-lighten-3 {background: rgba(255, 255, 255, 0.3) !important}
+
+/* PrismJS 1.22.0
+https://prismjs.com/download.html#themes=prism-okaidia&languages=markup+clike+javascript+bash+csharp+go+http+hsts+java+json+kotlin+markup-templating+php+python+ruby */
+/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #f8f8f2;
+    background: none;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-weight: 500;
+    font-size: 1em;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 1em;
+    margin: .5em 0;
+    overflow: auto;
+    border-radius: 0.3em;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+    background: #272822;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+    padding: .1em;
+    border-radius: .3em;
+    white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #8292a2;
+}
+
+.token.punctuation {
+    color: #f8f8f2;
+}
+
+.token.namespace {
+    opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+    color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #a6e22e;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+    color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+    color: #e6db74;
+}
+
+.token.keyword {
+    color: #66d9ef;
+}
+
+.token.regex,
+.token.important {
+    color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+.token.italic {
+    font-style: italic;
+}
+
+.token.entity {
+    cursor: help;
+}
+

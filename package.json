@@ -1,0 +1,33 @@
+{
+    "name": "app.statfox.io",
+    "version": "0.1.0",
+    "description": "A Json Fake Data API Platform for generating fake/test data.",
+    "author": "David M. Lung",
+    "private": true,
+    "scripts": {
+        "dev": "nuxt",
+        "build": "nuxt build",
+        "start": "nuxt start",
+        "generate": "nuxt generate"
+    },
+    "dependencies": {
+        "@nuxtjs/axios": "^5.12.2",
+        "@nuxtjs/proxy": "^1.3.3",
+        "@nuxtjs/pwa": "^3.2.2",
+        "@nuxtjs/recaptcha": "^0.6.2",
+        "@stripe/stripe-js": "^1.11.0",
+        "chart.js": "^2.9.4",
+        "cookie-universal-nuxt": "^2.1.4",
+        "dotenv": "^8.2.0",
+        "minify-css-string": "^1.0.0",
+        "nuxt": "~2.14.7",
+        "nuxt-i18n": "^6.16.0",
+        "v-mask": "^2.2.3",
+        "vue-chartjs": "^3.5.1",
+        "vue-uuid": "2.0.2",
+        "vue2-daterange-picker": "^0.6.2"
+    },
+    "devDependencies": {
+        "@nuxtjs/vuetify": "~1.11.2"
+    }
+}
