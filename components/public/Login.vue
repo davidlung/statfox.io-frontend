@@ -1,7 +1,7 @@
 <template>
     <v-form v-model="valid" @submit="login" :disabled="pending||redirecting">
 
-        <InputLabel v-if="!username">Email</InputLabel>
+        <InputLabel v-if="!username">{{$t('email')}}</InputLabel>
         <v-text-field v-show="!username" solo flat  hide-details="auto"
                       :background-color="username?'transparent':''"
                       type="email"
@@ -14,11 +14,11 @@
 
         <div v-show="!!username" class="text-center pt-4 pb-2">
             {{data.username}}<br>
-            <v-btn depressed text small color="primary" @click="username=null">change</v-btn>
+            <v-btn depressed text small color="primary" @click="username=null">{{$t('login_change_email')}}</v-btn>
         </div>
 
         <template v-if="username">
-            <InputLabel>Password</InputLabel>
+            <InputLabel>{{$t('password')}}</InputLabel>
             <v-text-field solo flat autofocus hide-details
                           autocomplete="current-password"
                           v-model="data.password"
@@ -39,7 +39,7 @@
                type="submit"
                :loading="pending||redirecting"
                :disabled="!valid||(username&&!!error)">
-            {{username?'Sign in':'Continue'}}
+            {{username?$t('sign_in'):$t('continue')}}
         </v-btn>
 
     </v-form>
@@ -68,11 +68,11 @@
                 },
                 rules: {
                     username: [
-                        v => v && v.trim().length > 0 || 'Please enter your email to continue.',
-                        v => (v && (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(v)) || 'This email is not valid, please enter your email.'
+                        v => v && v.trim().length > 0 || this.$t('rule.email.empty'),
+                        v => (v && (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(v)) || this.$t('rule.email.invalid')
                     ],
                     password: [
-                        v => v && v.trim().length >= 6 || 'Please enter your password.',
+                        v => v && v.trim().length >= 6 || this.$t('rule.password.empty'),
                     ]
                 },
             }

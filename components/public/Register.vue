@@ -1,7 +1,7 @@
 <template>
     <v-form v-model="valid" @submit="register" :disabled="pendingRegister||pendingLogin||redirecting">
 
-        <InputLabel>Email</InputLabel>
+        <InputLabel>{{$t('email')}}</InputLabel>
 
         <v-text-field solo flat autofocus hide-details="auto"
                       type="email"
@@ -11,7 +11,7 @@
                       :rules="rules.email"
         ></v-text-field>
 
-        <InputLabel>Password</InputLabel>
+        <InputLabel>{{$t('password')}}</InputLabel>
 
         <v-text-field solo flat hide-details
                       autocomplete="current-password"
@@ -22,14 +22,14 @@
                       @click:append="showPassword = !showPassword"
         ></v-text-field>
 
-        <v-checkbox class="d-inline-block" :rules="[v => !!v||'You have to agree to continue.']">
+        <v-checkbox class="d-inline-block" :rules="[v => !!v||$t('rule.agree.empty')]">
             <template v-slot:label>
                 <span class="text-caption">
                     I have read and agree to the
-                    <a @click.stop target="_blank" href="https://www.jsonserver.io/termsofservice/">terms of use</a>
+                    <a @click.stop target="_blank" href="https://www.jsonserver.io/termsofservice/">{{$t('terms_of_use')}}</a>
                     and the
-                    <a @click.stop target="_blank" href="https://www.jsonserver.io/privacy/">privacy policy</a>
-                    of jsonserver.io
+                    <a @click.stop target="_blank" href="https://www.jsonserver.io/privacy/">{{$t('privacy_policy')}}</a>
+                    of {{$config.DOMAIN}}
                 </span>
             </template>
         </v-checkbox>

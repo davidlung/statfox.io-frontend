@@ -6,7 +6,7 @@
         </h1>
 
         <h2 class="text-h5 text-center pb-10 font-weight-light">
-            Thank you for choosing jsonserver.io for creating powerful fake data API.
+            Thank you for choosing {{$config.DOMAIN}} for creating powerful fake data API.
         </h2>
 
         <v-card flat color="transparent" width="700" class="mx-auto">

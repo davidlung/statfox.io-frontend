@@ -24,7 +24,7 @@
                         fits your needs.
                     </div>
                     <v-btn depressed large nuxt color="primary" to="/" class="my-10">
-                        Back to jsonserver.io
+                        Back to {{$config.DOMAIN}}
                     </v-btn>
                 </template>
                 <template v-if="!verified">
@@ -32,7 +32,7 @@
                     <div>
                         Could not verify your email, maybe the link is expired. Please note that the verification link
                         is only valid for 10 minutes. Please try again by resend a new verification email by clicking
-                        the resend button which you can find at the settings page of your jsonserver.io account.
+                        the resend button which you can find at the settings page of your {{$config.DOMAIN}} account.
                     </div>
                     <v-btn depressed large nuxt color="primary" to="/#settings" class="my-10">
                         Go back to my account settings

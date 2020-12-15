@@ -18,7 +18,7 @@ export default {
             {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
         ],
         script: [
-            {src: '/code.js', wid: '4f2da85b-bd11-473d-b8ea-e0be4e97fa2f', defer: true}
+            {src: '/code.js', wid: 'ab9d24dfbb1c129be3cf695322bab901', defer: true}
         ]
     },
 
@@ -187,5 +187,10 @@ export default {
     publicRuntimeConfig: {
         ENV_IS_STAGING: env.ENV_IS_STAGING||false,
         STRIPE_KEY: env.STRIPE_KEY,
+        DOMAIN: 'statfox.io',
+        BRAND: 'StatFox',
+        BRAND_ALT_1: 'STATFOX',
+        BRAND_ALT_2: 'StatFox',
+        BRAND_ALT_3: 'StatFox.io',
     }
 }

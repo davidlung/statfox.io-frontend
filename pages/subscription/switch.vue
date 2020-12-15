@@ -63,7 +63,7 @@
             </v-btn>
         </div>
         <div class="caption text--secondary text-center py-10">
-            By confirming your subscription, you agree that jsonserver.io may charge your card for this and future
+            By confirming your subscription, you agree that {{$config.DOMAIN}} may charge your card for this and future
             payments in accordance with the Terms of Use.
         </div>
 

@@ -8,7 +8,16 @@
 
         <v-navigation-drawer app :width="300" :mini-variant="false" v-model="drawer">
 
-            <div class="title text--secondary ml-4 my-5">Analytics.io</div>
+            <v-list-item>
+                <v-list-item-avatar size="50">
+                    <Logo :size="50"/>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                    <v-list-item-title class="text-h6">STATFOX</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+
             <v-list nav class="grow" color="transparent">
                 <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router nuxt exact>
                     <v-list-item-icon class="my-3 mr-5 ml-1">
@@ -40,10 +49,11 @@
     import {mapState} from 'vuex'
     import JSectionTitle from "../components/JSectionTitle";
     import Toast from "../components/Toast";
+    import Logo from "~/components/Logo";
 
     export default {
 
-        components: {Toast, JSectionTitle},
+        components: {Logo, Toast, JSectionTitle},
 
         data() {
             return {

@@ -4,7 +4,7 @@
         <v-btn class="bg-darken-1" depressed v-bind="$attrs" @click="send" :loading="pending" :disabled="sent" :text="sent" v-if="notVerified&&!sent">
             {{resend ? 'Resend Verification Email' : 'Send Verification Email'}}
         </v-btn>
-        <div v-if="sent">Please check your inbox and follow the instructions. If you don't receive the email, please contact support@jsonserver.io.</div>
+        <div v-if="sent">Please check your inbox and follow the instructions. If you don't receive the email, please contact support@{{$config.DOMAIN}}.</div>
     </div>
 
 </template>

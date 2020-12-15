@@ -2,7 +2,7 @@
     <v-form v-model="valid" @submit.prevent="request" :disabled="pending">
 
         <template v-if="!sent">
-            <InputLabel>Email</InputLabel>
+            <InputLabel>{{$t('email')}}</InputLabel>
             <v-text-field solo flat  hide-details="auto"
                           type="email"
                           placeholder="mail@example.com"
@@ -23,13 +23,12 @@
                    type="submit"
                    :loading="pending"
                    :disabled="!valid||!captcha">
-                Request for password reset
+                {{$t('request_password_reset')}}
             </v-btn>
         </template>
         <template v-else>
             <v-alert text>
-                Check your email for a link to reset your password. If it doesn’t appear within a few minutes, check your spam folder
-                or try again later.
+                {{$t('password_reset_check_mailbox')}}
             </v-alert>
         </template>
 
@@ -52,8 +51,8 @@
                 email: null,
                 captcha: null,
                 rules: [
-                    v => v && v.trim().length > 0 || 'Please enter your email to continue.',
-                    v => (v && (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(v)) || 'This email is not valid, please enter your email.'
+                    v => v && v.trim().length > 0 || this.$t('rule.email.empty'),
+                    v => (v && (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(v)) || this.$t('rule.email.invalid')
                 ],
                 pending: false,
                 sent: false
