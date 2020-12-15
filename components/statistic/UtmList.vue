@@ -1,7 +1,9 @@
 <template>
-    <v-card outlined height="100%">
-        <v-card-title class="pt-3 text-subtitle-2">{{$t('countries')}}</v-card-title>
-        <v-data-table dense :headers="headers" :items="stats" :items-per-page="10"></v-data-table>
+    <v-card outlined>
+        <v-card-title class="pt-3 text-subtitle-2">{{$t('ad_campaigns')}}</v-card-title>
+        <v-skeleton-loader tile :loading="pending" type="text@10, actions">
+            <v-data-table dense :headers="headers" :items="stats" :items-per-page="10"></v-data-table>
+        </v-skeleton-loader>
     </v-card>
 </template>
 
@@ -18,14 +20,16 @@
             }),
 
             stats() {
-                return this.statistic.data.countries
+                return this.statistic.data.utm
             },
         },
 
         data() {
             return {
                 headers: [
-                    {text:this.$t('name'), value:'code', width: '90%'},
+                    {text:this.$t('ad_provider'), value:'source'},
+                    {text:this.$t('ad_medium'), value:'medium'},
+                    {text:this.$t('ad_campaign'), value:'campaign'},
                     {text:this.$t('views'), value:'views'},
                     {text:this.$t('uniques'), value:'uniques'}
                 ]

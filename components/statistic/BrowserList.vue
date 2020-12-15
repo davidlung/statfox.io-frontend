@@ -29,8 +29,8 @@
         data() {
             return {
                 headers: [
-                    {text:'Name', value:'name', width: '75%'},
-                    {text:'Anteil', value:'count'},
+                    {text:this.$t('name'), value:'name', width: '75%'},
+                    {text:this.$t('ratio'), value:'count'},
                 ]
             }
         }

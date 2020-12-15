@@ -94,6 +94,7 @@ html, body, .v-application {
     width: 100%;
 }
 
+.max-w-50   {max-width: 50px  !important;}
 .max-w-100  {max-width: 100px  !important;}
 .max-w-150  {max-width: 150px  !important;}
 .max-w-200  {max-width: 200px  !important;}

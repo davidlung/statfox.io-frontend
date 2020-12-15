@@ -30,7 +30,13 @@
             </v-card-text>
         </v-card>
 
-        <div class="mx-auto mt-8 text-caption text-center text--secondary">
+        <div class="mt-3">
+            <div class="max-w-100 mx-auto">
+                <DarkModeSwitch/>
+            </div>
+        </div>
+
+        <div class="mx-auto mt-3 text-caption text-center text--secondary">
             {{$t('all_rights_reserved', [$config.DOMAIN])}}
         </div>
     </v-container>
@@ -39,6 +45,7 @@
 <script>
     import Login from '../components/public/Login'
     import Logo from "~/components/Logo";
+    import DarkModeSwitch from "~/components/DarkModeSwitch";
 
     export default {
         layout: 'blank',
@@ -50,6 +57,7 @@
         },
 
         components: {
+            DarkModeSwitch,
             Logo,
             Login
         },

@@ -3,11 +3,11 @@
         <v-app-bar dark elevate-on-scroll app class="" height="64">
             <v-btn icon @click="$store.dispatch('toggleMenu')"><v-icon>mdi-menu</v-icon></v-btn>
             <v-toolbar-title>
-                Deine Websites
+                {{$t('your_websites')}}
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn depressed color="primary" @click="dialogCreate(true)">
-                Website hinzufügen
+                {{$t('add_website')}}
             </v-btn>
         </v-app-bar>
 
@@ -22,7 +22,7 @@
                         <v-list-item-action class="flex-row align-center">
                             <v-chip small outlined>{{website.timezone}}</v-chip>
                             <v-divider vertical inset class="mx-5"></v-divider>
-                            <v-btn icon @click="dialogCode(website.id)"><v-icon>mdi-xml</v-icon></v-btn>
+                            <v-btn icon @click="dialogCode(website.apiKey)"><v-icon>mdi-xml</v-icon></v-btn>
 
                             <v-menu bottom left>
                                 <template v-slot:activator="{ on, attrs }">
@@ -36,7 +36,7 @@
                                             <v-icon>mdi-chart-bar</v-icon>
                                         </v-list-item-icon>
                                         <v-list-item-content>
-                                            <v-list-item-title>Statistik</v-list-item-title>
+                                            <v-list-item-title>{{$t('statistic')}}</v-list-item-title>
                                         </v-list-item-content>
                                     </v-list-item>
                                     <v-list-item @click="dialog.code=true">
@@ -44,7 +44,7 @@
                                             <v-icon>mdi-xml</v-icon>
                                         </v-list-item-icon>
                                         <v-list-item-content>
-                                            <v-list-item-title>Tracking-Code</v-list-item-title>
+                                            <v-list-item-title>{{$t('tracking_code')}}</v-list-item-title>
                                         </v-list-item-content>
                                     </v-list-item>
                                     <v-list-item @click="">
@@ -52,13 +52,13 @@
                                             <v-icon>mdi-pencil</v-icon>
                                         </v-list-item-icon>
                                         <v-list-item-content>
-                                            <v-list-item-title>Umbenennen</v-list-item-title>
+                                            <v-list-item-title>{{$t('rename')}}</v-list-item-title>
                                         </v-list-item-content>
                                     </v-list-item>
                                     <VDialogConfirm :title="website.url"
                                                     :width="500"
-                                                    label-agree="Ja, Löschen"
-                                                    label-disagree="Abbrechen"
+                                                    :label-agree="$t('delete')"
+                                                    :label-disagree="$t('cancel')"
                                                     color="red"
                                                     @confirm="deleteWebsite(website.id, $event)"
                                                     :pending="pendingDelete">
@@ -68,13 +68,12 @@
                                                     <v-icon>mdi-delete</v-icon>
                                                 </v-list-item-icon>
                                                 <v-list-item-content>
-                                                    <v-list-item-title>Löschen</v-list-item-title>
+                                                    <v-list-item-title>{{$t('delete')}}</v-list-item-title>
                                                 </v-list-item-content>
                                             </v-list-item>
                                         </template>
                                         <template v-slot:text>
-                                            Möchtest du diese Website wirklich löschen? Dieser Vorgang entfernt die Website
-                                            und dessen Statistiken. Möchtest du fortfahren?
+                                            {{$t('delete_website_text')}}
                                         </template>
                                     </VDialogConfirm>
 
@@ -86,14 +85,13 @@
                 </v-list>
             </v-card>
             <v-card outlined v-if="!websites.length" class="mt-6">
-                <v-card-title class="justify-center">Keine Website vorhanden</v-card-title>
+                <v-card-title class="justify-center">{{$t('no_website')}}</v-card-title>
                 <v-card-text class="text-center">
-                    Du hast noch keine Website hinzugefügt. Um die Statistik/Tracking nutzen zu können,
-                    muss mindestens eine Website hinzugefügt werden.
+                    {{$t('no_website_info')}}
                 </v-card-text>
                 <v-card-actions class="justify-center">
                     <v-btn depressed color="primary" @click="dialogCreate(true)">
-                        Website hinzufügen
+                        {{$t('add_website')}}
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -102,15 +100,15 @@
         <v-dialog persistent v-model="dialog.create" max-width="600">
             <v-card>
                 <v-card-title>
-                    <span>Website hinzufügen</span>
+                    <span>{{$t('add_website')}}</span>
                     <v-spacer></v-spacer>
                     <v-btn icon @click="dialogCreate(false)"><v-icon>mdi-close</v-icon></v-btn>
                 </v-card-title>
                 <v-card-text>
                     <v-form v-model="form.create.valid" ref="formWebsiteCreate" @submit.prevent="submitWebsite">
-                        <InputLabel>Name</InputLabel>
+                        <InputLabel>{{$t('name')}}</InputLabel>
                         <v-text-field solo flat required autofocus
-                                      placeholder="Name der Website"
+                                      :placeholder="$t('website_name')"
                                       :rules="form.create.rules.name"
                                       v-model="form.create.data.name"
                                       :disabled="pendingCreate"
@@ -122,12 +120,12 @@
                                       v-model="form.create.data.url"
                                       :disabled="pendingCreate"
                         ></v-text-field>
-                        <InputLabel>Zeitzone</InputLabel>
+                        <InputLabel>{{$t('time.timezone')}}</InputLabel>
                         <v-row>
                             <v-col>
                                 <v-select solo flat required
                                           :items="Object.keys(timezone.items)"
-                                          label="Bitte auswählen"
+                                          :label="$t('please_select')"
                                           v-model="timezone.zone"
                                 ></v-select>
                             </v-col>
@@ -137,18 +135,18 @@
                                           item-text="t"
                                           item-value="v"
                                           :rules="form.create.rules.tz"
-                                          label="Bitte auswählen"
+                                          :label="$t('please_select')"
                                           v-model="form.create.data.tz"
-                                          no-data-text="Wähle zuerst die Hauptzone aus"
+                                          :no-data-text="$t('select_timezone_first')"
                                 ></v-select>
                             </v-col>
                         </v-row>
                         <v-card-actions class="pa-0">
                             <v-spacer></v-spacer>
-                            <v-btn :disabled="pendingCreate" text @click="dialogCreate(false)">Abbrechen</v-btn>
+                            <v-btn :disabled="pendingCreate" text @click="dialogCreate(false)">{{$t('cancel')}}</v-btn>
                             <v-btn depressed :disabled="!form.create.valid" :loading="pendingCreate" color="primary"
                                    type="submit">
-                                Hinzufügen
+                                {{$t('add')}}
                             </v-btn>
                         </v-card-actions>
                     </v-form>
@@ -158,13 +156,12 @@
         <v-dialog v-model="dialog.code" max-width="700">
             <v-card>
                 <v-card-title>
-                    <span>Tracking-Code</span>
+                    <span>{{$t('tracking_code')}}</span>
                     <v-spacer></v-spacer>
                     <v-btn icon @click="dialog.code=false"><v-icon>mdi-close</v-icon></v-btn>
                 </v-card-title>
                 <v-card-text>
-                    Dies ist der Tracking-Code, der auf jeder Seite der Website platziert werden muss, um diese zu
-                    tracken. Kopiere diesen Code, um ihn in den &lt;head> Bereich aller Seiten einzufügen, die Sie erfassen möchten.
+                    {{$t('tracking_code_info')}}
                     <div class="blue-grey darken-5 white--text pa-5 mt-5 text-center">
                         <pre>&lt;script src="dsaasd" wid="{{codeWid}}" defer>&lt;/script></pre>
                     </div>
@@ -206,16 +203,16 @@
                         valid: true,
                         rules: {
                             name: [
-                                v => (v && v.trim().length > 0) || 'Bitte lege einen Namen für diese Website fest.',
-                                v => (v && (/^[\p{L}\d\s.]+$/u).test(v)) || 'Der Name enthält unerlaubte Zeichen.',
+                                v => (v && v.trim().length > 0) || this.$t('rule.name.empty'),
+                                v => (v && (/^[\p{L}\d\s.]+$/u).test(v)) || this.$t('rule.name.invalid'),
                             ],
                             url: [
-                                v => (v && v.trim().length > 0) || 'Bitte trage die URL deiner Website ein.',
-                                v => (v && (/^(http|https):\/\/[\w.-]+\/?$/).test(v)) || 'Die URL scheint nicht korrekt zu sein, bitte überprüfe diese.',
+                                v => (v && v.trim().length > 0) || this.$t('rule.url.empty'),
+                                v => (v && (/^(http|https):\/\/[\w.-]+\/?$/).test(v)) || this.$t('rule.url.invalid'),
                             ],
                             tz: [
-                                v => (v && v.trim().length > 0) || 'Bitte wähle eine Zeitzone aus.',
-                                v => (v && (/^[\w/-]+[a-z]$/).test(v)) || 'Wähle eine Zeitzone aus.',
+                                v => (v && v.trim().length > 0) || this.$t('rule.tz.empty'),
+                                v => (v && (/^[\w/-]+[a-z]$/).test(v)) || this.$t('rule.tz.empty'),
                             ],
                         },
                         data: {
@@ -1974,7 +1971,7 @@
 
                 this.$store.dispatch('website/createWebsite', data).then(res => {
                     this.dialogCreate(false)
-                    this.dialogCode(res.data.id)
+                    this.dialogCode(res.data.apiKey)
                 }).catch(e => this.$error(e))
             },
 

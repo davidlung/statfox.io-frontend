@@ -6,9 +6,9 @@
             <template v-slot:extension>
                 <v-tabs centered show-arrows v-model="tab">
                     <v-tab>{{$t('account')}}</v-tab>
-                    <v-tab>{{$t('payment_methods')}}</v-tab>
-                    <v-tab>{{$t('invoices')}}</v-tab>
-                    <v-tab link nuxt to="/subscription">{{$t('upgrade_downgrade')}}</v-tab>
+<!--                    <v-tab>{{$t('payment_methods')}}</v-tab>-->
+<!--                    <v-tab>{{$t('invoices')}}</v-tab>-->
+<!--                    <v-tab link nuxt to="/subscription">{{$t('upgrade_downgrade')}}</v-tab>-->
                     <v-tab>{{$t('design')}}</v-tab>
                 </v-tabs>
             </template>
@@ -30,15 +30,15 @@
                     </v-card>
                 </v-tab-item>
 
-                <v-tab-item>
-                    <PaymentMethods/>
-                </v-tab-item>
+<!--                <v-tab-item>-->
+<!--                    <PaymentMethods/>-->
+<!--                </v-tab-item>-->
 
-                <v-tab-item>
-                    <Invoices/>
-                </v-tab-item>
+<!--                <v-tab-item>-->
+<!--                    <Invoices/>-->
+<!--                </v-tab-item>-->
 
-                <v-tab-item></v-tab-item>
+<!--                <v-tab-item></v-tab-item>-->
 
                 <v-tab-item>
                     <j-section-title>Theme</j-section-title>
@@ -68,19 +68,19 @@
     import {mapState} from 'vuex'
     import JSectionTitle from "../components/JSectionTitle"
     import Account from "../components/Account"
-    import PaymentMethods from "../components/payment/PaymentMethods"
-    import SubscriptionProblem from "../components/subscription/SubscriptionProblem"
-    import Invoices from "../components/payment/Invoices"
+    // import PaymentMethods from "../components/payment/PaymentMethods"
+    // import SubscriptionProblem from "../components/subscription/SubscriptionProblem"
+    // import Invoices from "../components/payment/Invoices"
     import packageJson from '../package.json'
 
     export default {
 
         components: {
-            Invoices,
-            SubscriptionProblem,
+            // Invoices,
+            // SubscriptionProblem,
+            // PaymentMethods
             JSectionTitle,
             Account,
-            PaymentMethods
         },
 
         data() {
@@ -106,14 +106,6 @@
                     return this.$vuetify.theme.dark ? 0 : 1
                 }
             },
-        },
-
-        methods: {
-
-            changeTheme(theme) {
-                this.$vuetify.theme.dark = theme === 'dark'
-            },
-
         },
 
     }

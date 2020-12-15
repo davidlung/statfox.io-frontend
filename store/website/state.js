@@ -25,6 +25,7 @@ export default () => ({
             countries: [],
             deviceTypes: [],
             browsers: [],
+            utm: [],
         }
     },
 

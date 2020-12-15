@@ -92,7 +92,7 @@ export default {
 
     recaptcha: {
         hideBadge: false,
-        siteKey: '6Ldw_9AZAAAAAHeNmkaIweSeNcKX34KlZdSl8x0G',
+        siteKey: '6Lcd1wcaAAAAANgNMjEUMqVIAvZzw-J9Zdf0YlJ4',
         version: 2,
         size: 'normal'
     },
@@ -156,7 +156,7 @@ export default {
             target: env.BASE_API_URL||'',
             secure: false,
             pathRewrite: {
-                '^/api':'/api/io.analytics.app'
+                '^/api':'/api/io.statfox.app'
             }
         },
         '/auth/': {
@@ -167,7 +167,7 @@ export default {
                 '^/auth/login':'/auth/token',
                 '^/auth/logout':'/auth/revoke',
                 '^/auth/refresh':'/auth/token/refresh',
-                '^/auth/signup':'/api/io.analytics.app/v1/signup'
+                '^/auth/signup':'/api/io.statfox.app/v1/signup'
             }
         },
     },

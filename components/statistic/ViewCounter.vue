@@ -1,6 +1,6 @@
 <template>
     <v-card outlined min-height="110">
-        <v-card-title class="pt-3 text-subtitle-2">Seitenaufrufe</v-card-title>
+        <v-card-title class="pt-3 text-subtitle-2">{{$t('page_views')}}</v-card-title>
         <v-card-text class="text-h4">
             <v-skeleton-loader type="button" :loading="pending">
                 {{stats}}

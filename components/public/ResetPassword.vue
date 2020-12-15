@@ -2,11 +2,10 @@
     <v-form v-model="valid" @submit.prevent="save" :disabled="pending">
 
         <template v-if="!saved">
-            <InputLabel>New Password</InputLabel>
+            <InputLabel>{{$t('new_password')}}</InputLabel>
             <v-text-field solo flat autofocus hide-details
-                          background-color="grey lighten-3"
                           autocomplete="current-password"
-                          placeholder="Enter a new password"
+                          :placeholder="$t('enter_new_password')"
                           v-model="password"
                           :rules="rules"
                           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -25,7 +24,7 @@
         </template>
         <template v-else>
             <v-alert text type="success" class="green--text darken-2">
-                Your password has been saved. Return to login and use the new password for login.
+                {{$t('password_updated_info')}}
             </v-alert>
         </template>
 
@@ -49,7 +48,7 @@
                 password: null,
                 pending: false,
                 rules: [
-                    v => v && v.trim().length >= 6 || 'Please enter your password.',
+                    v => v && v.trim().length >= 6 || this.$t('rule.password.empty'),
                 ]
             }
         },

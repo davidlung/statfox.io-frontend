@@ -8,13 +8,15 @@
 
         <v-navigation-drawer app :width="300" :mini-variant="false" v-model="drawer">
 
-            <v-list-item>
+            <v-list-item class="pt-4 pb-2">
                 <v-list-item-avatar size="50">
                     <Logo :size="50"/>
                 </v-list-item-avatar>
 
                 <v-list-item-content>
-                    <v-list-item-title class="text-h6">STATFOX</v-list-item-title>
+                    <v-list-item-title class="text-h5 font-weight-bold">
+                        <span class="blue-grey--text text--darken-2">STAT</span><span class="orange--text text--darken-2">FOX</span>
+                    </v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
 
@@ -70,7 +72,7 @@
                     },
                     {
                         icon: 'mdi-cog',
-                        title: 'Verwaltung',
+                        title: this.$t('administration'),
                         to: '/settings'
                     },
                 ],

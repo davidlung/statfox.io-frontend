@@ -1,6 +1,6 @@
 window.NONAME = function () {
 
-    var target = "http://app-dev.jsonserver.io/api/v1/capture",
+    var target = "http://app-dev.statfox.io/api/v1/capture",
         scriptTag = document.currentScript
             || document.querySelector('script[src*="code.js"][wid]')
             || document.querySelector("script[data-wid]")

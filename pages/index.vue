@@ -41,7 +41,7 @@
                     <template v-slot:footer="data">
                         <div class="d-flex pa-2 bt-1-1">
                             <v-spacer></v-spacer>
-                            <v-btn depressed small color="primary" @click="data.clickApply">Auswählen</v-btn>
+                            <v-btn depressed small color="primary" @click="data.clickApply">{{$t('select')}}</v-btn>
                         </div>
                     </template>
                 </date-range-picker>
@@ -82,6 +82,11 @@
                 </v-col>
             </v-row>
             <v-row>
+                <v-col>
+                    <UtmList/>
+                </v-col>
+            </v-row>
+            <v-row>
                 <v-col cols="12" md="4">
                     <DeviceTypesList/>
                 </v-col>
@@ -115,6 +120,7 @@ import CountryList from "@/components/statistic/CountryList";
 import DeviceTypesList from "@/components/statistic/DeviceTypesList";
 import BrowserList from "@/components/statistic/BrowserList";
 import PageViewChart from "@/components/statistic/PageViewChart";
+import UtmList from "~/components/statistic/UtmList";
 
 export default {
 
@@ -123,6 +129,7 @@ export default {
     },
 
     components: {
+        UtmList,
         PageViewChart,
         BrowserList,
         DeviceTypesList,
@@ -152,48 +159,48 @@ export default {
 
         dateRanges() {
             return {
-                'Heute': (() => {
+                [this.$t('time.today')]: (() => {
                     let start = new Date(), end = new Date()
                     start.setHours(0, 0, 0, 0)
                     end.setHours(23, 59, 59, 59)
                     return [start, end]
                 })(),
-                'Letzte 7 Tage': (() => {
+                [this.$t('time.last_days', [7])]: (() => {
                     let start = new Date(), end = new Date()
                     start.setDate(start.getDate()-7)
                     start.setHours(0, 0, 0, 0)
                     end.setHours(23, 59, 59, 59)
                     return [start, end]
                 })(),
-                'Letzte 30 Tage': (() => {
+                [this.$t('time.last_days', [30])]: (() => {
                     let start = new Date(), end = new Date()
                     start.setDate(start.getDate()-30)
                     start.setHours(0, 0, 0, 0)
                     end.setHours(23, 59, 59, 59)
                     return [start, end]
                 })(),
-                'Diese Woche': (() => {
+                [this.$t('time.this_week')]: (() => {
                     let start = new Date(), end = new Date()
                     start.setDate(start.getDate() - start.getDay() + (start.getDay() === 0 ? -6 : 1))
                     start.setHours(0, 0, 0, 0)
                     end.setHours(23, 59, 59, 59)
                     return [start, end]
                 })(),
-                'Diesen Monat': (() => {
+                [this.$t('time.this_month')]: (() => {
                     let start = new Date(), end = new Date()
                     start.setDate(1)
                     start.setHours(0, 0, 0, 0)
                     end.setHours(23, 59, 59, 59)
                     return [start, end]
                 })(),
-                'Dieses Jahr': (() => {
+                [this.$t('time.this_year')]: (() => {
                     let start = new Date(), end = new Date()
                     start.setFullYear(start.getFullYear(), 0, 1)
                     start.setHours(0, 0, 0, 0)
                     end.setHours(23, 59, 59, 59)
                     return [start, end]
                 })(),
-                'Gesamter Zeitraum': (() => {
+                [this.$t('time.all_time')]: (() => {
                     let start = new Date(), end = new Date()
                     start.setFullYear(2020, 0, 1)
                     start.setHours(0, 0, 0, 0)

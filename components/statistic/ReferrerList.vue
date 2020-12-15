@@ -1,7 +1,7 @@
 <template>
     <v-card outlined height="100%">
         <v-card-title class="pt-3 text-subtitle-2">
-            <span>Verweise</span>
+            <span>{{$t('referrers')}}</span>
             <v-spacer></v-spacer>
             <v-icon v-if="window>0" @click="window=0">mdi-close</v-icon>
         </v-card-title>
@@ -53,13 +53,13 @@
                 headers: [
                     {text:'Referrer', value:'name', width: '90%'},
                     {text: '', value: 'actions', sortable: false, width: '1%'},
-                    {text:'Aufrufe', value:'views'},
-                    {text:'Nutzer', value:'uniques'},
+                    {text:this.$t('views'), value:'views'},
+                    {text:this.$t('uniques'), value:'uniques'},
                 ],
                 detailsHeaders: [
                     {text:'URL', value:'label', width: '90%'},
-                    {text:'Aufrufe', value:'views'},
-                    {text:'Nutzer', value:'uniques'},
+                    {text:this.$t('views'), value:'views'},
+                    {text:this.$t('uniques'), value:'uniques'},
                 ],
                 details: []
             }
