@@ -127,5 +127,11 @@ export default {
     no_website_info: "Du hast noch keine Website hinzugefügt. Um die Statistik/Tracking nutzen zu können, muss mindestens eine Website hinzugefügt werden.",
     website_name: "Name der Website",
     please_select: "Bitte auswählen",
-    select_timezone_first: "Wähle zuerst die Hauptzone aus"
+    select_timezone_first: "Wähle zuerst die Hauptzone aus",
+
+    email_not_verified: "Ihre E-Mail Adresse ist noch nicht verifiziert",
+    email_not_verified_info: "Bitte verifizieren Sie Ihre E-Mail Adresse indem Sie die Ihnen bereits als E-Mail zugesendeten Anleitung befolgen. Wenn Sie keine E-Mail erhalten haben oder der Link in der E-Mail abgelaufen ist, können Sie die E-Mail erneut an Sie senden lassen.",
+    send_verification_email: "E-Mail zur Verifikation senden",
+    resend_verification_email: "E-Mail zur Verifikation nochmal senden",
+    verification_check_inbox: "Bitte überprüfen Sie Ihren Posteingang und folgende Sie der enthaltenen Anleitung. Wenn Sie keine E-Mail erhalten haben, überprüfen Sie Ihren SPAM-Order, versuchen es etwas später erneut oder schreiben Sie eine E-mail an support@{0}.",
 }

@@ -1,12 +1,7 @@
 <template>
     <v-container fluid class="pt-8">
 
-        <div class="text-h3 text-center py-12">
-            <div class="primary--text">
-                <Logo :size="100"/>
-            </div>
-            <span class="primary--text">{{$config.BRAND_ALT_1}}</span>
-        </div>
+        <Brand/>
 
         <v-card outlined width="450" class="mx-auto pa-3">
             <v-card-title class="justify-center text--secondary">
@@ -39,6 +34,7 @@
 <script>
     import Forgot from '../../components/public/Forgot'
     import Logo from "~/components/Logo";
+    import Brand from "~/components/Brand";
 
     export default {
         layout: 'blank',
@@ -48,6 +44,7 @@
         },
 
         components: {
+            Brand,
             Logo,
             Forgot
         },

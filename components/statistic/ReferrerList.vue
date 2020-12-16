@@ -8,7 +8,7 @@
         <v-window v-model="window">
             <v-window-item>
                 <v-skeleton-loader tile :loading="pending" type="text@10, actions">
-                    <v-data-table dense :headers="headers" :items="stats" :items-per-page="10">
+                    <v-data-table dense :headers="headers" :items="stats" :items-per-page="10" mobile-breakpoint="100">
                         <template v-slot:item.actions="{ item }">
                             <v-icon @click="openReferrer(item)">mdi-chevron-right-box-outline</v-icon>
                         </template>
@@ -17,7 +17,7 @@
             </v-window-item>
             <v-window-item>
                 <v-skeleton-loader tile :loading="pendingDetails" type="text@10, actions">
-                    <v-data-table dense :headers="detailsHeaders" :items="details" :items-per-page="10">
+                    <v-data-table dense :headers="detailsHeaders" :items="details" :items-per-page="10" mobile-breakpoint="100">
                         <template v-slot:item.label="{ item }">
                             <a :href="item.url" target="_blank">{{item.label}}</a>
                         </template>

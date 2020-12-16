@@ -9,11 +9,9 @@
 <script>
 export default {
     beforeCreate() {
-        if (process.client) {
-            let darkMode = this.$cookies.get('darkMode')
-            if (darkMode !== undefined) {
-                this.$vuetify.theme.dark = darkMode
-            }
+        let darkMode = this.$cookies.get('darkMode')
+        if (darkMode !== undefined) {
+            this.$vuetify.theme.dark = darkMode
         }
     },
 }

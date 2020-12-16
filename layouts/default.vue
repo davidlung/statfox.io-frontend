@@ -8,17 +8,7 @@
 
         <v-navigation-drawer app :width="300" :mini-variant="false" v-model="drawer">
 
-            <v-list-item class="pt-4 pb-2">
-                <v-list-item-avatar size="50">
-                    <Logo :size="50"/>
-                </v-list-item-avatar>
-
-                <v-list-item-content>
-                    <v-list-item-title class="text-h5 font-weight-bold">
-                        <span class="blue-grey--text text--darken-2">STAT</span><span class="orange--text text--darken-2">FOX</span>
-                    </v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
+            <Brand :compact="true"/>
 
             <v-list nav class="grow" color="transparent">
                 <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router nuxt exact>
@@ -52,10 +42,11 @@
     import JSectionTitle from "../components/JSectionTitle";
     import Toast from "../components/Toast";
     import Logo from "~/components/Logo";
+    import Brand from "~/components/Brand";
 
     export default {
 
-        components: {Logo, Toast, JSectionTitle},
+        components: {Brand, Logo, Toast, JSectionTitle},
 
         data() {
             return {
@@ -83,11 +74,9 @@
         },
 
         beforeCreate() {
-            if (process.client) {
-                let darkMode = this.$cookies.get('darkMode')
-                if (darkMode !== undefined) {
-                    this.$vuetify.theme.dark = darkMode
-                }
+            let darkMode = this.$cookies.get('darkMode')
+            if (darkMode !== undefined) {
+                this.$vuetify.theme.dark = darkMode
             }
         },
 

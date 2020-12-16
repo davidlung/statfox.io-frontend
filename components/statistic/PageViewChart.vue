@@ -1,7 +1,13 @@
 <template>
     <v-card min-height="200" outlined>
+        <v-card-title class="pt-3 text-subtitle-2">
+            <v-spacer></v-spacer>
+            <v-icon :color="type==='bar'?'primary':'grey'" class="mr-4" @click="type='bar'">mdi-chart-bar</v-icon>
+            <v-icon :color="type==='line'?'primary':'grey'" class="mr-2" @click="type='line'">mdi-chart-line</v-icon>
+        </v-card-title>
         <v-card-text>
-            <bar-chart v-if="stats.data.length" :chart-data="{labels, datasets}" :options="barChartOptions" :height="200" />
+            <bar-chart v-if="stats.data.length && type==='bar'" :chart-data="{labels, datasets}" :options="options" :height="150"/>
+            <line-chart v-if="stats.data.length && type==='line'" :chart-data="{labels, datasets}" :options="options" :height="150"/>
         </v-card-text>
     </v-card>
 </template>
@@ -9,9 +15,10 @@
 <script>
     import {mapState} from 'vuex'
     import BarChart from "@/components/charts/BarChart";
+    import LineChart from "~/components/charts/LineChart";
 
     export default {
-        components: {BarChart},
+        components: {LineChart, BarChart},
         computed: {
             ...mapState({
                 wid: state => state.website.statistic.data.websiteId,
@@ -52,14 +59,20 @@
             datasets() {
                 return [
                     {
-                        label: 'Besucher',
+                        label: this.$t('visitors'),
                         data: this.stats.data.map(v => v.uniques),
-                        backgroundColor: '#2bb048'
+                        backgroundColor: this.$vuetify.theme.dark ? '#679910' : '#8dd411',
+                        borderColor: this.$vuetify.theme.dark ? '#679910' : '#8dd411',
+                        fill: false,
+                        lineTension: 0
                     },
                     {
-                        label: 'Seitenaufrufe',
+                        label: this.$t('page_views'),
                         data: this.stats.data.map(v => v.views),
-                        backgroundColor: '#136ec6'
+                        backgroundColor: this.$vuetify.theme.dark ? '#4f6772' : '#607D8B',
+                        borderColor: this.$vuetify.theme.dark ? '#4f6772' : '#607D8B',
+                        fill: false,
+                        lineTension: 0
                     }
                 ]
             }
@@ -67,7 +80,8 @@
 
         data() {
             return {
-                barChartOptions: {
+                type: 'bar',
+                options: {
                     responsive: true,
                     legend: {
                         display: false
@@ -78,8 +92,13 @@
                     scales: {
                         xAxes: [
                             {
+                                ticks: {
+                                    beginAtZero: true,
+                                    fontColor: this.$vuetify.theme.dark ? '#eee' : '#333',
+                                    showLabelBackdrop: false
+                                },
                                 gridLines: {
-                                    display: false
+                                    display: false,
                                 },
                                 stacked: true,
                             }
@@ -87,16 +106,19 @@
                         yAxes: [
                             {
                                 ticks: {
-                                    beginAtZero: true
+                                    beginAtZero: true,
+                                    fontColor: this.$vuetify.theme.dark ? '#eee' : '#333',
+                                    showLabelBackdrop: false
                                 },
                                 gridLines: {
-                                    display: true
+                                    display: true,
+                                    color:   this.$vuetify.theme.dark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
                                 },
                                 stacked: true,
                             }
                         ]
                     }
-                }
+                },
             }
         }
 

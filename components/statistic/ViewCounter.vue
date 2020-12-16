@@ -22,7 +22,13 @@
             }),
 
             stats() {
-                return this.wid ? this.statistic.data.views.total : '-'
+                if (this.wid) {
+                    if (this.statistic.data.views.total >= 1000) {
+                        return (this.statistic.data.views.total/1000).toFixed(1) + 'K'
+                    }
+                    return this.statistic.data.views.views
+                }
+                return '-'
             },
         }
 

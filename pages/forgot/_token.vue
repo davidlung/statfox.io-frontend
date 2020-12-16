@@ -1,7 +1,7 @@
 <template>
     <v-container fluid class="pt-0">
 
-        <div class="text-h3 text-center py-12">{{$config.BRAND_ALT_1}}</div>
+        <Brand/>
 
         <v-card width="450" class="mx-auto pa-3">
             <v-card-title class="justify-center text--secondary">
@@ -33,6 +33,7 @@
 
 <script>
     import ResetPassword from '../../components/public/ResetPassword'
+    import Brand from "~/components/Brand";
 
     export default {
         layout: 'blank',
@@ -44,6 +45,7 @@
         },
 
         components: {
+            Brand,
             ResetPassword
         },
 

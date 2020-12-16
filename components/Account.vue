@@ -23,6 +23,7 @@
 
                 <v-text-field solo flat required
                               type="email" hide-details="auto"
+                              autocomplete="username"
                               v-model="form.data.email"
                               :rules="form.rules.email"
                               @blur="isAvailable('email')">

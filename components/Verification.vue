@@ -1,10 +1,7 @@
 <template>
-    <v-alert v-if="!user.verified" v-bind="$attrs" type="warning" color="orange">
-        <div class="subtitle-2">EMAIL NOT VERIFIED</div>
-        <div>
-            Please verify you email by checking your inbox for the verification email and follow the instructions.
-            If you did not receive an email or if it expired, then use the resend button bellow.
-        </div>
+    <v-alert v-if="!user.verified" v-bind="$attrs" class="bg-darken-03">
+        <div class="subtitle-2">{{$t('email_not_verified')}}</div>
+        <div>{{$t('email_not_verified_info')}}</div>
         <VerificationButton class="mt-3" :resend="true" />
     </v-alert>
 </template>

@@ -1,7 +1,7 @@
 <template>
     <v-card outlined height="100%">
         <v-card-title class="pt-3 text-subtitle-2">{{$t('countries')}}</v-card-title>
-        <v-data-table dense :headers="headers" :items="stats" :items-per-page="10"></v-data-table>
+        <v-data-table dense :headers="headers" :items="stats" :items-per-page="10" mobile-breakpoint="100"></v-data-table>
     </v-card>
 </template>
 

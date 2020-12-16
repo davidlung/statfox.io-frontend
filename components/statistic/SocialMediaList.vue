@@ -2,7 +2,7 @@
     <v-card outlined height="100%">
         <v-card-title class="pt-3 text-subtitle-2">{{$t('social_media')}}</v-card-title>
         <v-skeleton-loader tile :loading="pending" type="text@10, actions">
-            <v-data-table dense :headers="headers" :items="stats" :items-per-page="10"></v-data-table>
+            <v-data-table dense :headers="headers" :items="stats" :items-per-page="10" mobile-breakpoint="100"></v-data-table>
         </v-skeleton-loader>
     </v-card>
 </template>

@@ -2,9 +2,9 @@
 
     <div>
         <v-btn class="bg-darken-1" depressed v-bind="$attrs" @click="send" :loading="pending" :disabled="sent" :text="sent" v-if="notVerified&&!sent">
-            {{resend ? 'Resend Verification Email' : 'Send Verification Email'}}
+            {{resend ? $t('resend_verification_email') : $t('send_verification_email')}}
         </v-btn>
-        <div v-if="sent">Please check your inbox and follow the instructions. If you don't receive the email, please contact support@{{$config.DOMAIN}}.</div>
+        <div v-if="sent">{{$t('verification_check_inbox', [$config.DOMAIN])}}</div>
     </div>
 
 </template>
@@ -28,12 +28,12 @@
         },
 
         mounted(){
-            this.sent = this.$cookies.get('_vs')||false;
+            this.sent = this.$cookies.get('_vs')||false
         },
 
         computed: {
             notVerified() {
-                return !this.$store.state.auth.user.verified;
+                return !this.$store.state.auth.user.verified
             }
         },
 
