@@ -1,4 +1,7 @@
 export default {
+    welcome: "Hallo.",
+    welcome_text: "Danke, dass Sie sich für unseren Dienst entschieden haben. Bei uns können Sie folgende Vorteile genießen:",
+    get_started: "Jetzt loslegen",
     administration: "Verwaltung",
     account: "Benutzerkonto",
     payment_methods: "Zahlungsmethoden",
@@ -7,6 +10,7 @@ export default {
     design: "Erscheinungsbild",
     settings: "Einstellungen",
     add: "Hinzufügen",
+    close: "Schließen",
     name: "Name",
     email: "E-Mail",
     email_in_use: "ist nicht verfügbar",
@@ -32,6 +36,7 @@ export default {
     light: "Hell",
     logout: "Abmelden",
     login: "Anmelden",
+    your_name: "Dein Name",
     welcome_to: "Willkommen bei {0}",
     welcome_back: "Willkommen zurück bei {0}",
     create_account: "Neues Benutzerkonto erstellen",
@@ -43,6 +48,7 @@ export default {
     terms_of_use: "AGBs",
     privacy_policy: "Datenschutzerklärung",
     last_online: "Sie haben sich zuletzt am {0} angemedet.",
+    first_time_online: "Sie sind zum ersten Mal online.",
     all_rights_reserved: "© 2020 {0} Alle Rechte vorbehalten.",
     have_account_q: "Sie haben breits ein Konto?",
 
@@ -114,12 +120,17 @@ export default {
     ad_medium: "Medium",
     ad_campaign: "Kampagne",
 
+    no_tracking_data_headline: "Wir haben noch keine Tracking-Daten zu dieser Website empfangen.",
+    no_tracking_data_text: "Sobald die erste Tracking-Information bei uns eingeht, wird hier die Statistik zusehen sein. Dies passiert in der Regel, sobald der Tracking-Code auf der Seite die erfasst werden soll platziert ist und die Seite aufgerufen wird. Wenn du den Tracking-Code noch nicht auf deinen Webseiten hinzugrfügt hast, dann folge der Anleitung unterhalb, um mit dem Tracken zu starten.",
 
+
+    no_websites_headline: "Es ist noch keine Website eingerichtet",
+    no_websites_text: "Um mit dem Tracken zu beginnen, musst du zunächst deine Website einrichten.",
     your_websites: "Deine Websites",
     add_website: "Website hinzufügen",
     statistic: "Statistik",
     tracking_code: "Tracking-Code",
-    tracking_code_info: "Dies ist der Tracking-Code, der auf jeder Seite der Website platziert werden muss, um diese zu tracken. Kopiere diesen Code, um ihn in den &lt;head> Bereich aller Seiten einzufügen, die Sie erfassen möchten.",
+    tracking_code_info: "Dies ist der Tracking-Code, der auf jeder Seite der Website platziert werden muss, um diese zu tracken. Kopiere diesen Code, um ihn in den <head> Bereich aller Seiten einzufügen, die Sie erfassen möchten.",
     rename: "Umbenennen",
     delete: "Löschen",
     delete_website_text: "Möchtest du diese Website wirklich löschen? Dieser Vorgang entfernt die Website und dessen Statistiken. Möchtest du fortfahren?",

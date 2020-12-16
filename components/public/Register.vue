@@ -50,7 +50,7 @@
                type="submit"
                :loading="pendingRegister||pendingLogin||redirecting"
                :disabled="!valid||!!error||!this.availability.email||!this.data.captcha">
-            Register
+            {{$t('sign_up')}}
         </v-btn>
 
     </v-form>

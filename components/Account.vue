@@ -11,7 +11,7 @@
                 <InputLabel :required="true">{{$t('name')}}</InputLabel>
                 <v-text-field solo flat required
                               hide-details="auto"
-                              placeholder="What is your name?"
+                              :placeholder="$t('your_name')"
                               v-model="form.data.name"
                               :rules="form.rules.name">
                 </v-text-field>

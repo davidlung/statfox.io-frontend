@@ -23,7 +23,12 @@
                     </v-card>
                     <v-card flat outlined class="mt-3">
                         <v-card-text class="d-flex align-center">
-                            <span>{{$t('last_online', [$time.dateTimeString(user.penultimateLoginAt)])}}</span>
+                            <span v-if="user.penultimateLoginAt">
+                                {{$t('last_online', [$time.dateTimeString(user.penultimateLoginAt)])}}
+                            </span>
+                            <span v-else>
+                                {{$t('first_time_online')}}
+                            </span>
                             <v-spacer></v-spacer>
                             <v-btn text color="red" :disabled="pendingLogout" :loading="pendingLogout" @click="$store.dispatch('auth/logout')">{{$t('logout')}}</v-btn>
                         </v-card-text>

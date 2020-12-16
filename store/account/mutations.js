@@ -9,9 +9,7 @@ export default {
         Vue.set(state.plan, 'name', plan.name || state.plan.name)
         Vue.set(state.plan, 'level', plan.level || state.plan.level)
         Vue.set(state.plan, 'version', plan.version || state.plan.version)
-        Vue.set(state.plan, 'limits', plan.limits || state.plan.limits)
-        Vue.set(state.plan, 'features', plan.features || state.plan.features)
-        Vue.set(state.plan, 'constraints', plan.constraints || state.plan.constraints)
+        Vue.set(state.plan, 'pageViews', plan.maxPageViews || state.plan.pageViews)
     },
 
     SET_PAYMENT_METHODS(state, paymentMethods) {

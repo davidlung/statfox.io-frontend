@@ -57,6 +57,8 @@ export default {
         return this.$axios.get('/api/v1/statistic', {params}).then(res => {
             commit('SET_STATISTIC', res.data)
             return res
+        }).catch(() => {
+
         })
     },
 

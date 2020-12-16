@@ -24,7 +24,7 @@
                 </div>
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-card light flat color="transparent">
+            <v-card light flat color="transparent" v-if="websites.length">
                 <date-range-picker
                     ref="picker"
                     opens="left"
@@ -48,7 +48,20 @@
             </v-card>
         </v-app-bar>
 
-        <v-container class="max-w-1200">
+        <v-container class="max-w-900" v-if="!hasStats && website.apiKey">
+            <div class="text-h4 font-weight-thin my-5">
+                {{$t('no_tracking_data_headline')}}
+            </div>
+            <div class="text-subtitle-1 font-weight-thin my-5">
+                {{$t('no_tracking_data_text')}}
+            </div>
+            <v-card flat outlined>
+                <v-card-text>
+                    <TrackingCode :api-key="website.apiKey"/>
+                </v-card-text>
+            </v-card>
+        </v-container>
+        <v-container class="max-w-1200" v-if="websites.length && hasStats">
             <v-row>
                 <v-col>
                     <UserCounter/>
@@ -98,6 +111,33 @@
                 </v-col>
             </v-row>
         </v-container>
+        <v-container class="max-w-1200 text-center" v-else-if="websites.length===0">
+            <div class="d-flex justify-center py-10">
+                <v-img src="/img/no_website.png" max-width="400"/>
+            </div>
+            <div class="text-h4 font-weight-thin my-5">
+                {{$t('no_websites_headline')}}
+            </div>
+            <div class="text-subtitle-1 font-weight-thin my-5">
+                {{$t('no_websites_text')}}
+            </div>
+            <v-btn x-large depressed color="primary" @click="createWebsiteDialog=true">
+                {{$t('add_website')}}
+            </v-btn>
+
+            <v-dialog persistent v-model="createWebsiteDialog" max-width="600">
+                <v-card>
+                    <v-card-title>
+                        <span>{{$t('add_website')}}</span>
+                        <v-spacer></v-spacer>
+                        <v-btn icon @click="createWebsiteDialog=false"><v-icon>mdi-close</v-icon></v-btn>
+                    </v-card-title>
+                    <v-card-text>
+                        <CreateWebsiteForm @close="createWebsiteDialog=false"/>
+                    </v-card-text>
+                </v-card>
+            </v-dialog>
+        </v-container>
 
     </div>
 </template>
@@ -121,6 +161,8 @@ import DeviceTypesList from "@/components/statistic/DeviceTypesList";
 import BrowserList from "@/components/statistic/BrowserList";
 import PageViewChart from "@/components/statistic/PageViewChart";
 import UtmList from "~/components/statistic/UtmList";
+import CreateWebsiteForm from "~/components/website/CreateWebsiteForm";
+import TrackingCode from "~/components/website/TrackingCode";
 
 export default {
 
@@ -129,6 +171,8 @@ export default {
     },
 
     components: {
+        TrackingCode,
+        CreateWebsiteForm,
         UtmList,
         PageViewChart,
         BrowserList,
@@ -151,10 +195,15 @@ export default {
         ...mapState({
             websites: state => state.website.websites,
             statistic: state => state.website.statistic,
+            hasStats: state => state.website.statistic.data.views.allTime > 0,
         }),
 
+        hasStats() {
+            return this.statistic.data.websiteId === null || this.statistic.data.views.allTime > 0
+        },
+
         website() {
-            return this.websites.find(w => w.id === this.statistic.data.websiteId)||{name:""}
+            return this.websites.find(w => w.id === this.statistic.data.websiteId)||{name:"Dashboard"}
         },
 
         dateRanges() {
@@ -265,7 +314,7 @@ export default {
 
     data() {
         return {
-
+            createWebsiteDialog: false
         }
     },
 

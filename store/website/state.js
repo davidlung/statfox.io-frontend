@@ -10,6 +10,7 @@ export default () => ({
         data: {
             websiteId: null,
             views: {
+                allTime: 0,
                 total: 0,
                 uniques: 0,
                 bounce: 0
