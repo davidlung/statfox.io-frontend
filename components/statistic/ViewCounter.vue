@@ -26,7 +26,7 @@
                     if (this.statistic.data.views.total >= 1000) {
                         return (this.statistic.data.views.total/1000).toFixed(1) + 'K'
                     }
-                    return this.statistic.data.views.views
+                    return this.statistic.data.views.total
                 }
                 return '-'
             },
