@@ -1,6 +1,6 @@
 window.NONAME = function () {
 
-    var target = "http://app-staging.statfox.io/api/v1/capture",
+    var target = "https://app-staging.statfox.io/api/v1/capture",
         scriptTag = document.currentScript
             || document.querySelector('script[src*="code.js"][wid]')
             || document.querySelector("script[data-wid]")
