@@ -24,6 +24,10 @@ html, body, .v-application {
     background: transparent !important;
 }
 
+.theme--dark.v-menu__content {
+    background: #2c2f34;
+}
+
 .theme--dark.v-navigation-drawer {
     background-color: #2f3136 !important;
 }
@@ -42,6 +46,10 @@ html, body, .v-application {
 
 .theme--light.v-text-field--solo > .v-input__control > .v-input__slot {
     background-color: #eeeeee !important;
+}
+
+.theme--dark.v-text-field--solo > .v-input__control > .v-input__slot {
+    background: rgba(0,0,0,0.3) !important;
 }
 
 ::-webkit-scrollbar {

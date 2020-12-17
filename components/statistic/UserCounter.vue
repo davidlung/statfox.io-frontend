@@ -23,8 +23,8 @@
 
             stats() {
                 if (this.wid) {
-                    if (this.statistic.data.views.uniques >= 1000) {
-                        return (this.statistic.data.views.uniques/1000).toFixed(1) + 'K'
+                    if (this.statistic.data.views.uniques >= 10000) {
+                        return (this.statistic.data.views.uniques/10000).toFixed(1) + 'K'
                     }
                     return this.statistic.data.views.uniques
                 }
