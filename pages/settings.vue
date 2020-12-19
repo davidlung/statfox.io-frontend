@@ -6,15 +6,15 @@
             <template v-slot:extension>
                 <v-tabs centered show-arrows v-model="tab">
                     <v-tab>{{$t('account')}}</v-tab>
-<!--                    <v-tab>{{$t('payment_methods')}}</v-tab>-->
-<!--                    <v-tab>{{$t('invoices')}}</v-tab>-->
-<!--                    <v-tab link nuxt to="/subscription">{{$t('upgrade_downgrade')}}</v-tab>-->
+                    <v-tab>{{$t('payment_methods')}}</v-tab>
+                    <v-tab>{{$t('invoices')}}</v-tab>
+                    <v-tab link nuxt to="/subscription">{{$t('upgrade_downgrade')}}</v-tab>
                     <v-tab>{{$t('design')}}</v-tab>
                 </v-tabs>
             </template>
         </v-app-bar>
         <v-container class="max-w-900 grow mt-3">
-<!--            <SubscriptionProblem/>-->
+            <SubscriptionProblem/>
             <v-tabs-items v-model="tab" >
 
                 <v-tab-item>
@@ -35,15 +35,15 @@
                     </v-card>
                 </v-tab-item>
 
-<!--                <v-tab-item>-->
-<!--                    <PaymentMethods/>-->
-<!--                </v-tab-item>-->
+                <v-tab-item>
+                    <PaymentMethods/>
+                </v-tab-item>
 
-<!--                <v-tab-item>-->
-<!--                    <Invoices/>-->
-<!--                </v-tab-item>-->
+                <v-tab-item>
+                    <Invoices/>
+                </v-tab-item>
 
-<!--                <v-tab-item></v-tab-item>-->
+                <v-tab-item></v-tab-item>
 
                 <v-tab-item>
                     <j-section-title>Theme</j-section-title>
@@ -73,17 +73,17 @@
     import {mapState} from 'vuex'
     import JSectionTitle from "../components/JSectionTitle"
     import Account from "../components/Account"
-    // import PaymentMethods from "../components/payment/PaymentMethods"
-    // import SubscriptionProblem from "../components/subscription/SubscriptionProblem"
-    // import Invoices from "../components/payment/Invoices"
     import packageJson from '../package.json'
+    import SubscriptionProblem from "@/components/subscription/SubscriptionProblem";
+    import PaymentMethods from "@/components/payment/PaymentMethods";
+    import Invoices from "@/components/payment/Invoices";
 
     export default {
 
         components: {
-            // Invoices,
-            // SubscriptionProblem,
-            // PaymentMethods
+            Invoices,
+            PaymentMethods,
+            SubscriptionProblem,
             JSectionTitle,
             Account,
         },

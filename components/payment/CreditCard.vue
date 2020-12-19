@@ -1,9 +1,8 @@
 <template>
     <div>
-        <InputLabel>Card Number</InputLabel>
+        <InputLabel>{{$t('card_number')}}</InputLabel>
         <v-text-field solo flat required
                       hide-details="auto"
-                      background-color="grey lighten-3"
                       placeholder="#### #### #### ####"
                       append-icon="mdi-credit-card-outline"
                       v-model="input.number"
@@ -12,10 +11,9 @@
         ></v-text-field>
         <v-row>
             <v-col cols="4" class="pr-0 py-0">
-                <InputLabel>Expiry Month</InputLabel>
+                <InputLabel>{{$t('expiry_month')}}</InputLabel>
                 <v-select solo flat required
                           hide-details="auto"
-                          background-color="grey lighten-3"
                           placeholder="MM"
                           append-outer-icon="mdi-slash-forward"
                           :error-messages="error.expMonth"
@@ -26,22 +24,20 @@
                 </v-select>
             </v-col>
             <v-col cols="4" class="py-0">
-                <InputLabel>Expiry Year</InputLabel>
+                <InputLabel>{{$t('expiry_year')}}</InputLabel>
                 <v-select solo flat required
                           hide-details="auto"
                           :error-messages="error.expYear"
                           v-model="input.expYear"
                           :rules="rules.expYear"
                           :items="years"
-                          background-color="grey lighten-3"
                           placeholder="YY"
                 ></v-select>
             </v-col>
             <v-col cols="4" class="py-0">
-                <InputLabel>CVC</InputLabel>
+                <InputLabel>{{$t('card_cvc')}}</InputLabel>
                 <v-text-field solo flat required
                               hide-details="auto"
-                              background-color="grey lighten-3"
                               placeholder="123"
                               :error-messages="error.cvc"
                               v-model="input.cvc"
@@ -51,20 +47,18 @@
         </v-row>
         <v-row>
             <v-col cols="8" class="py-0">
-                <InputLabel>Name of the cardholder</InputLabel>
+                <InputLabel>{{$t('card_holder')}}</InputLabel>
                 <v-text-field solo flat required
                               hide-details="auto"
-                              background-color="grey lighten-3"
                               v-model="input.number"
                               :error-messages="error.number"
                               :rules="rules.cardNumber"
                 ></v-text-field>
             </v-col>
             <v-col class="py-0">
-                <InputLabel>Postal Code / ZIP</InputLabel>
+                <InputLabel>{{$t('postal_code_zip')}}</InputLabel>
                 <v-text-field solo flat required
                               hide-details="auto"
-                              background-color="grey lighten-3"
                               v-model="input.number"
                               :error-messages="error.number"
                               :rules="rules.cardNumber"

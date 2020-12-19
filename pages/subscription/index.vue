@@ -1,18 +1,19 @@
 <template>
     <div>
-        <v-app-bar dark elevate-on-scroll app class="" height="64">
+        <v-app-bar dark elevate-on-scroll app height="64">
             <v-btn icon @click="$store.dispatch('toggleMenu')"><v-icon>mdi-menu</v-icon></v-btn>
             <v-toolbar-title class="d-flex align-center">{{$t('plans')}}</v-toolbar-title>
         </v-app-bar>
 
-        <v-container class="max-w-1100 min-w-900">
+        <v-container class="max-w-1100">
 
             <CurrentPlan/>
 
             <SubscriptionProblem/>
 
+            <!-- INTERVAL + CURRENCY -->
             <div class="d-flex mt-5" v-if="!isIntervalDisabled">
-                <v-switch v-model="annual" dense inset label="Annually (save 15% costs)"></v-switch>
+                <v-switch v-model="annual" dense inset :label="$t('annual_discount_info', [15])"></v-switch>
                 <v-spacer></v-spacer>
                 <v-select dense solo outlined hide-details flat single-line
                           class="shrink max-w-100 " :value="currency" item-value="v" item-text="t"
@@ -22,47 +23,64 @@
             </div>
             <div v-else class="text--secondary text-caption py-3">
                 <v-icon small>mdi-information</v-icon>
-                Your current plan has an interval of a year, so you cannot upgrade/downgrade to a monthly one.
+                {{$t('restricted_interval_change_info')}}
             </div>
 
-            <v-card flat outlined tile class="pa-5 mb-10">
-                <v-alert type="warning" color="deep-orange" text v-if="subscription && subscription.cancelAt">
+            <!-- CANCELED INFO -->
+            <v-alert type="warning" color="deep-orange" text v-if="subscription && subscription.cancelAt">
                 <span class="font-weight-medium d-block">
-                    Your current plan is canceled and will expire on {{(new Date(subscription.cancelAt*1000)).toLocaleDateString()}}.
+                    {{$t('plan_canceled_expire_info', [(new Date(subscription.cancelAt*1000)).toLocaleDateString()])}}
                 </span>
-                    If you want to switch or subscribe to another plan you have to revoke the cancellation or wait until the current plan expires.
-                </v-alert>
-                <v-skeleton-loader :loading="!plans.length" type="paragraph">
-                    <v-row no-gutters>
-                        <v-col v-for="plan in plans.filter(p=>p.level>0)" :key="plan.name" class="text-center" v-if="price(plan)">
-                            <div class="text-overline">{{plan.name}}</div>
-                            <div class="text-h4 pt-3">{{plan.attributes.requests}}</div>
-                            <div class="text-caption pb-1">Requests per Day</div>
-                            <div class="text-caption">{{plan.attributes.servers}} Server | {{plan.attributes.teams}} Teams</div>
-                            <div class="primary--text text-h4 font-weight-medium pt-5">{{price(plan).currencySign}}{{price(plan).amount/100}} </div>
-                            <div class="caption">per {{price(plan).interval}}</div>
-                            <v-btn depressed outlined :disabled="true" class="mt-8 px-10" v-if="isCurrentPlan(plan)">
-                                Current
-                            </v-btn>
-                            <div v-else-if="priceAvailability(plan)!==true">
-                                <v-tooltip top max-width="300">
-                                    <template v-slot:activator="{on}">
-                                        <div v-on="on" class="mt-8">
-                                            <v-btn depressed class="px-7" :disabled="true">
-                                                <v-icon small class="mr-3">mdi-information</v-icon> {{changePlanButtonLabel(plan)}}
-                                            </v-btn>
-                                        </div>
-                                    </template>
-                                    {{priceAvailability(plan)}}
-                                </v-tooltip>
-                            </div>
-                            <v-btn v-else depressed color="primary" class="mt-8 px-10" @click="select(plan)" :disabled="subscription!==null&&subscription.cancelAt!==null">
-                                {{subscription ? changePlanButtonLabel(plan) : 'Select'}}
-                            </v-btn>
-                        </v-col>
-                    </v-row>
-                </v-skeleton-loader>
-            </v-card>
+                {{$t('plan_canceled_switch_info')}}
+            </v-alert>
+
+            <v-skeleton-loader :loading="!plans.length" type="paragraph">
+                <v-row>
+                    <v-col cols="12" sm="6" md="3">
+                        <v-card flat outlined height="100%">
+                            <v-card-title class="text-overline justify-center">Free</v-card-title>
+                            <v-card-text class="text-h4 text-center pb-2">100.000</v-card-text>
+                            <v-card-text class="text-caption text-center pt-0">{{$t('page_view_month')}}</v-card-text>
+                            <v-card-text class="font-weight-regular pt-5 text-center">
+                                <div class="primary--text text-h4" v-if="plans.length">{{price(plans[1]).currencySign}}0</div>
+                                <div class="text-caption" v-if="plans.length">{{$t('per_interval', [$t(price(plans[1]).interval)])}}</div>
+                            </v-card-text>
+                            <v-card-actions class="justify-center">
+                                <v-chip outlined color="primary" v-if="!subscription||account.plan.level===0">{{$t('your_plan')}}</v-chip>
+                            </v-card-actions>
+                        </v-card>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="3" v-for="plan in plans" :key="plan.name" class="text-center" v-if="price(plan)">
+                        <v-card flat outlined>
+                            <v-card-title class="text-overline justify-center">{{plan.name}}</v-card-title>
+                            <v-card-text class="text-h4 text-center pb-2">{{plan.pageViews.toLocaleString()}}</v-card-text>
+                            <v-card-text class="text-caption text-center pt-0">{{$t('page_view_month')}}</v-card-text>
+                            <v-card-text class="font-weight-regular pt-5 text-center">
+                                <div class="primary--text text-h4">{{price(plan).currencySign}}{{price(plan).amount/100}}</div>
+                                <div class="text-caption">{{$t('per_interval', [$t(price(plans[1]).interval)])}}</div>
+                            </v-card-text>
+                            <v-card-actions class="justify-center">
+                                <v-chip outlined color="primary" v-if="isCurrentPlan(plan)">{{$t('your_plan')}}</v-chip>
+                                <div v-else-if="priceAvailability(plan)!==true">
+                                    <v-tooltip top max-width="300">
+                                        <template v-slot:activator="{on}">
+                                            <div v-on="on">
+                                                <v-btn depressed class="px-7" :disabled="true">
+                                                    <v-icon small class="mr-3">mdi-information</v-icon> {{changePlanButtonLabel(plan)}}
+                                                </v-btn>
+                                            </div>
+                                        </template>
+                                        {{priceAvailability(plan)}}
+                                    </v-tooltip>
+                                </div>
+                                <v-btn v-else depressed color="primary" class="px-10" @click="select(plan)" :disabled="subscription!==null&&subscription.cancelAt!==null">
+                                    {{subscription ? changePlanButtonLabel(plan) : $t('select')}}
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </v-skeleton-loader>
 
         </v-container>
     </div>
@@ -76,8 +94,10 @@
 
     export default {
 
-        head: {
-            title: "Subscription"
+        head() {
+            return {
+                title: this.$t('plans')
+            }
         },
 
         components: {
@@ -98,8 +118,11 @@
                     locale = window.navigator.language
                 }
                 if (locale !== '') {
-                    if (['BE',/*'BG','CZ',*/'DK','DE','EE','IE','EL','ES','FR',/*'HR',*/'IT','CY','LV','LT',/*'HU',*/'MT','NL','AT',
-                        /*'PL',*/'PT',/*'RO',*/'SI','SK','FI'/*,'SE'*/].includes(locale.split('-')[1])) {
+                    let countryCodes = [
+                        'BE',/*'BG','CZ',*/'DK','DE','EE','IE','EL','ES','FR',/*'HR',*/'IT','CY','LV','LT',/*'HU',*/'MT',
+                        'NL','AT',/*'PL',*/'PT',/*'RO',*/'SI','SK','FI'/*,'SE'*/
+                    ]
+                    if (countryCodes.includes(locale.split('-')[0]) || countryCodes.includes(locale.split('-')[1])) {
                         this.setCurrency('eur')
                     }
                 }
@@ -111,10 +134,10 @@
 
         computed: {
             ...mapState({
+                account: state => state.account,
                 subscription: state => state.account.subscription,
                 billing: state => state.account.billing,
                 plans: state => state.subscription.plans,
-                attributes: state => state.subscription.attributes,
                 interval: state => state.subscription.selection.interval,
                 currency: state => state.subscription.selection.currency,
             }),
@@ -143,7 +166,7 @@
                         return 'Upgrade'
                     }
 
-                    return 'Switch'
+                    return this.$t('switch')
                 }
             },
 
@@ -151,7 +174,7 @@
                 return plan => {
                     if (this.subscription) {
                         if (this.subscription.status !== 'active') {
-                            return 'Cannot switch plans during subscription issues.'
+                            return this.$t('switch_issue')
                         }
 
                         let futurePrice = this.price(plan)
@@ -161,22 +184,21 @@
                         if (plan.level < currentLevel) {
                             // DOWNGRADE
                             if (this.subscription.plan.interval === 'year') {
-                                return 'You have already paid for a full year, downgrade on yearly plans is not intended.'
+                                return this.$t('plan_downgrade_year_info')
                             }
                             if(futurePrice.interval === 'month' && (!invoice || this.$time.now() - invoice.created < (86400*30)) ) {
-                                return 'You have currently created or downgraded your subscription. ' +
-                                       'Due to potential abuse, you have to wait at least 30 days after the last subscription setup to downgrade.'
+                                return this.$t('plan_recently_downgrade_info')
                             }
                         }
                         else if(plan.level > currentLevel){
                             // UPGRADE
                             if (this.subscription.plan.interval === 'year' && futurePrice.interval === 'month') {
-                                return 'Upgrade from a year to month period plan is not supported.'
+                                return this.$t('plan_upgrade_year_to_month_info')
                             }
                         }else{
                             // SAME PLAN
                             if (this.subscription.plan.interval === 'year') {
-                                return 'Switching a year to month period plan is not supported.'
+                                return this.$t('plan_switch_year_to_month_info')
                             }
                         }
                     }

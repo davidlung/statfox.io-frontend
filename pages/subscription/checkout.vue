@@ -1,14 +1,14 @@
 <template>
     <v-container class="max-w-600">
 
-        <div class="text-center text-h5 my-10">Checkout</div>
-        <div class="text-center subtitle-2">Preview your order and pay finally subscription</div>
+        <div class="text-center text-h5 my-10">{{$t('checkout_title')}}</div>
+        <div class="text-center subtitle-2">{{$t('checkout_subtitle')}}</div>
 
         <!-- SELECTED PLAN -->
         <SelectedPlan/>
 
         <!-- BILLING INFO -->
-        <j-section-title>Billing Information</j-section-title>
+        <j-section-title>{{$t('billing_information')}}</j-section-title>
         <v-skeleton-loader :loading="paymentMethods.length===0">
             <v-card outlined class="pa-5 mb-8">
                 <v-row v-if="paymentMethod">
@@ -25,7 +25,7 @@
                         <div>{{paymentMethod.billing.email}}</div>
                         <v-divider class="my-4"></v-divider>
                         <div>{{(new Date()).toLocaleDateString()}}</div>
-                        <div class="font-weight-medium">{{price.currencySign}}{{price.amount/100}} /{{interval}}</div>
+                        <div class="font-weight-medium">{{price.currencySign}}{{price.amount/100}} {{$t('per_interval', [$t(interval)])}}</div>
                     </v-col>
                 </v-row>
             </v-card>
@@ -33,19 +33,19 @@
 
         <!-- PAYMENT METHOD -->
         <template v-if="paymentMethod">
-            <j-section-title>Your Payment Method</j-section-title>
+            <j-section-title>{{$t('payment_method')}}</j-section-title>
             <v-card outlined class="mb-8">
                 <v-card-title>
                     <v-icon class="pr-5">mdi-credit-card-outline</v-icon>
                     <span>{{paymentMethod.card.brand.toUpperCase()}}</span>
                     <v-spacer></v-spacer>
                     <div class="text-body-1">
-                        <div class="caption">EXPIRY</div>
+                        <div class="caption">{{$t('card_expiry')}}</div>
                         {{paymentMethod.card.expMonth}}/{{paymentMethod.card.expYear}}
                     </div>
                     <v-spacer></v-spacer>
                     <div class="text-body-1">
-                        <div class="caption text-right">LAST 4</div>
+                        <div class="caption text-right">{{$t('card_last4')}}</div>
                         **** **** **** {{paymentMethod.card.last4}}
                     </div>
                 </v-card-title>
@@ -55,16 +55,15 @@
         <div class="d-flex mt-8">
             <v-btn depressed text nuxt to="/subscription/payment" :disabled="pending">
                 <v-icon>mdi-chevron-left</v-icon>
-                Change payment method
+                {{$t('change_payment_method')}}
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn depressed color="primary" type="submit" :loading="pending" @click="subscribe" class="px-10">
-                Subscribe <span class="d-inline-block mx-2">/</span> {{price.currencySign}}{{price.amount/100}}
+                {{$t('subscribe')}} <span class="d-inline-block mx-2">/</span> {{price.currencySign}}{{price.amount/100}}
             </v-btn>
         </div>
         <div class="caption text--secondary text-center py-10">
-            By confirming your subscription, you agree that {{$config.DOMAIN}} may charge your card for this and future
-            payments in accordance with the Terms of Use.
+            {{$t('checkout_law_info', [$config.DOMAIN])}}
         </div>
 
     </v-container>

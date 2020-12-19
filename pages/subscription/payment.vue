@@ -1,16 +1,15 @@
 <template>
     <v-container class="max-w-600">
-        <div class="text-center text-h5 my-10">Payment Method</div>
-        <div class="text-center subtitle-2">Choose a payment method or add a new one</div>
+        <div class="text-center text-h5 my-10">{{$t('payment_method')}}</div>
+        <div class="text-center subtitle-2">{{$t('payment_method_choose_info')}}</div>
 
         <!-- SELECTED PLAN -->
         <SelectedPlan/>
 
         <!-- EXISTING METHOD -->
         <template>
-            <j-section-title>Select an existing payment method</j-section-title>
-            <v-card dark hover nuxt link
-                    color="blue-grey"
+            <j-section-title>{{$t('select_existing_payment_method')}}</j-section-title>
+            <v-card hover nuxt link
                     class="mb-4"
                     :ripple="false"
                     :disabled="pending"
@@ -21,25 +20,25 @@
                     <span>{{paymentMethod.card.brand.toUpperCase()}}</span>
                     <v-spacer></v-spacer>
                     <div class="text-body-1">
-                        <div class="caption">EXPIRY</div>
+                        <div class="caption text-uppercase">{{$t('card_expiry')}}</div>
                         {{paymentMethod.card.expMonth}}/{{paymentMethod.card.expYear}}
                     </div>
                     <v-spacer></v-spacer>
                     <div class="text-body-1">
-                        <div class="caption text-right">LAST 4</div>
+                        <div class="caption text-right text-uppercase">{{$t('card_last4')}}</div>
                         **** **** **** {{paymentMethod.card.last4}}
                     </div>
                 </v-card-title>
             </v-card>
             <v-card outlined class="mb-6 py-4" v-if="!paymentMethods.length&&!pending">
-                <v-card-text class="text-center">You don't yet have a standard payment method</v-card-text>
+                <v-card-text class="text-center">{{$t('no_payment_method')}}</v-card-text>
             </v-card>
 
             <CreateCardDialog>
                 <template v-slot:activator="{on, attrs}">
                     <v-btn depressed block v-on="on" color="primary" x-large :loading="pending">
                         <v-icon class="px-3">mdi-plus</v-icon>
-                        Add a credit card
+                        {{$t('add_credit_card')}}
                     </v-btn>
                 </template>
             </CreateCardDialog>
@@ -48,7 +47,7 @@
 
             <v-btn depressed nuxt to="/subscription" :disabled="pending" :exact="true">
                 <v-icon>mdi-chevron-left</v-icon>
-                Choose a different plan
+                {{$t('choose_different')}}
             </v-btn>
         </template>
 
@@ -59,7 +58,6 @@
     import {mapState} from 'vuex'
     import SelectedPlan from "../../components/subscription/SelectedPlan";
     import JSectionTitle from "../../components/JSectionTitle";
-    import CreditCard from "../../components/payment/CreditCard";
     import CreateCardDialog from "../../components/payment/CreateCardDialog";
 
     export default {
@@ -70,7 +68,6 @@
 
         components: {
             CreateCardDialog,
-            CreditCard,
             JSectionTitle,
             SelectedPlan
         },

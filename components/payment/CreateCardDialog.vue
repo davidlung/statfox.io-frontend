@@ -9,10 +9,9 @@
             <v-card-text class="pt-2">
                 <v-form ref="form" v-model="valid" @submit.prevent="submit" :disabled="pending">
 
-                    <InputLabel>Card Number</InputLabel>
+                    <InputLabel>{{$t('card_number')}}</InputLabel>
                     <v-text-field solo flat required
                                   hide-details="auto"
-                                  background-color="grey lighten-3"
                                   placeholder="####..."
                                   append-icon="mdi-credit-card-outline"
                                   v-model="card.number"
@@ -21,10 +20,9 @@
                     ></v-text-field>
                     <v-row>
                         <v-col cols="4" class="pr-0 py-0">
-                            <InputLabel>Expiry Month</InputLabel>
+                            <InputLabel>{{$t('expiry_month')}}</InputLabel>
                             <v-select solo flat required
                                       hide-details="auto"
-                                      background-color="grey lighten-3"
                                       placeholder="MM"
                                       append-outer-icon="mdi-slash-forward"
                                       :error-messages="error.expMonth"
@@ -35,22 +33,20 @@
                             </v-select>
                         </v-col>
                         <v-col cols="4" class="py-0">
-                            <InputLabel>Expiry Year</InputLabel>
+                            <InputLabel>{{$t('expiry_year')}}</InputLabel>
                             <v-select solo flat required
                                       hide-details="auto"
                                       :error-messages="error.expYear"
                                       v-model="card.expYear"
                                       :rules="rules.expYear"
                                       :items="years"
-                                      background-color="grey lighten-3"
                                       placeholder="YY"
                             ></v-select>
                         </v-col>
                         <v-col cols="4" class="py-0">
-                            <InputLabel>CVC</InputLabel>
+                            <InputLabel>{{$t('card_cvc')}}</InputLabel>
                             <v-text-field solo flat required
                                           hide-details="auto"
-                                          background-color="grey lighten-3"
                                           placeholder="123"
                                           :error-messages="error.cvc"
                                           v-model="card.cvc"
@@ -60,20 +56,18 @@
                     </v-row>
                     <v-row>
                         <v-col class="py-0">
-                            <InputLabel>Name of the cardholder</InputLabel>
+                            <InputLabel>{{$t('card_holder')}}</InputLabel>
                             <v-text-field solo flat required
                                           hide-details="auto"
-                                          background-color="grey lighten-3"
                                           v-model="billing.name"
                                           :error-messages="error.name"
                                           :rules="rules.name"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="4" class="py-0" v-if="!showBilling">
-                            <InputLabel>Postal Code / ZIP</InputLabel>
+                            <InputLabel>{{$t('postal_code_zip')}}</InputLabel>
                             <v-text-field solo flat required
                                           hide-details="auto"
-                                          background-color="grey lighten-3"
                                           v-model="billing.address.postalCode"
                                           :error-messages="error.postalCode"
                                           :rules="rules.postalCode"
@@ -83,13 +77,14 @@
 
                     <v-alert text v-if="error.general" type="error" class="mt-3">{{error.general}}</v-alert>
 
+                    <!-- BILLING INFORMATION -->
                     <div v-if="showBilling">
                         <v-divider class="my-5"></v-divider>
-                        <j-section-title>Billing information</j-section-title>
-                        <InputLabel>Address</InputLabel>
+                        <j-section-title>{{$t('billing_title')}}</j-section-title>
+
+                        <InputLabel>{{$t('address')}}</InputLabel>
                         <v-text-field solo flat
-                                      placeholder="e.g. street, PO Box, or company name"
-                                      background-color="grey lighten-3"
+                                      :placeholder="$t('address_eg')"
                                       hide-details="auto"
                                       :rules="rules.line1"
                                       v-model="billing.address.line1"
@@ -97,18 +92,16 @@
 
                         <v-row>
                             <v-col class="py-0">
-                                <InputLabel>City</InputLabel>
+                                <InputLabel>{{$t('city')}}</InputLabel>
                                 <v-text-field solo flat
-                                              background-color="grey lighten-3"
                                               hide-details="auto"
                                               :rules="rules.city"
                                               v-model="billing.address.city"
                                 ></v-text-field>
                             </v-col>
                             <v-col cols="4" class="py-0">
-                                <InputLabel>Postal Code / ZIP</InputLabel>
+                                <InputLabel>{{$t('postal_code_zip')}}</InputLabel>
                                 <v-text-field solo flat
-                                              background-color="grey lighten-3"
                                               hide-details="auto"
                                               :rules="rules.postalCode"
                                               v-model="billing.address.postalCode"
@@ -116,22 +109,21 @@
                             </v-col>
                         </v-row>
 
-                        <InputLabel>Country</InputLabel>
+                        <InputLabel>{{$t('country')}}</InputLabel>
                         <v-select solo flat
                                   hide-details="auto"
-                                  background-color="grey lighten-3"
                                   item-text="country" item-value="abbr"
-                                  placeholder="Select a country"
+                                  :placeholder="$t('select')"
                                   :rules="rules.country"
                                   v-model="billing.address.country"
                                   :items="countries"
                         ></v-select>
+
                         <template v-if="states.length">
-                            <InputLabel>State</InputLabel>
+                            <InputLabel>{{$t('state')}}</InputLabel>
                             <v-select solo flat
                                       hide-details="auto"
-                                      background-color="grey lighten-3"
-                                      placeholder="Select a state"
+                                      :placeholder="$t('select')"
                                       item-text="text" item-value="value"
                                       :rules="rules.state"
                                       v-model="billing.address.state"
@@ -140,17 +132,18 @@
                         </template>
                     </div>
 
+                    <!-- ACTIONS -->
                     <div class="d-flex pt-5">
                         <v-btn depressed :disabled="pending" @click="showBilling=!showBilling">
-                            <span v-if="!showBilling">Add billing address</span>
-                            <span v-if="showBilling">Remove billing address</span>
+                            <span v-if="!showBilling">{{$t('add_billing_information')}}</span>
+                            <span v-if="showBilling">{{$t('remove_billing_information')}}</span>
                         </v-btn>
                         <v-spacer></v-spacer>
                         <v-btn text :disabled="pending" @click="close">
-                            Cancel
+                            {{$t('cancel')}}
                         </v-btn>
                         <v-btn depressed color="primary" class="px-8" type="submit" :loading="pending" :disabled="!valid">
-                            Add card
+                            {{$t('add')}}
                         </v-btn>
                     </div>
 
@@ -181,34 +174,34 @@
                 months: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
                 rules: {
                     cvc: [
-                        v => (/^[0-9]{3,4}$/).test(v)||'Please enter a valid cvc'
+                        v => (/^[0-9]{3,4}$/).test(v)||this.$t('rule.credit_card.cvc')
                     ],
                     expMonth: [
-                        v => (/^[0-9]{2}$/).test(v)||'Please select a month'
+                        v => (/^[0-9]{2}$/).test(v)||this.$t('rule.credit_card.exp_month')
                     ],
                     expYear: [
-                        v => (/^[0-9]{2}$/).test(v)||'Please select a year'
+                        v => (/^[0-9]{2}$/).test(v)||this.$t('rule.credit_card.exp_year')
                     ],
                     cardNumber: [
-                        v => (/^[0-9 ]{10,20}$/).test(v)||'Please enter a valid card number'
+                        v => (/^[0-9 ]{10,20}$/).test(v)||this.$t('rule.credit_card.number')
                     ],
                     name: [
-                        v => v && v.length > 0 || 'Please enter a name'
+                        v => v && v.length > 0 || this.$t('rule.credit_card.number')
                     ],
                     city: [
-                        v => v && v.length > 0 || 'Please enter a city'
+                        v => v && v.length > 0 || this.$t('rule.please_enter')
                     ],
                     postalCode: [
-                        v => v && v.length > 0 || 'Please enter a code/zip',
+                        v => v && v.length > 0 || this.$t('rule.please_enter')
                     ],
                     line1: [
-                        v => v && v.length > 0 || 'Please enter an address'
+                        v => v && v.length > 0 || this.$t('rule.please_enter')
                     ],
                     country: [
-                        v => v && v.length > 0 || 'Please select a country'
+                        v => v && v.length > 0 || this.$t('rule.please_enter')
                     ],
                     state: [
-                        v => v && v.length > 0 || 'Please select a state'
+                        v => v && v.length > 0 || this.$t('rule.please_select')
                     ],
                 },
                 card: {

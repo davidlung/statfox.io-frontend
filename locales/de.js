@@ -29,6 +29,7 @@ export default {
     change_password_q: "Passwort ändern?",
     cancel: "Abbrechen",
     save: "Speichern",
+    edit: "Bearbeiten",
     login_change_email: "ändern",
     select: "Auswählen",
     upgrade_downgrade: "Upgrade/Downgrade",
@@ -53,6 +54,8 @@ export default {
     have_account_q: "Sie haben breits ein Konto?",
 
     rule: {
+        please_select: "Bitte auswählen",
+        please_enter: "Bitte ausfüllen",
         name: {
             empty: "Bitte geben Sie Ihren Namen ein.",
             to_long: "Der Name darf nicht {0} Zeichen überschreiten.",
@@ -76,7 +79,15 @@ export default {
         },
         agree: {
             empty: "Bitte lesen und akzeptieren um forzufahren."
-        }
+        },
+        credit_card: {
+            cvc: "Bitte gebe eine valide cvc Nummer ein.",
+            exp_month: "Bitte wähle den Monat aus, in welchem die Karte abläuft.",
+            exp_year: "Bitte wähle das Jahr aus, in welchem die Karte abläuft.",
+            number: "Bitte gebe eine valide Kreditkartennummer ein.",
+            card_holder: "Bitte gebe den Namen des Karteninhabers ein.",
+        },
+
     },
 
     toast: {
@@ -145,4 +156,83 @@ export default {
     send_verification_email: "E-Mail zur Verifikation senden",
     resend_verification_email: "E-Mail zur Verifikation nochmal senden",
     verification_check_inbox: "Bitte überprüfen Sie Ihren Posteingang und folgende Sie der enthaltenen Anleitung. Wenn Sie keine E-Mail erhalten haben, überprüfen Sie Ihren SPAM-Order, versuchen es etwas später erneut oder schreiben Sie eine E-mail an support@{0}.",
+
+
+    page_view_month: "Seitenaufrufe pro Monat",
+    your_plan: "Dein aktueller Plan",
+    per_interval: "pro {0}",
+    month: "Monat",
+    monthly: "Monatlich",
+    year: "Jahr",
+    yearly: "Jährlich",
+    annual_discount_info: "Jährlich (~{0}% weniger zahlen)",
+    restricted_interval_change_info: "Dein aktueller Plan hat eine Laufzeit von einem Jahr. Ein Upgrade/Downgrade auf einen monatlichen Plan ist nicht möglich.",
+    plan_canceled_expire_info: "Dein Plan ist gekündigt und wird am {0} ablaufen.",
+    plan_canceled_switch_info: "Wenn du auf einen anderen Plan wechseln möchtest, musst du deine Kündigung stornieren oder warten bis dein aktuell gekündigter Plan abgelaufen ist.",
+    switch: "Wechseln",
+    switch_issue: "Pläne können nicht gewechselt werden solange Probleme mit dem aktuellem Plan bestehen.",
+    plan_downgrade_year_info: "Du hast bereits für ein Jahr bezahlt, wodurch ein Downgrade nicht mehr möglich ist.",
+    plan_recently_downgrade_info: "Du hast vor kurzem einen neuen Plan abonniert oder ein Downgrade eines bestehenden Plans durchgeführt. Um eine Ausnutzung des Systems zu vermeiden, kann nur alle 30 Tage ein Downgrade durchgeführt werden.",
+    plan_upgrade_year_to_month_info: "Ein Upgrade von einem jährlichen auf einen monatlichen Plan ist nicht möglich.",
+    plan_switch_year_to_month_info: "Ein wechsel von einem jährlichen auf einen monatlichen Plan ist nicht möglich.",
+
+    // INVOICES
+
+    balance: "Guthaben",
+    balance_info: "Dieses Guthaben wird mit den nächsten Rechnungen verrechnet.",
+    no_invoices: "Sie haben noch keine Rechnungen.",
+    download_invoice_info: "Einen Augenblick, die Rechnung wird in wenigen Sekunden heruntergeladen.",
+    paid: "bezahlt",
+    paid_on: "am {0}",
+    past_due: "überfällig",
+    past_due_since: "seit {0}",
+    open_invoice: "Rechnung öffnen",
+
+    // PAYMENT METHODS
+
+    payment_method: "Zahlungsmethode",
+    no_payment_method: "Du hast noch keine Zahlungsmethode hinzugefügt.",
+    add_credit_card: "Kreditkarte hinzufügen",
+    payment_method_choose_info: "Wähle eine Zahlungsmethode aus oder füge eine neue hinzu",
+    select_existing_payment_method: "Wähle eine vorhandene Zahlungsmethode aus",
+    card_expires_on: "Gültig bis {0}/{1}",
+    set_default_payment_method: "Als standard Zahlungsmethode festlegen",
+    delete_payment_method_question: "Bist du dir sicher, dass du diese Zahlungsmethode entfernen möchtest?",
+    change_payment_method: "Zahlungsmethode ändern",
+
+    // CREDIT CARD
+
+    card_number: "Kartennummer",
+    card_cvc: "Prüfziffer (CVC)",
+    expiry_month: "Ablauf Monat",
+    expiry_year: "Ablauf Jahr",
+    card_holder: "Name des Karteninhabers",
+    card_expiry: "Gültig bis",
+    card_last4: "Letzten 4 Ziffer",
+    card_type: "Karten-Typ",
+
+    // BILLING
+
+    billing_title: "Rechnungsanschrift",
+    billing_address: "Rechnungsadresse",
+    address: "Adresse",
+    address_eg: "z.B. Straße, Nummer, Postfach, Firma",
+    city: "Stadt",
+    postal_code_zip: "Postleitzahl",
+    country: "Land",
+    state: "Region",
+    billing_information: "Rechnungsanschrift",
+    add_billing_information: "Rechnungsanschrift hinzufügen",
+    edit_billing_information: "Rechnungsanschrift ändern",
+    keep_billing_information: "Rechnungsanschrift beibehalten",
+    remove_billing_information: "Rechnungsanschrift entfernen",
+
+    // PLAN
+
+    choose_different: "Plan ändern",
+    selected_plan: "Dein ausgewählter Plan",
+    subscribe: "Abonnieren",
+    checkout_title: "Abonnement Abschließen",
+    checkout_subtitle: "Überprüfe deine Auswahl und schließe das Abonnement ab",
+    checkout_law_info: "Mit der Bestätigung dieses Abonnements erklärst du dich damit einverstanden, dass {0} Ihre Karte für diese und zukünftige Zahlungen in Übereinstimmung mit den Nutzungsbedingungen belastet."
 }

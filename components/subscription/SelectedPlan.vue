@@ -1,16 +1,16 @@
 <template>
     <v-card outlined class="my-10">
-        <v-card-subtitle class="pb-1">Your selected plan:</v-card-subtitle>
+        <v-card-subtitle class="pb-1 text-overline">{{$t('selected_plan')}}</v-card-subtitle>
         <v-card-text class="d-flex">
             <div>
                 <div class="text-h6">{{plan.name}}</div>
                 <div>
-                    {{plan.description}}
+                    {{plan.pageViews.toLocaleString()}} {{$t('page_views')}} {{$t('per_interval', [$t('month')])}}
                 </div>
             </div>
             <v-spacer></v-spacer>
             <span class="text-subtitle-2">
-                    {{price.currencySign}}{{price.amount/100}} /{{interval}}
+                    {{price.currencySign}}{{ (price.amount/100).toFixed(0)}} {{$t('per_interval', [$t(interval)])}}
                 </span>
         </v-card-text>
     </v-card>
