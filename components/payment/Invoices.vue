@@ -5,7 +5,7 @@
             <v-card-text>
                 <j-section-title>{{$t('balance')}}</j-section-title>
                 <div class="text-h5 px-5">
-                    {{currencySign(billing.currency)}}{{new Number(balance).toFixed(2).toLocaleString()}}
+                    {{(balance).toLocaleString(undefined, {style:'currency', currency:billing.currency})}}
                     <div class="text-caption text--secondary">
                         {{$t('balance_info')}}
                     </div>
@@ -21,7 +21,7 @@
                         <v-list-item>
                             <v-list-item-content>
                                 <v-list-item-title>
-                                    {{new Number(invoice.amountPaid/100).toFixed(2).toLocaleString()}} {{currencySign(invoice.currency)}}
+                                    {{(invoice.amountPaid/100).toLocaleString(undefined, {style:'currency', currency:invoice.currency})}}
                                     <span v-if="invoice.status === 'paid'">
                                         <span class="green--text d-inline-block pl-2">{{$t('paid')}}</span>
                                         {{$t('paid_on', [$time.dateString(invoice.paidAt)])}}
@@ -86,9 +86,6 @@
                 billing: state => state.account.billing,
                 loadingInvoices: state => state.pending.account.loadInvoices,
             }),
-            currencySign() {
-                return currency => ({usd:'$', eur:'€'}[currency])
-            },
 
             balance() {
                 return this.billing.balance ? (this.billing.balance/100) * -1 : 0

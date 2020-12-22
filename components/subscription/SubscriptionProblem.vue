@@ -1,7 +1,7 @@
 <template>
     <v-card flat :dark="!text" :color="text?'transparent':'red'" class="my-6" v-if="subscriptionProblem">
         <v-card-title :class="text?'red--text':'white--text'">
-            Subscription issue, your immediate action is required!
+            {{$t('subscription_issue')}}
         </v-card-title>
         <v-card-text :class="text?'':'white--text'">
             <div>{{subscriptionProblem}}</div>
@@ -13,13 +13,13 @@
             <CreateCardDialog v-if="showAddCreditCard" @success="reattemptPayment()">
                 <template v-slot:activator="{on, attrs}">
                     <v-btn depressed v-on="on" :color="text?'primary':'white black--text'">
-                        Add a different/new credit card
+                        {{$t('add_different_card')}}
                     </v-btn>
                 </template>
             </CreateCardDialog>
             <template v-if="paymentMethods.length > 1">
                 <v-divider class="my-5"></v-divider>
-                <div class="text-subtitle-1 mb-5">Or use one of your other credit cards</div>
+                <div class="text-subtitle-1 mb-5">{{$t('or_use_existed_card')}}</div>
                 <v-card dark hover nuxt link
                         color="blue-grey"
                         class="mb-4"
@@ -33,19 +33,19 @@
                         <span>{{paymentMethod.card.brand.toUpperCase()}}</span>
                         <v-spacer></v-spacer>
                         <div class="text-body-1">
-                            <div class="caption">EXPIRY</div>
+                            <div class="caption">{{$t('card_expiry')}}</div>
                             {{paymentMethod.card.expMonth}}/{{paymentMethod.card.expYear}}
                         </div>
                         <v-spacer></v-spacer>
                         <div class="text-body-1">
-                            <div class="caption text-right">LAST 4</div>
+                            <div class="caption text-right">{{$t('card_last4')}}</div>
                             **** **** **** {{paymentMethod.card.last4}}
                         </div>
                     </v-card-title>
                 </v-card>
             </template>
             <v-btn depressed :color="text?'primary':'white black--text'" v-if="showAuthButton" @click="reattemptPayment()">
-                Perform Authentication
+                {{$t('perform_authentication')}}
             </v-btn>
         </v-card-text>
         <v-overlay :value="pendingReattempt" absolute>
@@ -98,16 +98,15 @@
 
                 if (this.subscription.status === 'incomplete') {
                     let remaining = this.$time.remaining(this.subscription.created + 82800)
-                    return "Your currently purchased subscription is incomplete and therefore not applied yet. " +
-                        "If you don't act within the next "+remaining+", this subscription will be cancelled."
+                    return this.$t('subscription_problem_incomplete_info', [remaining])
                 }
 
                 if (this.subscription.status === 'past_due') {
-                    return "Unfortunately we could not charge your credit card for the amount of the last invoice."
+                    return this.$t('subscription_problem_past_due_info')
                 }
 
                 if (this.subscription.status === 'unpaid') {
-                    return "Your subscription is not paid."
+                    return this.$t('subscription_problem_unpaid_info')
                 }
 
                 return null
@@ -115,7 +114,7 @@
 
             invoiceProblem() {
                 if (this.subscription.latestInvoice.status === 'open') {
-                    return "The last invoice is still open and have to settle."
+                    return this.$t('invoice_problem_open_info')
                 }
 
                 return null
@@ -123,11 +122,10 @@
 
             paymentProblem() {
                 if (this.subscription.latestInvoice.paymentIntent.status === 'requires_payment_method') {
-                    return "Your default payment method could not be charged. Please add a new default payment method " +
-                           "to proceed the last attempted payment."
+                    return this.$t('payment_problem_requires_payment_method')
                 }
                 if (this.subscription.latestInvoice.paymentIntent.status === 'requires_action') {
-                    return "To proceed the payment, you have to complete an authentication process. Please use the button below to start the auth process."
+                    return this.$t('payment_problem_requires_action')
                 }
 
                 return null
@@ -157,7 +155,7 @@
                     payment_method: this.billing.defaultPaymentMethod
                 }).then(result => {
                     if (result.error) {
-                        this.$toast.error(result.error.message + ' Please try an other credit card.')
+                        this.$toast.error(result.error.message +' '+ this.$t('payment_error_try_another_card'))
                         this.pendingReattempt = false
                     } else {
                         if (result.paymentIntent.status === 'succeeded') {
@@ -169,7 +167,7 @@
                                 this.pendingReattempt = false
                             })
                         }else{
-                            this.$toast.error('The payment does not succeeded. (current status: '+result.paymentIntent.status+')')
+                            this.$toast.error(this.$t('payment_error_try_another_card', [result.paymentIntent.status]))
                             this.pendingReattempt = false
                         }
                     }

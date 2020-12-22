@@ -83,8 +83,8 @@ export default {
         })
     },
 
-    switchSubscription({commit}, priceId) {
-        return this.$axios.patch('/api/v1/account/subscription', {priceId}).then(res => {
+    switchSubscription({commit}, {priceId, prorationDate}) {
+        return this.$axios.patch('/api/v1/account/subscription', {priceId, prorationDate}).then(res => {
             commit('SET_SUBSCRIPTION', res.data)
             commit('SET_SUBSCRIPTION_RECENTLY_UPDATED')
             return res
@@ -110,8 +110,6 @@ export default {
     synchronizeSubscription({dispatch, commit}) {
         return this.$axios.post('/api/v1/account/subscription:synchronize').then(res => {
             dispatch('account/loadAccount', null, {root:true})
-            dispatch('server/loadServers', null, {root:true})
-            dispatch('team/initialize', null, {root:true})
             commit('SET_SUBSCRIPTION_RECENTLY_UPDATED')
             return res
         })

@@ -14,7 +14,7 @@
             </template>
         </v-app-bar>
         <v-container class="max-w-900 grow mt-3">
-            <SubscriptionProblem/>
+            <subscription-problem/>
             <v-tabs-items v-model="tab" >
 
                 <v-tab-item>
@@ -36,11 +36,11 @@
                 </v-tab-item>
 
                 <v-tab-item>
-                    <PaymentMethods/>
+                    <payment-methods/>
                 </v-tab-item>
 
                 <v-tab-item>
-                    <Invoices/>
+                    <invoices/>
                 </v-tab-item>
 
                 <v-tab-item></v-tab-item>

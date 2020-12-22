@@ -1,42 +1,53 @@
 <template>
     <v-container class="max-w-600">
 
-        <div class="text-center text-h5 my-10">Switch plan</div>
-        <div class="text-center subtitle-2">Preview your plan switch</div>
+        <!-- TITLE -->
+        <div class="mb-10">
+            <div class="text-center text-h5 my-10">{{$t('switch_plan_title')}}</div>
+            <div class="text-center subtitle-2">{{$t('switch_plan_info')}}</div>
+        </div>
+
+        <!-- CURRENT PLAN -->
+        <div class="mb-10">
+            <j-section-title>{{$t('your_current_plan')}}</j-section-title>
+            <CurrentPlan :disable-actions="true"/>
+        </div>
 
         <!-- SELECTED PLAN -->
-        <CurrentPlan :disable-actions="true"/>
-        <SelectedPlan/>
+        <div class="mb-10">
+            <j-section-title>{{$t('selected_plan')}}</j-section-title>
+            <SelectedPlan/>
+        </div>
 
         <!-- PAYMENT METHOD -->
         <template v-if="paymentMethod">
-            <j-section-title>Current Default Payment Method</j-section-title>
+            <j-section-title>{{$t('payment_method')}}</j-section-title>
             <v-card outlined class="mb-8">
                 <v-card-title>
                     <v-icon class="pr-5">mdi-credit-card-outline</v-icon>
                     <span>{{paymentMethod.card.brand.toUpperCase()}}</span>
                     <v-spacer></v-spacer>
                     <div class="text-body-1">
-                        <div class="caption">EXPIRY</div>
+                        <div class="caption">{{$t('card_expiry')}}</div>
                         {{paymentMethod.card.expMonth}}/{{paymentMethod.card.expYear}}
                     </div>
                     <v-spacer></v-spacer>
                     <div class="text-body-1">
-                        <div class="caption text-right">LAST 4</div>
+                        <div class="caption text-right">{{$t('card_last4')}}</div>
                         **** **** **** {{paymentMethod.card.last4}}
                     </div>
                 </v-card-title>
             </v-card>
         </template>
 
-        <!-- PROPORTIONS / INCOMMING INVOICE -->
+        <!-- PROPORTIONS / INCOMING INVOICE -->
         <v-skeleton-loader :loading="!upcomingInvoice" type="paragraph">
             <div></div>
             <template v-if="upcomingInvoice">
                 <div v-for="line in lines" :key="line.id" class="d-flex">
                     <span class="text--secondary">{{line.description}}</span>
                     <v-spacer></v-spacer>
-                    <span>{{line.amount/100}} {{currencySign}}</span>
+                    <span>{{(line.amount/100).toLocaleString(undefined, {style:'currency', currency})}}</span>
                 </div>
 
                 <v-divider class="my-3"></v-divider>
@@ -44,7 +55,7 @@
                 <div v-for="line in calculationLines" :key="line.id" class="d-flex">
                     <span>{{line.description}}</span>
                     <v-spacer></v-spacer>
-                    <span>{{line.amount/100}} {{currencySign}}</span>
+                    <span>{{(line.amount/100).toLocaleString(undefined, {style:'currency', currency})}}</span>
                 </div>
             </template>
         </v-skeleton-loader>
@@ -55,16 +66,16 @@
         <div class="d-flex mt-8">
             <v-btn depressed text nuxt to="/subscription/payment" :disabled="pending">
                 <v-icon>mdi-chevron-left</v-icon>
-                Change payment method
+                {{$t('change_payment_method')}}
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn depressed color="primary" type="submit" :disabled="!upcomingInvoice||overlay.loading.show" :loading="pending" @click="subscribe" class="px-10">
-                {{switchType}} <span class="d-inline-block mx-2">/</span> {{currencySign}}{{amountDue}}
+                {{switchType}} <span class="d-inline-block mx-2">/</span> {{currencySign}} {{amountDue.toLocaleString()}}
             </v-btn>
         </div>
+
         <div class="caption text--secondary text-center py-10">
-            By confirming your subscription, you agree that {{$config.DOMAIN}} may charge your card for this and future
-            payments in accordance with the Terms of Use.
+            {{$t('checkout_law_info', ['Stripe Inc.', $config.BRAND_ALT_3])}}
         </div>
 
     </v-container>
@@ -78,8 +89,10 @@
 
     export default {
 
-        head: {
-            title: "Subscription"
+        head() {
+            return {
+                title: this.$t('plans')
+            }
         },
 
         components: {
@@ -102,7 +115,11 @@
         },
 
         mounted() {
-            this.$axios.post('/api/v1/account/subscription:proration', {priceId:this.priceId}).then(res => {
+            this.prorationDate = this.$time.now()
+            this.$axios.post('/api/v1/account/subscription:proration', {
+                priceId:this.priceId,
+                prorationDate:this.prorationDate
+            }).then(res => {
                 this.upcomingInvoice = res.data
             })
         },
@@ -110,6 +127,7 @@
         data() {
             return {
                 upcomingInvoice: null,
+                prorationDate: null
             }
         },
 
@@ -160,7 +178,7 @@
                 if (this.hasSameInterval && this.isDowngrade) {
                     lines.push({
                         amount: total,
-                        description: 'Amount which will be offset against upcoming invoices.'
+                        description: this.$t('amount_offset_against_next_invoices')
                     })
                 }else{
                     let date = (new Date(this.upcomingInvoice.nextPaymentAttempt*1000)).toLocaleDateString()
@@ -169,23 +187,23 @@
                     if (balance !== 0){
                         lines.push({
                             amount: total,
-                            description: 'Total'
+                            description: this.$t('total')
                         })
                         if (balance < 0 && total > 0 && Math.abs(balance) > total) {
                             balance = -total
                         }
                         lines.push({
                             amount: balance,
-                            description: 'Applied Balance'
+                            description: this.$t('applied_balance')
                         })
                         lines.push({
                             amount: total+balance,
-                            description: 'Amount due on '+date
+                            description: this.$t('amount_due_on', [date])
                         })
                     }else{
                         lines.push({
                             amount: total,
-                            description: 'Total amount due on '+date
+                            description: this.$t('total_amount_due_on', [date])
                         })
                     }
                 }
@@ -206,7 +224,7 @@
             switchType() {
                 if (this.isUpgrade) return 'Upgrade'
                 if (this.isDowngrade) return 'Downgrade'
-                return 'Switch'
+                return this.$t('switch')
             },
 
             isUpgrade() {
@@ -222,19 +240,22 @@
 
         methods: {
             subscribe() {
-                this.$store.dispatch('account/switchSubscription', this.priceId).then(async (res) => {
+                this.$store.dispatch('account/switchSubscription', {
+                    priceId: this.priceId,
+                    prorationDate:this.prorationDate
+                }).then(async (res) => {
                     let status = res.data.latestInvoice.paymentIntent.status
 
                     if (status === 'requires_action') {
 
-                        this.$store.dispatch('showLoadingOverlay', 'Please wait and don\'t close this window...')
+                        this.$store.dispatch('showLoadingOverlay', this.$t('payment_please_wait'))
                         let secret = res.data.latestInvoice.paymentIntent.clientSecret
                         let stripe = await this.$stripe()
 
                         stripe.confirmCardPayment(secret, {payment_method: this.paymentMethod.id}).then(result => {
                             if (result.error || result.paymentIntent.status !== 'succeeded') {
-                                this.$toast.error('Your default payment method could not be charged.' +
-                                    (result.error?' ('+result.error.message+')':'')+' Please try an other credit card.')
+                                this.$toast.error(this.$t('could_not_charged_default') +
+                                    (result.error?' ('+result.error.message+')':''))
                                 this.$router.push('/subscription/issue')
                                 return res
                             }
@@ -244,8 +265,7 @@
                                 this.$router.push('/subscription/success')
                             })
                         }).catch(e => {
-                            this.$toast.error('Sorry, but something went wrong with the payment processor. ' +
-                                'You can retry this process by following the instructions via the subscription issue info.')
+                            this.$toast.error(this.$t('something_went_wrong'))
                             setTimeout(() => window.location.href = '/subscription', 2000)
                         });
 
@@ -253,7 +273,7 @@
                     }
 
                     if (status === 'requires_payment_method') {
-                        this.$toast.error('Your default payment method could not be charged. Please try an other credit card.')
+                        this.$toast.error(this.$t('could_not_charged_default'))
                         await this.$router.push('/subscription/issue')
                         return res
                     }

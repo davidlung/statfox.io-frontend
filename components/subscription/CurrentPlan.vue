@@ -1,108 +1,63 @@
 <template>
-        <v-card v-if="subscription" outlined class="my-10">
-            <v-card-subtitle class="pb-1 d-flex">
-                    <span>Your current plan:</span>
+        <v-card v-if="subscription" outlined>
+            <v-card-title class="text-overline pb-0">
+                <span>{{name}}</span>
                 <v-spacer></v-spacer>
-                <div class="text-subtitle-1 font-weight-medium" :class="`${status.color}--text`">
-                    <v-skeleton-loader tile min-width="150" :loading="pending" type="text">
+                <span :class="`${status.color}--text`">
+                     <v-skeleton-loader tile min-width="150" :loading="pending" type="text">
                         {{status.name}}
                     </v-skeleton-loader>
-                </div>
-            </v-card-subtitle>
-            <v-card-text class="d-flex py-0">
-                <v-skeleton-loader tile min-width="200" :loading="pending" type="text">
-                    <div class="text-h6">{{name}}</div>
-                </v-skeleton-loader>
+                </span>
+                <span class="red--text text-caption pl-2" v-if="status.info"> ({{status.info}})</span>
+            </v-card-title>
+            <v-card-text class="text-h6 pb-0 d-flex">
+                <span>{{pageViews.toLocaleString()}}</span>
                 <v-spacer></v-spacer>
-                <v-skeleton-loader tile min-width="100" :loading="pending" type="text">
-                    <div class="text-subtitle-2" v-show="!pending">
-                        {{{usd:'$', eur:'€'}[currency]}}{{amount/100}} /{{interval}}
-                    </div>
-                </v-skeleton-loader>
+                <span>
+                    <v-skeleton-loader tile min-width="100" :loading="pending" type="text">
+                        <div class="" v-show="!pending">
+                            {{{usd:'$', eur:'€'}[currency]}}{{amount/100}}
+                            <span class="text-caption">{{$t('per_interval', [$t(interval)])}}</span>
+                        </div>
+                    </v-skeleton-loader>
+                </span>
             </v-card-text>
-            <v-card-text class="d-flex pt-0">
-                <v-skeleton-loader tile min-width="400" :loading="pending" type="text">
-                    <div>{{description}}</div>
-                </v-skeleton-loader>
-                <template v-if="status.info">
-                    <div class="text-center grow">
-                        <v-btn icon small @click="showDetails=!showDetails" >
-                            <v-icon>{{showDetails?'mdi-chevron-up':'mdi-chevron-down'}}</v-icon>
-                        </v-btn>
-                    </div>
-                </template>
-                <v-spacer v-else></v-spacer>
-                <v-skeleton-loader tile width="200" :loading="pending" type="text">
-                    <div class="red--text" v-if="status.info">
-                        <span>{{status.info}}</span>
-                    </div>
-                    <v-btn icon small @click="showDetails=!showDetails" class="mx-5" v-if="!status.info">
-                        <v-icon>{{showDetails?'mdi-chevron-up':'mdi-chevron-down'}}</v-icon>
-                    </v-btn>
-                </v-skeleton-loader>
+            <v-card-text class="text-caption pt-0 d-flex">
+                <span>{{$t('page_view_month')}}</span>
+                <v-spacer></v-spacer>
+                <v-btn v-if="!disableActions" icon small @click="showDetails=!showDetails" >
+                    <v-icon>{{showDetails?'mdi-chevron-up':'mdi-chevron-down'}}</v-icon>
+                </v-btn>
             </v-card-text>
             <template v-if="showDetails">
                 <v-divider></v-divider>
                 <v-card-text class="pt-0">
                     <v-row>
                         <v-col>
-                            <InputLabel>Created at</InputLabel>
+                            <InputLabel>{{$t('subscription_created_at')}}</InputLabel>
                             {{this.$time.dateString(subscription.created)}}
-                            <InputLabel>Started at</InputLabel>
+                            <InputLabel>{{$t('subscription_started_at')}}</InputLabel>
                             {{this.$time.dateString(subscription.startDate)}}
-                            <InputLabel>Billing cycle anchor</InputLabel>
+                            <InputLabel>{{$t('subscription_billing_cycle_anchor')}}</InputLabel>
                             {{this.$time.dateString(subscription.billingCycleAnchor)}}
                         </v-col>
                         <v-col>
-                            <InputLabel>Current period</InputLabel>
+                            <InputLabel>{{$t('subscription_current_period')}}</InputLabel>
                             {{this.$time.dateString(subscription.currentPeriodStart)}} -
                             {{this.$time.dateString(subscription.currentPeriodEnd)}}
-                            <InputLabel>Status</InputLabel>
+                            <InputLabel>{{$t('status')}}</InputLabel>
                             {{subscription.status.replace(/_/g,' ')}}
                         </v-col>
 
                         <v-col>
                             <div v-if="subscription.cancelAt" class="mb-5">
-                                <InputLabel>Subscription canceled at</InputLabel>
+                                <InputLabel>{{$t('subscription_canceled_at')}}</InputLabel>
                                 {{this.$time.dateString(subscription.canceledAt)}}
-                                <InputLabel>Subscription expires on (canceled)</InputLabel>
+                                <InputLabel>{{$t('subscription_cancel_at')}}</InputLabel>
                                 {{this.$time.dateString(subscription.cancelAt)}}
                             </div>
                         </v-col>
-                        <v-col>
-                            <div v-if="!disableActions&&subscription.status==='active'" class="text-right">
-                                <v-dialog-confirm title="Revoke cancellation"
-                                                  :pending="pendingRevocation"
-                                                  label-agree="Revoke"
-                                                  v-if="subscription.cancelAt"
-                                                  @confirm="revoke($event)">
-                                    <template v-slot:activator="{on}">
-                                        <v-btn small depressed v-on="on" color="primary">Revoke Cancellation</v-btn>
-                                    </template>
-                                    <template v-slot:text>
-                                        Are you really sure you want to revoke the cancellation of the current plan?
-                                        The plan will be continued as usual.
-                                    </template>
-                                </v-dialog-confirm>
-                                <v-dialog-confirm v-else title="Cancel current plan"
-                                                  :pending="pendingCancel"
-                                                  color="red"
-                                                  label-agree="Cancel"
-                                                  @confirm="cancel($event)">
-                                    <template v-slot:activator="{on}">
-                                        <v-btn small depressed v-on="on" dark color="red">Cancel Subscription</v-btn>
-                                    </template>
-                                    <template v-slot:text>
-                                        The current plan will remain active and usable until the end ot the paid period
-                                        <b>({{(new Date(subscription.currentPeriodEnd*1000)).toLocaleDateString()}})</b>.
-                                        You can revoke the cancellation at any time.
-                                    </template>
-                                </v-dialog-confirm>
-                            </div>
-                        </v-col>
                     </v-row>
-
-
 
                 </v-card-text>
             </template>
@@ -141,6 +96,7 @@
         computed: {
             ...mapState({
                 subscription: state => state.account.subscription,
+                pageViews: state => state.account.plan.pageViews,
                 name: state => state.account.subscription.plan.name,
                 amount: state => state.account.subscription.plan.amount,
                 currency: state => state.account.subscription.plan.currency,
@@ -152,20 +108,20 @@
             }),
 
             status() {
-                let name = 'ACTIVE', color = 'green', info = null
+                let name = this.$t('active'), color = 'green', info = null
 
                 if (this.subscription.cancelAt) {
-                    info = 'Canceled, expires on '+(new Date(this.subscription.cancelAt*1000)).toLocaleDateString()
+                    info = this.$t('canceled_expire_info', [(new Date(this.subscription.cancelAt*1000)).toLocaleDateString()])
                 }
                 if (this.subscription.status === 'incomplete') {
-                    name = 'INACTIVE'
+                    name = this.$t('inactive')
                     color = 'deep-orange'
-                    info = 'Incomplete subscription, your action is required'
+                    info = this.$t('subscription_incomplete_required_action')
                 }
                 else if (this.subscription.status !== 'active') {
-                    name = 'PROBLEM'
+                    name = this.$t('problem')
                     color = 'deep-orange'
-                    info = 'Incomplete subscription, your action is required'
+                    info = this.$t('subscription_incomplete_required_action')
                 }
 
                 return {name, color, info}

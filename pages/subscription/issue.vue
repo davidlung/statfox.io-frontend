@@ -1,9 +1,12 @@
 <template>
     <v-container class="max-w-600">
+
         <div class="text-center text-h5 my-10">{{title}}</div>
+
         <div :class="`text-center subtitle-2 ${color}--text`">
             {{description}}
         </div>
+
         <div class="text-center mt-8">
             <v-icon :color="color" size="50">{{icon}}</v-icon>
         </div>
@@ -11,7 +14,9 @@
         <SubscriptionProblem @solved="solved"/>
 
         <div class="text-center py-10" v-if="!hasIssue">
-            <v-btn nuxt depressed to="/subscription" color="primary" class="px-10">Back</v-btn>
+            <v-btn nuxt depressed to="/subscription" color="primary" class="px-10">
+                {{$t('back')}}
+            </v-btn>
         </div>
 
     </v-container>
@@ -23,8 +28,10 @@
 
     export default {
 
-        head: {
-            title: "Subscription"
+        head() {
+            return {
+                title: this.$t('plans')
+            }
         },
 
         components: {
@@ -47,19 +54,19 @@
 
             title() {
                 switch (this.subscription.status) {
-                    case 'incomplete':  return 'Subscription incomplete'
-                    case 'past_due':    return 'Subscription updated with issues (past due)'
-                    case 'unpaid':      return 'Subscription has issue (unpaid)'
-                    case 'active':      return 'Subscription active'
+                    case 'incomplete':  return this.$t('payment_issue.incomplete.title')
+                    case 'past_due':    return this.$t('payment_issue.past_due.title')
+                    case 'unpaid':      return this.$t('payment_issue.unpaid.title')
+                    case 'active':      return this.$t('payment_issue.active.title')
                 }
             },
 
             description() {
                 switch (this.subscription.status) {
-                    case 'incomplete':  return 'Your subscription has been setup but is incomplete and therefore not applied yet.'
-                    case 'past_due':    return 'Your subscription has been setup but not applied because of failure on last payment.'
-                    case 'unpaid':      return 'Your subscription is active but has an unpaid invoice.'
-                    case 'active':      return 'Your subscription is active and has no issues.'
+                    case 'incomplete':  return this.$t('payment_issue.incomplete.description')
+                    case 'past_due':    return this.$t('payment_issue.past_due.description')
+                    case 'unpaid':      return this.$t('payment_issue.unpaid.description')
+                    case 'active':      return this.$t('payment_issue.active.description')
                 }
             },
 

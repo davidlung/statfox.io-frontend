@@ -1,17 +1,18 @@
 <template>
-    <v-card outlined class="my-10">
-        <v-card-subtitle class="pb-1 text-overline">{{$t('selected_plan')}}</v-card-subtitle>
-        <v-card-text class="d-flex">
-            <div>
-                <div class="text-h6">{{plan.name}}</div>
-                <div>
-                    {{plan.pageViews.toLocaleString()}} {{$t('page_views')}} {{$t('per_interval', [$t('month')])}}
-                </div>
-            </div>
+    <v-card outlined>
+        <v-card-title class="text-overline pb-0">
+            <span>{{plan.name}}</span>
+        </v-card-title>
+        <v-card-text class="text-h6 pb-0 d-flex">
+            <span>{{plan.pageViews.toLocaleString()}}</span>
             <v-spacer></v-spacer>
-            <span class="text-subtitle-2">
-                    {{price.currencySign}}{{ (price.amount/100).toFixed(0)}} {{$t('per_interval', [$t(interval)])}}
-                </span>
+            <div>
+                {{price.currencySign}}{{ (price.amount/100).toFixed(0)}}
+                <span class="text-caption">{{$t('per_interval', [$t(interval)])}}</span>
+            </div>
+        </v-card-text>
+        <v-card-text class="text-caption pt-0">
+            <span>{{$t('page_view_month')}}</span>
         </v-card-text>
     </v-card>
 </template>

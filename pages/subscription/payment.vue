@@ -1,10 +1,17 @@
 <template>
     <v-container class="max-w-600">
-        <div class="text-center text-h5 my-10">{{$t('payment_method')}}</div>
-        <div class="text-center subtitle-2">{{$t('payment_method_choose_info')}}</div>
+
+        <!-- TITLE -->
+        <div class="mb-10">
+            <div class="text-center text-h5 my-10">{{$t('payment_method')}}</div>
+            <div class="text-center subtitle-2">{{$t('payment_method_choose_info')}}</div>
+        </div>
 
         <!-- SELECTED PLAN -->
-        <SelectedPlan/>
+        <div class="mb-10">
+            <j-section-title>{{$t('selected_plan')}}</j-section-title>
+            <SelectedPlan/>
+        </div>
 
         <!-- EXISTING METHOD -->
         <template>
@@ -20,12 +27,12 @@
                     <span>{{paymentMethod.card.brand.toUpperCase()}}</span>
                     <v-spacer></v-spacer>
                     <div class="text-body-1">
-                        <div class="caption text-uppercase">{{$t('card_expiry')}}</div>
+                        <div class="text-caption">{{$t('card_expiry')}}</div>
                         {{paymentMethod.card.expMonth}}/{{paymentMethod.card.expYear}}
                     </div>
                     <v-spacer></v-spacer>
                     <div class="text-body-1">
-                        <div class="caption text-right text-uppercase">{{$t('card_last4')}}</div>
+                        <div class="text-caption text-right">{{$t('card_last4')}}</div>
                         **** **** **** {{paymentMethod.card.last4}}
                     </div>
                 </v-card-title>
@@ -45,7 +52,7 @@
 
             <v-divider class="my-6"></v-divider>
 
-            <v-btn depressed nuxt to="/subscription" :disabled="pending" :exact="true">
+            <v-btn text depressed nuxt to="/subscription" :disabled="pending" :exact="true">
                 <v-icon>mdi-chevron-left</v-icon>
                 {{$t('choose_different')}}
             </v-btn>

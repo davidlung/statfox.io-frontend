@@ -1,35 +1,33 @@
 <template>
     <v-container class="max-w-600">
 
-        <div class="text-center text-h5 my-10">{{$t('checkout_title')}}</div>
-        <div class="text-center subtitle-2">{{$t('checkout_subtitle')}}</div>
+        <!-- TITLE -->
+        <div class="mb-10">
+            <div class="text-center text-h5 my-10">{{$t('checkout_title')}}</div>
+            <div class="text-center subtitle-2">{{$t('checkout_subtitle')}}</div>
+        </div>
 
         <!-- SELECTED PLAN -->
-        <SelectedPlan/>
+        <div class="mb-10">
+            <j-section-title>{{$t('selected_plan')}}</j-section-title>
+            <SelectedPlan/>
+        </div>
 
         <!-- BILLING INFO -->
-        <j-section-title>{{$t('billing_information')}}</j-section-title>
-        <v-skeleton-loader :loading="paymentMethods.length===0">
-            <v-card outlined class="pa-5 mb-8">
-                <v-row v-if="paymentMethod">
-                    <v-col cols="6">
+        <div class="mb-10">
+            <j-section-title>{{$t('billing_information')}}</j-section-title>
+            <v-skeleton-loader :loading="paymentMethods.length===0">
+                <v-card outlined>
+                    <v-card-text>
                         <div>{{paymentMethod.billing.name}}</div>
                         <div>{{paymentMethod.billing.address.line1}}</div>
                         <div>{{paymentMethod.billing.address.city}}</div>
                         <div>{{paymentMethod.billing.address.country}} {{paymentMethod.billing.address.postalCode}}</div>
-                    </v-col>
-                    <v-col cols="1">
-                        <v-divider vertical></v-divider>
-                    </v-col>
-                    <v-col cols="5" class="text-right">
                         <div>{{paymentMethod.billing.email}}</div>
-                        <v-divider class="my-4"></v-divider>
-                        <div>{{(new Date()).toLocaleDateString()}}</div>
-                        <div class="font-weight-medium">{{price.currencySign}}{{price.amount/100}} {{$t('per_interval', [$t(interval)])}}</div>
-                    </v-col>
-                </v-row>
-            </v-card>
-        </v-skeleton-loader>
+                    </v-card-text>
+                </v-card>
+            </v-skeleton-loader>
+        </div>
 
         <!-- PAYMENT METHOD -->
         <template v-if="paymentMethod">
@@ -50,20 +48,20 @@
                     </div>
                 </v-card-title>
             </v-card>
+            <div class="d-flex mt-8">
+                <v-btn depressed large text nuxt to="/subscription/payment" :disabled="pending">
+                    <v-icon>mdi-chevron-left</v-icon>
+                    {{$t('change_payment_method')}}
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn depressed large color="primary" type="submit" :loading="pending" @click="subscribe" class="px-10">
+                    {{$t('subscribe')}} <span class="d-inline-block mx-2">/</span> {{price.currencySign}}{{price.amount/100}}
+                </v-btn>
+            </div>
         </template>
 
-        <div class="d-flex mt-8">
-            <v-btn depressed text nuxt to="/subscription/payment" :disabled="pending">
-                <v-icon>mdi-chevron-left</v-icon>
-                {{$t('change_payment_method')}}
-            </v-btn>
-            <v-spacer></v-spacer>
-            <v-btn depressed color="primary" type="submit" :loading="pending" @click="subscribe" class="px-10">
-                {{$t('subscribe')}} <span class="d-inline-block mx-2">/</span> {{price.currencySign}}{{price.amount/100}}
-            </v-btn>
-        </div>
         <div class="caption text--secondary text-center py-10">
-            {{$t('checkout_law_info', [$config.DOMAIN])}}
+            {{$t('checkout_law_info', ['Stripe Inc.', $config.BRAND_ALT_3])}}
         </div>
 
     </v-container>
@@ -130,14 +128,15 @@
 
                     if (status === 'requires_action') {
 
-                        this.$store.dispatch('showLoadingOverlay', 'Please wait and don\'t close this window...')
+                        await this.$store.dispatch('showLoadingOverlay', this.$t('payment_please_wait'))
                         let secret = res.data.latestInvoice.paymentIntent.clientSecret
                         let stripe = await this.$stripe()
 
                         stripe.confirmCardPayment(secret, {payment_method: this.paymentMethod.id}).then(result => {
                             if (result.error || result.paymentIntent.status !== 'succeeded') {
-                                this.$toast.error('Your default payment method could not be charged.' +
-                                    (result.error?' ('+result.error.message+')':'')+' Please try an other credit card.')
+                                this.$toast.error(this.$t('payment_error.could_not_charged') +
+                                    (result.error?' ('+result.error.message+') ':' ')+this.$t('payment_error.try_other_card')
+                                )
                                 this.$router.push('/subscription/issue')
                                 return res
                             }
@@ -147,8 +146,7 @@
                                 this.$router.push('/subscription/success')
                             })
                         }).catch(e => {
-                            this.$toast.error('Sorry, but something went wrong with the payment processor. ' +
-                                'You can retry this process by following the instructions via the subscription issue info.')
+                            this.$toast.error(this.$t('something_went_wrong'))
                             setTimeout(() => window.location.href = '/subscription', 2000)
                         });
 
@@ -156,7 +154,7 @@
                     }
 
                     if (status === 'requires_payment_method') {
-                        this.$toast.error('Your default payment method could not be charged. Please try an other credit card.')
+                        this.$toast.error(this.$t('could_not_charged_default'))
                         await this.$router.push('/subscription/issue')
                         return res
                     }

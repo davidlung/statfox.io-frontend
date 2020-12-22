@@ -7,9 +7,12 @@
 
         <v-container class="max-w-1100">
 
-            <CurrentPlan/>
+            <div v-if="subscription" class="mb-10">
+                <j-section-title>{{$t('your_current_plan')}}</j-section-title>
+                <current-plan/>
+            </div>
 
-            <SubscriptionProblem/>
+            <subscription-problem/>
 
             <!-- INTERVAL + CURRENCY -->
             <div class="d-flex mt-5" v-if="!isIntervalDisabled">
@@ -32,6 +35,17 @@
                     {{$t('plan_canceled_expire_info', [(new Date(subscription.cancelAt*1000)).toLocaleDateString()])}}
                 </span>
                 {{$t('plan_canceled_switch_info')}}
+                <v-dialog-confirm :title="$t('cancellation_revoke')"
+                                :pending="pendingRevocation"
+                                :label-agree="$t('revoke_cancellation')"
+                                :label-disagree="$t('cancel')"
+                                v-if="subscription.cancelAt"
+                                @confirm="revoke($event)"
+                                :text="$t('cancellation_revoke_info')">
+                    <template v-slot:activator="{on}">
+                        <v-btn small text v-on="on" color="white" class="float-right">{{$t('cancellation_revoke')}}</v-btn>
+                    </template>
+                </v-dialog-confirm>
             </v-alert>
 
             <v-skeleton-loader :loading="!plans.length" type="paragraph">
@@ -46,7 +60,28 @@
                                 <div class="text-caption" v-if="plans.length">{{$t('per_interval', [$t(price(plans[1]).interval)])}}</div>
                             </v-card-text>
                             <v-card-actions class="justify-center">
-                                <v-chip outlined color="primary" v-if="!subscription||account.plan.level===0">{{$t('your_plan')}}</v-chip>
+                                <v-chip outlined color="primary" v-if="!subscription||account.plan.level===0">
+                                    {{$t('your_plan')}}
+                                </v-chip>
+                                <v-dialog-confirm v-else-if="subscription.cancelAt===null" :title="$t('switch_to_free_title')"
+                                                :width="500"
+                                                :pending="pendingCancel"
+                                                color="red"
+                                                :label-agree="$t('cancel_plan')"
+                                                :label-disagree="$t('cancel')"
+                                                @confirm="cancel($event)">
+                                    <template v-slot:activator="{on}">
+                                        <v-btn depressed v-on="on" dark color="primary" class="px-10">
+                                            {{$t('select')}}
+                                        </v-btn>
+                                    </template>
+                                    <template v-slot:text>
+                                        {{$t('cancel_plan_info', [(new Date(subscription.currentPeriodEnd*1000)).toLocaleDateString()])}}
+                                    </template>
+                                </v-dialog-confirm>
+                                <v-chip v-else outlined color="primary">
+                                    {{$t('plan_active_on', [(new Date(subscription.cancelAt*1000)).toLocaleDateString()])}}
+                                </v-chip>
                             </v-card-actions>
                         </v-card>
                     </v-col>
@@ -60,7 +95,12 @@
                                 <div class="text-caption">{{$t('per_interval', [$t(price(plans[1]).interval)])}}</div>
                             </v-card-text>
                             <v-card-actions class="justify-center">
-                                <v-chip outlined color="primary" v-if="isCurrentPlan(plan)">{{$t('your_plan')}}</v-chip>
+                                <v-chip outlined color="primary" v-if="isCurrentPlan(plan)&&subscription.cancelAt===null">
+                                    {{$t('your_plan')}}
+                                </v-chip>
+                                <v-chip outlined color="primary" v-else-if="isCurrentPlan(plan)&&subscription.cancelAt">
+                                    {{$t('plan_cancel_on', [(new Date(subscription.cancelAt*1000)).toLocaleDateString()])}}
+                                </v-chip>
                                 <div v-else-if="priceAvailability(plan)!==true">
                                     <v-tooltip top max-width="300">
                                         <template v-slot:activator="{on}">
@@ -91,6 +131,7 @@
     import JSectionTitle from "../../components/JSectionTitle";
     import CurrentPlan from "../../components/subscription/CurrentPlan";
     import SubscriptionProblem from "../../components/subscription/SubscriptionProblem";
+    import VDialogConfirm from "@/components/VDialogConfirm";
 
     export default {
 
@@ -101,6 +142,7 @@
         },
 
         components: {
+            VDialogConfirm,
             CurrentPlan,
             JSectionTitle,
             SubscriptionProblem,
@@ -140,6 +182,8 @@
                 plans: state => state.subscription.plans,
                 interval: state => state.subscription.selection.interval,
                 currency: state => state.subscription.selection.currency,
+                pendingRevocation: state => state.pending.account.revokeCancellation,
+                pendingCancel: state => state.pending.account.cancelSubscription,
             }),
 
             price() {
@@ -229,7 +273,19 @@
                 }else{
                     this.$router.push('/subscription/payment')
                 }
-            }
+            },
+
+            cancel(event) {
+                this.$store.dispatch('account/cancelSubscription').then(res => {
+                    event.done()
+                }).catch(e => this.$error(e))
+            },
+
+            revoke(event) {
+                this.$store.dispatch('account/revokeCancellation').then(res => {
+                    event.done()
+                }).catch(e => this.$error(e))
+            },
         },
     }
 </script>
