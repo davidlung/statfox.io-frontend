@@ -64,7 +64,7 @@
                                     {{$t('your_plan')}}
                                 </v-chip>
                                 <v-dialog-confirm v-else-if="subscription.cancelAt===null" :title="$t('switch_to_free_title')"
-                                                :width="500"
+                                                width="500"
                                                 :pending="pendingCancel"
                                                 color="red"
                                                 :label-agree="$t('cancel_plan')"

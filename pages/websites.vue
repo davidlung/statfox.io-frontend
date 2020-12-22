@@ -56,7 +56,7 @@
                                         </v-list-item-content>
                                     </v-list-item>
                                     <VDialogConfirm :title="website.url"
-                                                    :width="500"
+                                                    width="500"
                                                     :label-agree="$t('delete')"
                                                     :label-disagree="$t('cancel')"
                                                     color="red"
