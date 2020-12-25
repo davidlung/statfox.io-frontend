@@ -7,7 +7,9 @@
         computed: {
             theme: {
                 set(v) {
-                    this.$cookies.set('darkMode', this.$vuetify.theme.dark = v)
+                    this.$cookies.set('darkMode', this.$vuetify.theme.dark = v, {
+                        expires: this.$time.dateFromTime(undefined, +86400*720)
+                    })
                 },
                 get() {
                     return this.$cookies.get('darkMode')||this.$vuetify.theme.dark

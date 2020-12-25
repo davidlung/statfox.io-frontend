@@ -1,0 +1,74 @@
+$dark-base: #303239;
+$dark-comp: #3e4249;
+$dark-darken: #292b31;
+
+.theme--dark {
+
+    &.v-application {
+        background: $dark-base !important;
+    }
+
+    &.v-app-bar {
+        background: $dark-base !important;
+    }
+
+    &.v-sheet {
+        background: $dark-base !important;
+    }
+
+    &.v-data-table {
+        background: transparent !important;
+    }
+
+    &.v-list {
+        background: transparent !important;
+    }
+
+    &.v-navigation-drawer {
+        background: $dark-darken !important;
+    }
+
+    &.v-card {
+        background: $dark-comp !important;
+        border: none;
+    }
+
+    &.v-expansion-panels .v-expansion-panel {
+        background: transparent !important;
+    }
+
+    &.v-menu__content {
+        background: #2c2f34;
+    }
+
+    &.v-text-field--solo > .v-input__control > .v-input__slot {
+        background: rgba(0,0,0,0.3) !important;
+    }
+
+    &.v-skeleton-loader {
+        .v-skeleton-loader__actions {
+            background: transparent !important;
+        }
+    }
+
+}
+
+.theme--light {
+
+    &.v-application {
+        background: #eceff1 !important;
+    }
+
+    &.v-navigation-drawer {
+        background-color: #ffffff !important;
+    }
+
+    &.v-app-bar.v-toolbar.v-sheet {
+        background-color: #fff !important;
+    }
+
+    &.v-text-field--solo > .v-input__control > .v-input__slot {
+        background-color: #eeeeee !important;
+    }
+
+}

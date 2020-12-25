@@ -1,5 +1,5 @@
 export default {
-    welcome: "Hallo.",
+    welcome: "Willkommen.",
     welcome_text: "Danke, dass Sie sich für unseren Dienst entschieden haben. Bei uns können Sie folgende Vorteile genießen:",
     get_started: "Jetzt loslegen",
     administration: "Verwaltung",
@@ -66,6 +66,12 @@ export default {
     started_at: "Gestartet am",
     deleted_at: "Gelöscht am",
     status: "Status",
+
+    vcomp: {
+        table: {
+            no_data: "Keine Daten verfügbar"
+        }
+    },
 
     rule: {
         please_select: "Bitte auswählen",
@@ -311,4 +317,18 @@ export default {
     payment_problem_requires_action: "Um die Bezahlung abzuschließen, müssen Sie eine Authentifizierung durchfüren. Bitte klicken Sie auf den unteren Button um die Authentifizierung zu starten.",
     payment_error_try_another_card: "Bitte wählen Sie eine andere Zahlungsmethode aus.",
     payment_failed_status_info: "Zahlung ist fehlgeschlagen. Aktueller Status: {0}",
+    limit_reached_title: "Sie haben Ihr monatliches Kontingent erreicht",
+    limit_reached_info: "Das Tracking Ihrer Websites wurde Pausiert, da Ihr monatliches Kontingent für Seitenaufrufe erreicht wurde. Das Tracking wird zum Beginn des kommenden Monats automatisch fortgesetzt. Wenn Sie Ihr monatliches Kontingent erhöhen möchten, können Sie ein Upgrade auf einen größeren Plan durchführen und das Tracking sofort fortsetzen lassen.",
+
+    // VERIFICATION
+
+    verification: {
+        title: "Verifizierung",
+        please_wait: "Bitte warten Sie einen Moment, Ihre Anfrage wird geprüft",
+        success_title: "Ihr Benutzerkonto wurde erfolgreich verifiziert",
+        failed_title: "Ihr Benutzerkonto konnte nicht verifiziert werden",
+        failed_info: "Der Link zur Verifizierung Ihres Benutzerkontos ist maximal 1 Stunde gültig. Sollten Sie diesen Link nach einer Stunde nach dem Versand der E-Mail geöffnet haben, so ist dieser nicht mehr gültig. Sie können sich jederzeit eine neue Verifizierungs-E-Mail zusenden lassen, indem Sie in den Einstellungen Ihres Benutzerkontos den entsprechenden Button zum erneuten Versand der E-Mail klicken.",
+        continue_to: "Weiter zu {0}",
+        open_account_settings: "Mein Benutzerkonto öffnen",
+    }
 }

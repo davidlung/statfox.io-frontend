@@ -6,7 +6,7 @@
             {{systemMessage}}
         </v-system-bar>
 
-        <v-navigation-drawer app :width="300" :mini-variant="false" v-model="drawer">
+        <v-navigation-drawer app :width="300" floating v-model="drawer">
 
             <Brand :compact="true"/>
 
@@ -16,7 +16,7 @@
                         <v-icon>{{ item.icon }}</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title v-text="item.title"/>
+                        <v-list-item-title v-text="item.title" class="font-weight-medium"/>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -52,12 +52,12 @@
             return {
                 items: [
                     {
-                        icon: 'mdi-view-dashboard',
-                        title: 'Dashboard',
+                        icon: 'mdi-chart-box-outline',
+                        title: this.$t('statistic'),
                         to: '/'
                     },
                     {
-                        icon: 'mdi-web',
+                        icon: 'mdi-monitor-dashboard',
                         title: 'Websites',
                         to: '/websites'
                     },

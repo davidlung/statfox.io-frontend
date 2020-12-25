@@ -134,7 +134,7 @@
 
                     <!-- ACTIONS -->
                     <div class="d-flex pt-5">
-                        <v-btn depressed :disabled="pending" @click="showBilling=!showBilling">
+                        <v-btn text :disabled="pending" @click="showBilling=!showBilling">
                             <span v-if="!showBilling">{{$t('add_billing_information')}}</span>
                             <span v-if="showBilling">{{$t('remove_billing_information')}}</span>
                         </v-btn>

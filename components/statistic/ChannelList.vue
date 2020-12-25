@@ -2,7 +2,8 @@
     <v-card outlined height="100%">
         <v-card-title class="pt-3 text-subtitle-2">{{$t('channel_title')}}</v-card-title>
         <v-skeleton-loader tile :loading="pending" type="text@10, actions">
-            <v-data-table dense :headers="headers" :items="stats" hide-default-footer mobile-breakpoint="100">
+            <v-data-table dense :headers="headers" :items="stats" hide-default-footer mobile-breakpoint="100"
+                          :no-data-text="$t('vcomp.table.no_data')">
                 <template v-slot:item.channel="{item}">
                     {{ ({
                     referral: $t('referrer_links'),

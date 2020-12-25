@@ -25,7 +25,8 @@ export default {
     loading: false,
 
     css: [
-        '~/static/css/main.css'
+        '~/static/css/main.css',
+        '~/static/css/theme.scss',
     ],
 
     plugins: [

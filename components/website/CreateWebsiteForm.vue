@@ -1828,8 +1828,11 @@
 
             close() {
                 this.apiKey = ''
-                this.$refs.formWebsiteCreate.reset()
-                this.$refs.formWebsiteCreate.resetValidation()
+                if (this.$refs.formWebsiteCreate) {
+                    this.$refs.formWebsiteCreate.reset()
+                    this.$refs.formWebsiteCreate.resetValidation()
+                }
+
                 this.$emit('close')
             },
 

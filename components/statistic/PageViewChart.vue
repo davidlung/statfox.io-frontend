@@ -1,13 +1,18 @@
 <template>
     <v-card min-height="200" outlined>
         <v-card-title class="pt-3 text-subtitle-2">
+            <span>{{$t('page_views')}}</span>
             <v-spacer></v-spacer>
             <v-icon :color="type==='bar'?'primary':'grey'" class="mr-4" @click="type='bar'">mdi-chart-bar</v-icon>
             <v-icon :color="type==='line'?'primary':'grey'" class="mr-2" @click="type='line'">mdi-chart-line</v-icon>
         </v-card-title>
-        <v-card-text>
+        <v-card-text v-if="stats.data.length">
             <bar-chart v-if="stats.data.length && type==='bar'" :chart-data="{labels, datasets}" :options="options" :height="150"/>
             <line-chart v-if="stats.data.length && type==='line'" :chart-data="{labels, datasets}" :options="options" :height="150"/>
+        </v-card-text>
+        <v-card-text v-else class="py-10 d-flex justify-center">
+            <v-icon >mdi-tea</v-icon>
+            <span class="pl-4 text-h6 font-weight-thin">{{$t('vcomp.table.no_data')}}</span>
         </v-card-text>
     </v-card>
 </template>
@@ -61,16 +66,16 @@
                     {
                         label: this.$t('visitors'),
                         data: this.stats.data.map(v => v.uniques),
-                        backgroundColor: this.$vuetify.theme.dark ? '#679910' : '#8dd411',
-                        borderColor: this.$vuetify.theme.dark ? '#679910' : '#8dd411',
+                        backgroundColor: this.$vuetify.theme.dark ? '#909aac' : '#3e4251',
+                        borderColor: this.$vuetify.theme.dark ? '#909aac' : '#3e4251',
                         fill: false,
                         lineTension: 0
                     },
                     {
                         label: this.$t('page_views'),
                         data: this.stats.data.map(v => v.views),
-                        backgroundColor: this.$vuetify.theme.dark ? '#4f6772' : '#607D8B',
-                        borderColor: this.$vuetify.theme.dark ? '#4f6772' : '#607D8B',
+                        backgroundColor: this.$vuetify.theme.dark ? '#a76137' : '#ff8534',
+                        borderColor: this.$vuetify.theme.dark ? '#a76137' : '#ff8534',
                         fill: false,
                         lineTension: 0
                     }
