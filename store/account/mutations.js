@@ -49,6 +49,10 @@ export default {
         Vue.set(state, 'subscription', subscription)
     },
 
+    SET_LIMIT_REACHED(state, bool) {
+        Vue.set(state, 'limitReached', bool)
+    },
+
     SET_SUBSCRIPTION_RECENTLY_UPDATED(state) {
         Vue.set(state, 'subscriptionRecentlyUpdated', true)
     },

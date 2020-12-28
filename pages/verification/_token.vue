@@ -1,56 +1,51 @@
 <template>
-    <v-container fill-height>
-        <v-card max-width="800" class="mx-auto mb-10 pa-5 pb-0">
+    <v-container fluid class="pt-8 text-center">
 
-            <v-card-text class="text-center pt-10">
-                <v-icon size="64" :color="verified ? 'green' : 'red'" v-if="!pending">
-                    {{verified ? 'mdi-checkbox-marked-circle-outline' : 'mdi-alert-circle-outline'}}
-                </v-icon>
-                <v-progress-circular indeterminate v-if="pending" size="64" color="primary"></v-progress-circular>
-            </v-card-text>
+        <Brand/>
 
-            <v-card-text v-if="pending" class="text-center">
-                <div class="title pb-5">Verification in progress..</div>
-                <div>
-                    Please wait a moment, do not close or leave this window, your account is being verified.
-                </div>
-            </v-card-text>
+        <div class="text-center py-8">
+            <v-icon size="64" :color="verified ? 'green' : 'red'" v-if="!pending">
+                {{verified ? 'mdi-checkbox-marked-circle-outline' : 'mdi-alert-circle-outline'}}
+            </v-icon>
+            <v-progress-circular indeterminate v-if="pending" size="64" color="primary"></v-progress-circular>
+        </div>
 
-            <v-card-text v-else class="text-center">
-                <template v-if="verified">
-                    <div class="title pb-5">Successfully verified!</div>
-                    <div>
-                        Thank you for verifying your email. Enjoy powerful API faking now with the plan that best
-                        fits your needs.
-                    </div>
-                    <v-btn depressed large nuxt color="primary" to="/" class="my-10">
-                        Back to {{$config.DOMAIN}}
-                    </v-btn>
-                </template>
-                <template v-if="!verified">
-                    <div class="title pb-5">Verification failed!</div>
-                    <div>
-                        Could not verify your email, maybe the link is expired. Please note that the verification link
-                        is only valid for 10 minutes. Please try again by resend a new verification email by clicking
-                        the resend button which you can find at the settings page of your {{$config.DOMAIN}} account.
-                    </div>
-                    <v-btn depressed large nuxt color="primary" to="/#settings" class="my-10">
-                        Go back to my account settings
-                    </v-btn>
-                </template>
-            </v-card-text>
-        </v-card>
+        <div v-if="pending">
+            <div class="text-h5 font-weight-thin">{{$t('verification.please_wait')}}</div>
+        </div>
+
+        <div v-else>
+            <template v-if="verified">
+                <div class="text-h5 font-weight-thin">{{$t('verification.success_title')}}</div>
+                <v-btn depressed large nuxt color="primary" to="/" class="my-10">
+                    {{$t('verification.continue_to', [$config.DOMAIN])}}
+                </v-btn>
+            </template>
+            <template v-else>
+                <div class="text-h5 font-weight-thin">{{$t('verification.failed_title')}}</div>
+                <div class="max-w-600 mx-auto mt-10">{{$t('verification.failed_info')}}</div>
+                <v-btn depressed large nuxt color="primary" to="/settings" class="my-10">
+                    {{$t('verification.open_account_settings')}}
+                </v-btn>
+            </template>
+        </div>
     </v-container>
 </template>
 
 <script>
     import {mapState} from 'vuex'
+    import Brand from "@/components/Brand";
 
     export default {
-        layout: 'grey',
 
-        head: {
-            title: "Verification"
+        layout: 'blank',
+
+        components: {Brand},
+
+        head() {
+            return {
+                title: this.$t('verification.title')
+            }
         },
 
         data() {
@@ -59,9 +54,9 @@
             }
         },
 
-        mounted() {
+        created() {
             if (this.auth.loggedIn && this.auth.user.verified === true) {
-                this.$router.replace('/');
+                this.$router.replace('/')
             }
 
             this.$store.dispatch('verify', this.$route.params.token).then(res => {
@@ -75,7 +70,7 @@
             ...mapState({
                 auth: state => state.auth,
                 pending(state) {
-                    return state.pending.global.verify || this.verified === null
+                    return state.pending.verify || this.verified === null
                 }
             }),
         },

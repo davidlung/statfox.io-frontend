@@ -14,6 +14,8 @@ export default () => ({
         currency: null,
     },
 
+    limitReached: false,
+
     invoices: [],
 
     paymentMethods: [],

@@ -12,6 +12,7 @@ export default {
     createWebsite({commit, dispatch}, data) {
         return this.$axios.post('/api/v1/websites', data).then( res => {
             commit('ADD_WEBSITE', res.data)
+            dispatch('loadStatistic', res.data.id)
             return res
         })
     },
@@ -19,17 +20,24 @@ export default {
     deleteWebsite({commit, dispatch, state}, id) {
         return this.$axios.delete('/api/v1/websites/'+id).then( res => {
             commit('DELETE_WEBSITE', id)
+            if (id === state.statistic.data.websiteId && state.websites.length) {
+                dispatch('loadStatistic', state.websites[0].id)
+            }
             return res
         })
     },
 
     // STATISTIC
 
-    loadStatistic({commit, state}, wid) {
+    loadStatistic({commit, state, dispatch}, wid) {
+        dispatch('reloadStatistic', wid)
+    },
+
+    reloadStatistic({commit, state, dispatch}, wid) {
         let cookieWid = this.$cookies.get('wid')
 
         if (wid === undefined) {
-            if (state.statistic.data.websiteId) {
+            if (state.statistic.data.websiteId && state.websites.find(w => w.id === state.statistic.data.websiteId)) {
                 wid = state.statistic.data.websiteId
             }else if (cookieWid && state.websites.find(w => w.id === cookieWid)) {
                 wid = cookieWid
@@ -39,7 +47,9 @@ export default {
                 return
             }
         }else{
-            this.$cookies.set('wid', wid)
+            this.$cookies.set('wid', wid, {
+                expires: this.$time.dateFromTime(undefined, +86400*7)
+            })
         }
 
         let starDate = new Date(state.statistic.dateRange.startDate),
@@ -58,8 +68,14 @@ export default {
             commit('SET_STATISTIC', res.data)
             return res
         }).catch(() => {
-
+            this.$cookies.remove('wid')
         })
     },
+
+    initStatPolling({state, dispatch}) {
+        setInterval(() => {
+            state.websites.length && dispatch('reloadStatistic')
+        }, 30000)
+    }
 
 }

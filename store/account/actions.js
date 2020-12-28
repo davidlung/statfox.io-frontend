@@ -9,6 +9,7 @@ export default {
             commit('SET_PLAN', res.data.plan)
             commit('SET_BILLING', res.data.billing)
             commit('SET_SUBSCRIPTION', res.data.subscription)
+            commit('SET_LIMIT_REACHED', res.data.limitReached)
             return res
         })
     },

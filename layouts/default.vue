@@ -67,9 +67,6 @@
                         to: '/settings'
                     },
                 ],
-                dialog: {
-                    settings: false
-                },
             }
         },
 
@@ -95,23 +92,6 @@
                     return this.$store.state.showMenu
                 }
             },
-
-            isHomeActive(){
-                return [
-                    'index'
-                ].includes(this.$route.name);
-            },
-
-            isServerActive(){
-                return id => this.$route.params.id === id
-            },
-
-            shortName() {
-                return (name) => {
-                    name = name.replace(/[\W_]+/g,"")
-                    return name.charAt(0) + (name.charAt(1)||'') + (name.charAt(2)||'')
-                }
-            }
         }
     }
 </script>

@@ -2,8 +2,14 @@ export default function (context, inject) {
 
     const time =  {
 
-        now() {
-            return Math.round((new Date()).getTime() / 1000)
+        dateFromTime(timestamp, diff) {
+            let date = new Date()
+            date.setTime((timestamp||Math.round((new Date()).getTime() / 1000))*1000 + (diff?diff*1000:0))
+            return date
+        },
+
+        now(diff) {
+            return (Math.round((new Date()).getTime() / 1000)) + (diff?diff*1000:0)
         },
 
         unixTime(date) {

@@ -36,6 +36,7 @@
     import Brand from "~/components/Brand";
 
     export default {
+
         layout: 'blank',
 
         head() {

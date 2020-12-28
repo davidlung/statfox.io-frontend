@@ -19,7 +19,7 @@
                    type="submit"
                    :loading="pending"
                    :disabled="!valid">
-                Save
+                {{$t('save')}}
             </v-btn>
         </template>
         <template v-else>

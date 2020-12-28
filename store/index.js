@@ -1,8 +1,6 @@
-import info from '../system-info.json'
-
 export const state = () => ({
-    systemMessage: info.message||'',
-    showMenu: true,
+    systemMessage: '',
+    showMenu: undefined,
     overlay: {
         loading: {
             show: false,
@@ -19,7 +17,7 @@ export const mutations = {
     },
 
     SET_SYSTEM_MESSAGE(state, message) {
-        state.systemMessage = (message||'') + (info.message||'')
+        state.systemMessage = message
     },
 
     SHOW_MENU(state, show) {
@@ -44,8 +42,13 @@ export const actions = {
             if (mutation.type === 'auth/SET_USER' && mutation.payload.id !== undefined) {
                 dispatch('account/initialize', context)
                 dispatch('website/initialize', context)
+                dispatch('website/initStatPolling', context)
             }
         })
+
+        if (state.auth.loggedIn) {
+            dispatch('website/initStatPolling', context)
+        }
 
         await dispatch('auth/nuxtClientInit', context)
 
@@ -69,7 +72,6 @@ export const actions = {
         commit('SHOW_MENU', !state.showMenu)
     },
 
-
     verify({commit}, token) {
         return this.$axios.get('/api/v1/account/verify', {params: {t: token}}).then(res => {
             commit('auth/SET_VERIFIED')
@@ -77,13 +79,12 @@ export const actions = {
         })
     },
 
-    updateUser({commit}, {fullName, email, username, currentPassword, newPassword}) {
+    updateUser({commit}, {name, email, currentPassword, newPassword}) {
         return this.$axios.patch(process.env.JSIO_ENDPOINT_USER, {
-            fullName, email, username, currentPassword, newPassword
+            name, email, currentPassword, newPassword
         }, {_retry: true}).then(res => {
             commit('auth/SET_EMAIL', email)
-            commit('auth/SET_NAME', fullName)
-            username && commit('auth/SET_USERNAME', username)
+            commit('auth/SET_NAME', name)
             return res
         })
     },

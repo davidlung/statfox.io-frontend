@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <v-app-bar dark elevate-on-scroll app class="" height="64">
             <v-btn icon @click="$store.dispatch('toggleMenu')"><v-icon>mdi-menu</v-icon></v-btn>
             <v-toolbar-title class="d-flex align-center">
@@ -28,7 +27,7 @@
                 <date-range-picker
                     ref="picker"
                     opens="left"
-                    :locale-data="{ firstDay: 1 }"
+                    :locale-data="localeData"
                     v-model="dateRange"
                     :ranges="dateRanges"
                     @update="$store.dispatch('website/loadStatistic')"
@@ -62,6 +61,19 @@
             </v-card>
         </v-container>
         <v-container class="max-w-1200" v-if="websites.length && hasStats">
+
+            <v-row v-if="limitReached">
+                <v-col>
+                    <v-card outlined>
+                        <v-card-title class="font-weight-thin">
+                            <v-icon class="mr-4">mdi-clock-alert-outline</v-icon>
+                            {{$t('limit_reached_title')}}
+                        </v-card-title>
+                        <v-card-text>{{$t('limit_reached_info')}}</v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+
             <v-row>
                 <v-col>
                     <UserCounter/>
@@ -166,8 +178,10 @@ import TrackingCode from "~/components/website/TrackingCode";
 
 export default {
 
-    head: {
-        title: "Home"
+    head() {
+        return {
+            title: this.website.name
+        }
     },
 
     components: {
@@ -196,14 +210,15 @@ export default {
             websites: state => state.website.websites,
             statistic: state => state.website.statistic,
             hasStats: state => state.website.statistic.data.views.allTime > 0,
+            limitReached: state => state.account.limitReached
         }),
 
         hasStats() {
-            return this.statistic.data.websiteId === null || this.statistic.data.views.allTime > 0
+            return this.statistic.data.websiteId !== null && this.statistic.data.views.allTime > 0
         },
 
         website() {
-            return this.websites.find(w => w.id === this.statistic.data.websiteId)||{name:"Dashboard"}
+            return this.websites.find(w => w.id === this.statistic.data.websiteId)||{name:this.$t('statistic')}
         },
 
         dateRanges() {
@@ -288,6 +303,26 @@ export default {
                 return dateStart.toLocaleDateString(undefined, options) + ' - ' + dateEnd.toLocaleDateString(undefined, options)
             }
         },
+
+        localeData() {
+            let date = new Date(), data = {
+                firstDay: 1,
+                daysOfWeek: [],
+                monthNames: []
+            }, monthIndexes = [0,1,2,3,4,5,6,7,8,9,10,11], dayIndexes = [0,1,2,3,4,5,6]
+
+            monthIndexes.forEach(m => {
+                date.setMonth(m)
+                data.monthNames.push(date.toLocaleString('default', {month: 'short'}))
+            })
+
+            dayIndexes.forEach(d => {
+                date.setDate(date.getDate() + (d - date.getDay()))
+                data.daysOfWeek.push(date.toLocaleString('default', {weekday: 'short'}))
+            })
+
+            return data
+        }
     },
 
     created() {
@@ -332,4 +367,6 @@ export default {
         .form-control.reportrange-text
             border: none
             background: transparent
+
+
 </style>

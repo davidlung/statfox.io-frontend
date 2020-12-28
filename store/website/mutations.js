@@ -13,7 +13,7 @@ export default {
     },
 
     DELETE_WEBSITE(state, id) {
-        Vue.delete(state.websites, state.websites.indexOf(state.websites.find(w => w.id = id)))
+        Vue.delete(state.websites, state.websites.indexOf(state.websites.find(w => w.id === id)))
     },
 
     // STATISTIC

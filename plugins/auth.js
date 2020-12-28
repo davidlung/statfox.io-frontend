@@ -27,7 +27,22 @@ export default function ({store}) {
 
             SET_REFRESH_TIMER(state, timer) {
                 state.refreshTimer = timer
-            }
+            },
+
+            SET_EMAIL(state, email) {
+                if (state.user && state.user.email !== email) {
+                    Vue.set(state.user, 'email', email)
+                    Vue.set(state.user, 'verified', false)
+                }
+            },
+
+            SET_NAME(state, name) {
+                state.user && Vue.set(state.user, 'fullName', name)
+            },
+
+            SET_VERIFIED(state) {
+                state.user && Vue.set(state.user, 'verified', true)
+            },
 
         },
 

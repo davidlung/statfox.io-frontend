@@ -37,10 +37,13 @@
     import Brand from "~/components/Brand";
 
     export default {
+
         layout: 'blank',
 
-        head: {
-            title: "Password Reset"
+        head() {
+            return {
+                title: this.$t('password_reset')
+            }
         },
 
         components: {

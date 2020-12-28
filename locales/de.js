@@ -23,7 +23,7 @@ export default {
     password_reset: "Password zurücksetzen",
     request_password_reset: "Password zurücksetzen",
     forgot_password: "Ich habe mein Password vergessen",
-    password_reset_check_mailbox: "Bitte überprüfen Sie Ihren E-Mail Posteingang auf unsere E-Mail. Dieser enthält einen Link zum zurücksetzen Ihres Passworts. Wenn die E-Mail in wenigen Minuten nicht angekommen ist, überprüfen Sie Ihre SPAM E-mails oder versuchen Sie es erneut.",
+    password_reset_check_mailbox: "Bitte überprüfen Sie Ihren E-Mail Posteingang auf unsere E-Mail. Dieser enthält einen Link zum zurücksetzen Ihres Passworts. Wenn die E-Mail in wenigen Minuten nicht angekommen ist, überprüfen Sie Ihre SPAM E-Mails oder versuchen Sie es erneut.",
     continue: "Weiter",
     sign_in: "Anmelden",
     change_password_q: "Passwort ändern?",

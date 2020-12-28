@@ -181,9 +181,8 @@
                 if(this.pending || !this.availability.email || !this.availability.username) return
 
                 this.$store.dispatch('updateUser', {
-                    fullName: this.form.data.name,
+                    name: this.form.data.name,
                     email: this.form.data.email,
-                    username: this.form.data.username,
                     currentPassword: this.form.data.currentPassword,
                     newPassword: this.form.data.newPassword
                 }).then(res => {

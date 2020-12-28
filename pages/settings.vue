@@ -105,7 +105,9 @@
             theme: {
                 set(v) {
                     this.$vuetify.theme.dark = !v
-                    this.$cookies.set('darkMode', !v)
+                    this.$cookies.set('darkMode', !v, {
+                        expires: this.$time.dateFromTime(undefined, +86400*720)
+                    })
                 },
                 get() {
                     return this.$vuetify.theme.dark ? 0 : 1
