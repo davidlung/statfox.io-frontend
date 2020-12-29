@@ -1,6 +1,6 @@
 {
     "name": "app.statfox.io",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "A Json Fake Data API Platform for generating fake/test data.",
     "author": "David M. Lung",
     "private": true,
