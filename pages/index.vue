@@ -60,8 +60,7 @@
                 </v-card-text>
             </v-card>
         </v-container>
-        <v-container class="max-w-1200" v-if="websites.length && hasStats">
-
+        <v-container class="max-w-1400" v-if="websites.length && hasStats">
             <v-row v-if="limitReached">
                 <v-col>
                     <v-card outlined>
@@ -73,16 +72,18 @@
                     </v-card>
                 </v-col>
             </v-row>
-
             <v-row>
-                <v-col>
+                <v-col cols="6" lg="3">
                     <UserCounter/>
                 </v-col>
-                <v-col>
+                <v-col cols="6" lg="3">
                     <ViewCounter/>
                 </v-col>
-                <v-col>
+                <v-col cols="6" lg="3">
                     <BounceCounter/>
+                </v-col>
+                <v-col cols="6" lg="3">
+                    <AvgVisitTimeCounter/>
                 </v-col>
             </v-row>
             <v-row>
@@ -175,6 +176,7 @@ import PageViewChart from "@/components/statistic/PageViewChart";
 import UtmList from "~/components/statistic/UtmList";
 import CreateWebsiteForm from "~/components/website/CreateWebsiteForm";
 import TrackingCode from "~/components/website/TrackingCode";
+import AvgVisitTimeCounter from "@/components/statistic/AvgVisitTimeCounter";
 
 export default {
 
@@ -185,6 +187,7 @@ export default {
     },
 
     components: {
+        AvgVisitTimeCounter,
         TrackingCode,
         CreateWebsiteForm,
         UtmList,

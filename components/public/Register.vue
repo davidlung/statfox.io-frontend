@@ -136,7 +136,6 @@
 
                 this.$store.dispatch('account/register', this.data).then(res => {
                     this.redirecting = true
-                    //this.$ws.connect()
                     return this.$router.push('/welcome')
                 }).catch(e => {
 

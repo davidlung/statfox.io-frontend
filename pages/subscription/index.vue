@@ -53,7 +53,7 @@
                     <v-col cols="12" sm="6" md="3">
                         <v-card flat outlined height="100%">
                             <v-card-title class="text-overline justify-center">Free</v-card-title>
-                            <v-card-text class="text-h4 text-center pb-2">100.000</v-card-text>
+                            <v-card-text class="text-h4 text-center pb-2">50.000</v-card-text>
                             <v-card-text class="text-caption text-center pt-0">{{$t('page_view_month')}}</v-card-text>
                             <v-card-text class="font-weight-regular pt-5 text-center">
                                 <div class="primary--text text-h4" v-if="plans.length">{{price(plans[1]).currencySign}}0</div>

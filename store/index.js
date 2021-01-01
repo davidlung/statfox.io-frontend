@@ -51,13 +51,6 @@ export const actions = {
         }
 
         await dispatch('auth/nuxtClientInit', context)
-
-        setTimeout(() => {
-            if (context.$config.ENV_IS_STAGING === true) {
-                commit('SET_SYSTEM_MESSAGE', 'ATTENTION: JsonServer.io is running in STAGING mode. ' +
-                    'Test mode is enabled for subscription and payment processor!')
-            }
-        }, 3000)
     },
 
     showLoadingOverlay({commit}, message) {
@@ -79,9 +72,9 @@ export const actions = {
         })
     },
 
-    updateUser({commit}, {name, email, currentPassword, newPassword}) {
+    updateUser({commit}, {fullName, email, currentPassword, newPassword}) {
         return this.$axios.patch(process.env.JSIO_ENDPOINT_USER, {
-            name, email, currentPassword, newPassword
+            fullName, email, currentPassword, newPassword
         }, {_retry: true}).then(res => {
             commit('auth/SET_EMAIL', email)
             commit('auth/SET_NAME', name)

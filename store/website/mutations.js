@@ -16,6 +16,11 @@ export default {
         Vue.delete(state.websites, state.websites.indexOf(state.websites.find(w => w.id === id)))
     },
 
+    RENAME_WEBSITE(state, {id, name}) {
+        let website = state.websites.find(w => w.id === id)
+        website && Vue.set(website, 'name', name)
+    },
+
     // STATISTIC
 
     SET_STATISTIC(state, statistic) {

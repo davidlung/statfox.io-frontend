@@ -1,4 +1,22 @@
 export default {
+
+    // GENERICS
+
+    success: "Erfolg",
+    succeeded: "Erfolgreich",
+    warning: "Warnung",
+    back: "Zurück",
+    yes: "Ja",
+    ok: "Ok",
+    no: "Nein",
+    active: "Aktiv",
+    inactive: "Inaktiv",
+    problem: "Problem",
+    created_at: "Erstellt am",
+    started_at: "Gestartet am",
+    deleted_at: "Gelöscht am",
+    status: "Status",
+
     welcome: "Willkommen.",
     welcome_text: "Danke, dass Sie sich für unseren Dienst entschieden haben. Bei uns können Sie folgende Vorteile genießen:",
     get_started: "Jetzt loslegen",
@@ -6,7 +24,6 @@ export default {
     account: "Benutzerkonto",
     payment_methods: "Zahlungsmethoden",
     invoices: "Rechnungen",
-    plans: "Pläne",
     design: "Erscheinungsbild",
     settings: "Einstellungen",
     add: "Hinzufügen",
@@ -37,7 +54,7 @@ export default {
     light: "Hell",
     logout: "Abmelden",
     login: "Anmelden",
-    your_name: "Dein Name",
+    your_name: "Ihr Name",
     welcome_to: "Willkommen bei {0}",
     welcome_back: "Willkommen zurück bei {0}",
     create_account: "Neues Benutzerkonto erstellen",
@@ -52,20 +69,6 @@ export default {
     first_time_online: "Sie sind zum ersten Mal online.",
     all_rights_reserved: "© 2020 {0} Alle Rechte vorbehalten.",
     have_account_q: "Sie haben breits ein Konto?",
-
-    success: "Erfolg",
-    succeeded: "Erfolgreich",
-    back: "Zurück",
-    yes: "Ja",
-    ok: "Ok",
-    no: "Nein",
-    active: "Aktiv",
-    inactive: "Inaktiv",
-    problem: "Problem",
-    created_at: "Erstellt am",
-    started_at: "Gestartet am",
-    deleted_at: "Gelöscht am",
-    status: "Status",
 
     vcomp: {
         table: {
@@ -91,7 +94,7 @@ export default {
             to_short: "Das Passwort ist zu kurz.",
         },
         url: {
-            empty: "Bitte trage die URL deiner Website ein.",
+            empty: "Bitte tragen Sie die URL Ihrer Website ein.",
             invalid: "Die URL scheint nicht korrekt zu sein, bitte überprüfe diese.",
         },
         tz: {
@@ -112,7 +115,12 @@ export default {
 
     toast: {
         account: {
-            updated: "Dein Benutzerkonto wurde erfolgreich aktualisiert."
+            updated: "Ihr Benutzerkonto wurde erfolgreich aktualisiert."
+        },
+        websites: {
+            updated: "Website wurde aktualisiert.",
+            deleted: "Website wurde gelöscht..",
+            created: "Website wurde erstellt.",
         }
     },
 
@@ -127,6 +135,7 @@ export default {
     },
 
     bounce_rate: "Absprungsrate",
+    avg_visit_duration: "Verweildauer pro Seite",
     ratio: "Anteil",
     views: "Aufrufe",
     uniques: "Nutzer",
@@ -152,21 +161,21 @@ export default {
     ad_campaign: "Kampagne",
 
     no_tracking_data_headline: "Wir haben noch keine Tracking-Daten zu dieser Website empfangen.",
-    no_tracking_data_text: "Sobald die erste Tracking-Information bei uns eingeht, wird hier die Statistik zusehen sein. Dies passiert in der Regel, sobald der Tracking-Code auf der Seite die erfasst werden soll platziert ist und die Seite aufgerufen wird. Wenn du den Tracking-Code noch nicht auf deinen Webseiten hinzugrfügt hast, dann folge der Anleitung unterhalb, um mit dem Tracken zu starten.",
+    no_tracking_data_text: "Sobald die erste Tracking-Information bei uns eingeht, wird hier die Statistik zusehen sein. Dies passiert in der Regel, sobald der Tracking-Code auf der Seite die erfasst werden soll platziert ist und die Seite aufgerufen wird. Wenn Sie den Tracking-Code noch nicht auf Ihr Webseite hinzugrfügt haben, dann folgen Sie der Anleitung unterhalb, um mit dem Tracken zu starten.",
 
 
     no_websites_headline: "Es ist noch keine Website eingerichtet",
-    no_websites_text: "Um mit dem Tracken zu beginnen, musst du zunächst deine Website einrichten.",
-    your_websites: "Deine Websites",
+    no_websites_text: "Um mit dem Tracken zu beginnen, müssen Sie zunächst Ihre Website hinzufügen.",
+    your_websites: "Ihre Websites",
     add_website: "Website hinzufügen",
     statistic: "Statistik",
     tracking_code: "Tracking-Code",
     tracking_code_info: "Dies ist der Tracking-Code, der auf jeder Seite der Website platziert werden muss, um diese zu tracken. Kopiere diesen Code, um ihn in den <head> Bereich aller Seiten einzufügen, die Sie erfassen möchten.",
     rename: "Umbenennen",
     delete: "Löschen",
-    delete_website_text: "Möchtest du diese Website wirklich löschen? Dieser Vorgang entfernt die Website und dessen Statistiken. Möchtest du fortfahren?",
+    delete_website_text: "Möchten Sie diese Website wirklich löschen? Dieser Vorgang entfernt die Website und dessen Statistiken und kann nicht rückgängig gemacht werden! Möchten Sie fortfahren?",
     no_website: "Keine Website vorhanden",
-    no_website_info: "Du hast noch keine Website hinzugefügt. Um die Statistik/Tracking nutzen zu können, muss mindestens eine Website hinzugefügt werden.",
+    no_website_info: "Sie haben noch keine Website hinzugefügt. Um die Statistik/Tracking nutzen zu können, muss mindestens eine Website hinzugefügt werden.",
     website_name: "Name der Website",
     please_select: "Bitte auswählen",
     select_timezone_first: "Wähle zuerst die Hauptzone aus",
@@ -178,21 +187,23 @@ export default {
     verification_check_inbox: "Bitte überprüfen Sie Ihren Posteingang und folgende Sie der enthaltenen Anleitung. Wenn Sie keine E-Mail erhalten haben, überprüfen Sie Ihren SPAM-Order, versuchen es etwas später erneut oder schreiben Sie eine E-mail an support@{0}.",
 
 
+    rename_website: "Website umbenennen",
+
     page_view_month: "Seitenaufrufe pro Monat",
-    your_plan: "Dein aktueller Plan",
+    your_plan: "Ihr aktueller Plan",
     per_interval: "pro {0}",
     month: "Monat",
     monthly: "Monatlich",
     year: "Jahr",
     yearly: "Jährlich",
     annual_discount_info: "Jährlich (~{0}% weniger zahlen)",
-    restricted_interval_change_info: "Dein aktueller Plan hat eine Laufzeit von einem Jahr. Ein Upgrade/Downgrade auf einen monatlichen Plan ist nicht möglich.",
-    plan_canceled_expire_info: "Dein Plan ist gekündigt und wird am {0} ablaufen.",
-    plan_canceled_switch_info: "Wenn du auf einen anderen Plan wechseln möchtest, musst du deine Kündigung stornieren oder warten bis dein aktuell gekündigter Plan abgelaufen ist.",
+    restricted_interval_change_info: "Ihr aktueller Plan hat eine Laufzeit von einem Jahr. Ein Upgrade/Downgrade auf einen monatlichen Plan ist nicht möglich.",
+    plan_canceled_expire_info: "Ihr Plan ist gekündigt und wird am {0} ablaufen.",
+    plan_canceled_switch_info: "Wenn Sie auf einen anderen Plan wechseln möchten, müssen Sie Ihre Kündigung stornieren oder warten bis Ihr aktuell gekündigter Plan abgelaufen ist.",
     switch: "Wechseln",
     switch_issue: "Pläne können nicht gewechselt werden solange Probleme mit dem aktuellem Plan bestehen.",
-    plan_downgrade_year_info: "Du hast bereits für ein Jahr bezahlt, wodurch ein Downgrade nicht mehr möglich ist.",
-    plan_recently_downgrade_info: "Du hast vor kurzem einen neuen Plan abonniert oder ein Downgrade eines bestehenden Plans durchgeführt. Um eine Ausnutzung des Systems zu vermeiden, kann nur alle 30 Tage ein Downgrade durchgeführt werden.",
+    plan_downgrade_year_info: "Sie haben bereits für ein Jahr bezahlt, wodurch ein Downgrade nicht mehr möglich ist.",
+    plan_recently_downgrade_info: "Sie haben vor kurzem einen neuen Plan abonniert oder ein Downgrade eines bestehenden Plans durchgeführt. Um eine Ausnutzung des Systems zu vermeiden, kann nur alle 30 Tage ein Downgrade durchgeführt werden.",
     plan_upgrade_year_to_month_info: "Ein Upgrade von einem jährlichen auf einen monatlichen Plan ist nicht möglich.",
     plan_switch_year_to_month_info: "Ein wechsel von einem jährlichen auf einen monatlichen Plan ist nicht möglich.",
 
@@ -211,13 +222,13 @@ export default {
     // PAYMENT METHODS
 
     payment_method: "Zahlungsmethode",
-    no_payment_method: "Du hast noch keine Zahlungsmethode hinzugefügt.",
+    no_payment_method: "Sie haben noch keine Zahlungsmethode hinzugefügt.",
     add_credit_card: "Kreditkarte hinzufügen",
     payment_method_choose_info: "Wähle eine Zahlungsmethode aus oder füge eine neue hinzu",
     select_existing_payment_method: "Wähle eine vorhandene Zahlungsmethode aus",
     card_expires_on: "Gültig bis {0}/{1}",
     set_default_payment_method: "Als standard Zahlungsmethode festlegen",
-    delete_payment_method_question: "Bist du dir sicher, dass du diese Zahlungsmethode entfernen möchtest?",
+    delete_payment_method_question: "Sind Sie sich sicher, dass Sie diese Zahlungsmethode entfernen möchten?",
     change_payment_method: "Zahlungsmethode ändern",
 
     // CREDIT CARD
@@ -249,6 +260,7 @@ export default {
 
     // PLAN
 
+    plans: "Pläne",
     switch_plan_title: "Plan wechseln",
     switch_plan_info: "Überprüfen Sie Ihre Auswahl und fahren Sie fort",
     switch_to_free_title: "Zum kostenlosen Plan wechseln",
@@ -263,8 +275,8 @@ export default {
     selected_plan: "Ihr ausgewählter Plan",
     subscribe: "Abonnieren",
     checkout_title: "Prüfen und abschließen",
-    checkout_subtitle: "Überprüfe deine Auswahl und schließe das Abonnement ab",
-    checkout_law_info: "Mit der Bestätigung dieses Abonnements erklärst du dich damit einverstanden, dass {0} als Zahlungsverkehr-Partner von {1}, die ausgewählte Zahlungsmethode für diese und zukünftige Zahlungen in Übereinstimmung mit den Nutzungsbedingungen belastet.",
+    checkout_subtitle: "Überprüfen Sie Ihre Auswahl und schließen Sie das Abonnement ab",
+    checkout_law_info: "Mit der Bestätigung dieses Abonnements erklären Sie sich damit einverstanden, dass {0} als Zahlungsverkehr-Partner von {1}, die ausgewählte Zahlungsmethode für diese und zukünftige Zahlungen in Übereinstimmung mit den Nutzungsbedingungen belastet.",
     payment_error: {
         could_not_charged: "Die angegebene Zahlungsmethode konnte nicht belastet werden.",
         could_not_charged_default: "Ihre standard Zahlungsmethode konnte nicht belastet werden. Bitte wählen Sie eine andere Zahlungsmethode aus.",

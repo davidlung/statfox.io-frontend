@@ -41,9 +41,9 @@
                 return type => {
                     return {
                         info:'INFORMATION',
-                        success:'SUCCESS',
+                        success:this.$t('succeeded').toUpperCase(),
                         error:'ERROR',
-                        warning:'WARNING',
+                        warning:this.$t('warning').toUpperCase(),
                     }[type]
                 }
             }
@@ -56,6 +56,7 @@
     #toast-container
         position: fixed
         z-index: 999999999999
+        color: #2c2f34
         bottom: 0
         right: 0
         padding: 30px

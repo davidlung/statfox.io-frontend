@@ -47,7 +47,7 @@
                                             <v-list-item-title>{{$t('tracking_code')}}</v-list-item-title>
                                         </v-list-item-content>
                                     </v-list-item>
-                                    <v-list-item @click="">
+                                    <v-list-item @click="dialogRename(website.id)">
                                         <v-list-item-icon class="mr-5">
                                             <v-icon>mdi-pencil</v-icon>
                                         </v-list-item-icon>
@@ -118,7 +118,20 @@
                     <v-btn icon @click="dialog.code=false"><v-icon>mdi-close</v-icon></v-btn>
                 </v-card-title>
                 <v-card-text>
-                    <TrackingCode :api-key="codeWid"/>
+                    <TrackingCode :api-key="websiteId"/>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="dialog.rename" max-width="700">
+            <v-card>
+                <v-card-title>
+                    <span>{{$t('rename_website')}}</span>
+                    <v-spacer></v-spacer>
+                    <v-btn icon @click="dialog.rename=false"><v-icon>mdi-close</v-icon></v-btn>
+                </v-card-title>
+                <v-card-text>
+                    <RenameWebsiteForm :website-id="websiteId" @close="dialog.rename=false"/>
                 </v-card-text>
             </v-card>
         </v-dialog>
@@ -131,10 +144,12 @@
     import VDialogConfirm from "@/components/VDialogConfirm";
     import CreateWebsiteForm from "~/components/website/CreateWebsiteForm";
     import TrackingCode from "~/components/website/TrackingCode";
+    import RenameWebsiteForm from "@/components/website/RenameWebsiteForm";
 
     export default {
 
         components: {
+            RenameWebsiteForm,
             TrackingCode,
             CreateWebsiteForm,
             VDialogConfirm,
@@ -144,7 +159,7 @@
         computed: {
             ...mapState({
                 websites: state => state.website.websites,
-                pendingDelete: state => state.pending.website.deleteWebsite
+                pendingDelete: state => state.pending.website.deleteWebsite,
             })
         },
 
@@ -152,23 +167,29 @@
             return {
                 dialog: {
                     create: false,
-                    code: false
+                    code: false,
+                    rename: false
                 },
-                codeWid: null,
+                websiteId: null,
             }
         },
 
         methods: {
 
             dialogCode(id) {
-                id !== undefined && (this.codeWid = id) && (this.dialog.code = true)
+                id !== undefined && (this.websiteId = id) && (this.dialog.code = true)
+            },
+
+            dialogRename(id) {
+                this.websiteId = id
+                this.dialog.rename = true
             },
 
             deleteWebsite(id, event) {
                 this.$store.dispatch('website/deleteWebsite', id).then(res => {
                     event.done()
-                })
-            }
+                }).catch(e => this.$error(e))
+            },
 
         }
 

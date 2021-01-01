@@ -13,6 +13,7 @@ export default {
         return this.$axios.post('/api/v1/websites', data).then( res => {
             commit('ADD_WEBSITE', res.data)
             dispatch('loadStatistic', res.data.id)
+            this.$toast.success(this.app.i18n.t('toast.websites.created'))
             return res
         })
     },
@@ -23,6 +24,15 @@ export default {
             if (id === state.statistic.data.websiteId && state.websites.length) {
                 dispatch('loadStatistic', state.websites[0].id)
             }
+            this.$toast.success(this.app.i18n.t('toast.websites.deleted'))
+            return res
+        })
+    },
+
+    renameWebsite({commit, dispatch, state}, {id, name}) {
+        return this.$axios.patch('/api/v1/websites/'+id, {name}).then( res => {
+            commit('RENAME_WEBSITE', {id, name})
+            this.$toast.success(this.app.i18n.t('toast.websites.updated'))
             return res
         })
     },

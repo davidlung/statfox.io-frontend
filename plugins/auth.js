@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export default function ({store}) {
 
     store.registerModule('auth', {

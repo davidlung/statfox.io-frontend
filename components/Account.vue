@@ -68,7 +68,22 @@
             </v-form>
         </v-card-text>
 
+        <v-divider class="my-7"></v-divider>
+
+        <v-list>
+            <v-list-item>
+                <v-list-item-content>
+                    Sprache
+                </v-list-item-content>
+                <v-list-item-action>
+                    <v-select solo flat hide-details :items="locales" v-model="locale"></v-select>
+                </v-list-item-action>
+            </v-list-item>
+        </v-list>
+
     </v-card>
+
+
 
 </template>
 
@@ -76,10 +91,12 @@
     import {mapState} from 'vuex'
     import Verification from "./Verification";
     import InputLabel from './InputLabel'
+    import JSectionTitle from "@/components/JSectionTitle";
 
     export default {
 
         components: {
+            JSectionTitle,
             Verification,
             InputLabel
         },
@@ -91,6 +108,10 @@
 
         data() {
             return {
+                locales: [
+                    {text: 'Deutsch', value: 'de'},
+                    {text: 'English', value: 'en'},
+                ],
                 showCurrentPassword: false,
                 showNewPassword: false,
                 availability: {
@@ -142,6 +163,16 @@
                 account: state => state.account,
                 pending: state => state.pending.updateUser
             }),
+
+            locale: {
+                get() {
+                    return this.$i18n.locale
+                },
+                set(locale) {
+                    this.$i18n.setLocale(locale)
+                    this.$store.dispatch('account/changeLocale', locale)
+                }
+            }
         },
 
         methods: {
@@ -181,7 +212,7 @@
                 if(this.pending || !this.availability.email || !this.availability.username) return
 
                 this.$store.dispatch('updateUser', {
-                    name: this.form.data.name,
+                    fullName: this.form.data.name,
                     email: this.form.data.email,
                     currentPassword: this.form.data.currentPassword,
                     newPassword: this.form.data.newPassword

@@ -15,8 +15,14 @@ export default {
     },
 
     register({commit, state, dispatch}, {email, password, captcha}) {
-        return this.$axios.post('/auth/signup', {email, password, captcha}).then(() => {
+        return this.$axios.post('/auth/signup', {email, password, captcha, locale: this.$i18n.locale}).then(() => {
             return dispatch('auth/login', {email, password}, {root: true})
+        })
+    },
+
+    changeLocale({commit}, locale) {
+        return this.$axios.patch('/api/v1/account', {locale}).then(res => {
+            return res
         })
     },
 

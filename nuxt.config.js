@@ -7,8 +7,8 @@ export default {
     ssr: true,
 
     head: {
-        titleTemplate: '%s - Analytics.io',
-        title: 'Analytics.io',
+        titleTemplate: '%s - statfox.io',
+        title: 'statfox.io',
         meta: [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1'},
@@ -18,7 +18,7 @@ export default {
             {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
         ],
         script: [
-            // {src: '/code.js', wid: 'ab9d24dfbb1c129be3cf695322bab901', defer: true}
+             // {src: '/code-dev.js', wid: 'ab9d24dfbb1c129be3cf695322bab901', defer: true}
         ]
     },
 
@@ -76,18 +76,7 @@ export default {
             cookieSecure: false
         },
         vueI18n: {
-            fallbackLocale: 'en',
-            messages: {
-                en: {
-                    welcome: 'Welcome'
-                },
-                fr: {
-                    welcome: 'Bienvenue'
-                },
-                es: {
-                    welcome: 'Bienvenido'
-                }
-            }
+            fallbackLocale: 'en'
         }
     },
 
@@ -108,35 +97,35 @@ export default {
         optionsPath: './vuetify.options.js'
     },
 
-    // build: {
-    //     extractCSS: true,
-    //     optimization: {
-    //         minimize: true,
-    //         splitChunks: {
-    //             chunks: 'all',
-    //             cacheGroups: {
-    //                 styles: {
-    //                     name: 'styles',
-    //                     test: /\.(css|vue)$/, // <-- This line is causing error
-    //                     chunks: 'all',
-    //                     enforce: true
-    //                 },
-    //                 vendors: {
-    //                     test: /[\\/]node_modules[\\/]/i,
-    //                     chunks: "all"
-    //                 },
-    //                 commons: {
-    //                     name: "commons",
-    //                     chunks: "initial",
-    //                     minChunks: 2
-    //                 }
-    //             }
-    //         },
-    //
-    //     },
-    //     extend(config, ctx) {
-    //     }
-    // },
+    build: {
+        extractCSS: true,
+        optimization: {
+            minimize: true,
+            splitChunks: {
+                chunks: 'all',
+                cacheGroups: {
+                    styles: {
+                        name: 'styles',
+                        test: /\.(css|vue)$/, // <-- This line is causing error
+                        chunks: 'all',
+                        enforce: true
+                    },
+                    vendors: {
+                        test: /[\\/]node_modules[\\/]/i,
+                        chunks: "all"
+                    },
+                    commons: {
+                        name: "commons",
+                        chunks: "initial",
+                        minChunks: 2
+                    }
+                }
+            },
+
+        },
+        extend(config, ctx) {
+        }
+    },
 
     axios: {
         browserBaseURL: env.BASE_BROWSER_URL||'',
@@ -187,7 +176,7 @@ export default {
 
     publicRuntimeConfig: {
         BASE_BROWSER_URL: env.BASE_BROWSER_URL||'',
-        TRACKING_SCRIPT_URL: env.BASE_BROWSER_URL + '/code.js',
+        TRACKING_SCRIPT_URL: 'https://t.statfox.io',
         ENV_IS_STAGING: env.ENV_IS_STAGING||false,
         STRIPE_KEY: env.STRIPE_KEY,
         DOMAIN: 'statfox.io',

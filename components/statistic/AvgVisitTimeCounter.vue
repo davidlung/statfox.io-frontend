@@ -1,9 +1,9 @@
 <template>
     <v-card outlined min-height="110">
-        <v-card-title class="pt-3 text-subtitle-2">{{$t('bounce_rate')}}</v-card-title>
+        <v-card-title class="pt-3 text-subtitle-2">{{$t('avg_visit_duration')}}</v-card-title>
         <v-card-text class="text-h4">
             <v-skeleton-loader type="button" :loading="pending">
-                {{stats}} <span class="text-body-1">%</span>
+                <span class="text-h4">ø</span> {{stats}} <span class="text-body-1">min</span>
             </v-skeleton-loader>
         </v-card-text>
     </v-card>
@@ -22,7 +22,12 @@
             }),
 
             stats() {
-                return this.wid ? this.statistic.data.views.bounce : '-'
+                if (this.wid) {
+                    let date = new Date(null)
+                    date.setSeconds(this.statistic.data.views.duration)
+                    return date.toLocaleTimeString().substr(3)
+                }
+                return '-'
             },
         }
 

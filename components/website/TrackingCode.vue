@@ -27,7 +27,6 @@
             code() {
                 let tag = 'script',
                     src = this.$config.TRACKING_SCRIPT_URL
-
                 return `<${tag} src="${src}" wid="${this.apiKey}" defer></${tag}>`
             }
 
