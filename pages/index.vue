@@ -355,16 +355,12 @@ export default {
             createWebsiteDialog: false
         }
     },
-
-    methods: {
-
-    }
 }
 </script>
 
 <style lang="sass">
     .v-data-footer__select
-        display: none
+        display: none !important
 
     .vue-daterange-picker
         .form-control.reportrange-text

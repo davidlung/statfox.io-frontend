@@ -73,7 +73,7 @@
         <v-list>
             <v-list-item>
                 <v-list-item-content>
-                    Sprache
+                    {{$t('language')}}
                 </v-list-item-content>
                 <v-list-item-action>
                     <v-select solo flat hide-details :items="locales" v-model="locale"></v-select>

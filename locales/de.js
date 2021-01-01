@@ -16,6 +16,7 @@ export default {
     started_at: "Gestartet am",
     deleted_at: "Gelöscht am",
     status: "Status",
+    language: "Sprache",
 
     welcome: "Willkommen.",
     welcome_text: "Danke, dass Sie sich für unseren Dienst entschieden haben. Bei uns können Sie folgende Vorteile genießen:",
