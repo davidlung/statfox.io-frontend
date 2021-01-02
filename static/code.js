@@ -1,17 +1,5 @@
 window.statfox = function () {
 
-    var sfurl = "http://app-dev.statfox.io/api/v1/capture",
-        visitedAt = new Date().getTime(),
-        scriptTag = document.currentScript
-            || document.querySelector("script[data-wid]")
-            || document.querySelector("script[wid]"),
-        wid = scriptTag.getAttribute("data-wid") || scriptTag.getAttribute("wid"),
-        referrer = document.referrer,
-        tracked = false,
-        spaSent = false,
-        spaHistory = true,
-        spaHash = true
-
     function encodeParams(params) {
         return "?" + Object.keys(params).map(function (k) {
             return encodeURIComponent(k) + "=" + encodeURIComponent(params[k])
@@ -23,7 +11,18 @@ window.statfox = function () {
         return !((document.visibilityState||null) === "prerender" || rgx.test(navigator.userAgent))
     }
 
-    var api = {
+    var sfurl = "http://app-dev.statfox.io/api/v1/capture",
+        visitedAt = new Date().getTime(),
+        scriptTag = document.currentScript
+            || document.querySelector("script[data-wid]")
+            || document.querySelector("script[wid]"),
+        wid = scriptTag.getAttribute("data-wid") || scriptTag.getAttribute("wid"),
+        referrer = document.referrer,
+        tracked = false,
+        spaSent = false,
+        spaHistory = true,
+        spaHash = true,
+        api = {
         sendImg: function(params) {
             var img = document.createElement("img")
             img.setAttribute("alt", "")

@@ -18,7 +18,7 @@ export default {
             {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
         ],
         script: [
-             // {src: '/code.js', wid: 'ab9d24dfbb1c129be3cf695322bab901', defer: true}
+             //{src: '/code.js', wid: 'ab9d24dfbb1c129be3cf695322bab901', defer: true}
         ]
     },
 

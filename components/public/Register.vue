@@ -26,9 +26,9 @@
             <template v-slot:label>
                 <span class="text-caption">
                     I have read and agree to the
-                    <a @click.stop target="_blank" href="https://www.jsonserver.io/termsofservice/">{{$t('terms_of_use')}}</a>
+                    <a @click.stop target="_blank" href="https://www.statfox.io/termsofservice/">{{$t('terms_of_use')}}</a>
                     and the
-                    <a @click.stop target="_blank" href="https://www.jsonserver.io/privacy/">{{$t('privacy_policy')}}</a>
+                    <a @click.stop target="_blank" href="https://www.statfox.io/privacy/">{{$t('privacy_policy')}}</a>
                     of {{$config.DOMAIN}}
                 </span>
             </template>
