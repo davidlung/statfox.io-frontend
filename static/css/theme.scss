@@ -1,4 +1,5 @@
 $dark-base: #303239;
+$dark-lighten: #4a4e55;
 $dark-comp: #3e4249;
 $dark-darken: #292b31;
 
@@ -51,6 +52,10 @@ $dark-darken: #292b31;
         }
     }
 
+    .cookie-consent {
+        background: $dark-lighten
+    }
+
 }
 
 .theme--light {
@@ -69,6 +74,10 @@ $dark-darken: #292b31;
 
     &.v-text-field--solo > .v-input__control > .v-input__slot {
         background-color: #eeeeee !important;
+    }
+
+    .cookie-consent {
+        background: #fff
     }
 
 }

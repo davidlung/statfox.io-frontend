@@ -25,11 +25,10 @@
         <v-checkbox class="d-inline-block" :rules="[v => !!v||$t('rule.agree.empty')]">
             <template v-slot:label>
                 <span class="text-caption">
-                    I have read and agree to the
+                    {{$t('signup.accept_agreement')}}
                     <a @click.stop target="_blank" href="https://www.statfox.io/termsofservice/">{{$t('terms_of_use')}}</a>
-                    and the
+                    {{$t('and')}}
                     <a @click.stop target="_blank" href="https://www.statfox.io/privacy/">{{$t('privacy_policy')}}</a>
-                    of {{$config.DOMAIN}}
                 </span>
             </template>
         </v-checkbox>

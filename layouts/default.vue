@@ -29,6 +29,8 @@
 
         <Toast/>
 
+        <CookieConsent/>
+
         <v-overlay :value="overlay.loading.show" class="text-center" style="z-index: 99999!important;">
             <v-progress-circular indeterminate size="64"></v-progress-circular>
             <div class="text-h6 my-8" v-show="overlay.loading.message">{{overlay.loading.message}}</div>
@@ -43,10 +45,11 @@
     import Toast from "../components/Toast";
     import Logo from "~/components/Logo";
     import Brand from "~/components/Brand";
+    import CookieConsent from "~/components/CookieConsent";
 
     export default {
 
-        components: {Brand, Logo, Toast, JSectionTitle},
+        components: {Brand, Logo, Toast, JSectionTitle, CookieConsent},
 
         data() {
             return {

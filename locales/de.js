@@ -17,6 +17,8 @@ export default {
     deleted_at: "Gelöscht am",
     status: "Status",
     language: "Sprache",
+    and: "und",
+    accept: "Akzeptieren",
 
     welcome: "Willkommen.",
     welcome_text: "Danke, dass Sie sich für unseren Dienst entschieden haben. Bei uns können Sie folgende Vorteile genießen:",
@@ -208,6 +210,12 @@ export default {
     plan_upgrade_year_to_month_info: "Ein Upgrade von einem jährlichen auf einen monatlichen Plan ist nicht möglich.",
     plan_switch_year_to_month_info: "Ein wechsel von einem jährlichen auf einen monatlichen Plan ist nicht möglich.",
 
+    // SIGN UP
+
+    signup: {
+        accept_agreement: "Ich akzeptiere die",
+    },
+
     // INVOICES
 
     balance: "Guthaben",
@@ -343,5 +351,19 @@ export default {
         failed_info: "Der Link zur Verifizierung Ihres Benutzerkontos ist maximal 1 Stunde gültig. Sollten Sie diesen Link nach einer Stunde nach dem Versand der E-Mail geöffnet haben, so ist dieser nicht mehr gültig. Sie können sich jederzeit eine neue Verifizierungs-E-Mail zusenden lassen, indem Sie in den Einstellungen Ihres Benutzerkontos den entsprechenden Button zum erneuten Versand der E-Mail klicken.",
         continue_to: "Weiter zu {0}",
         open_account_settings: "Mein Benutzerkonto öffnen",
+    },
+
+    // COOKIE CONSENT
+
+    cookie_consent: {
+        title: "Diese Website verwendet Cookies",
+        info: "Wir verwenden Cookies, um Ihr Benutzererlebnis zu optimieren und verbesserte Inhalte zu senden. Indem Sie weiterhin auf unserer Website surfen, akzeptieren Sie diese Cookies. Sie können jederzeit Ihre Einstellungen personalisieren bzw. ändern, indem Sie zu dieser Website zurückkehren.",
+        settings: "Cookie-Einstellungen",
+        required: "Erforderliche Cookies",
+        required_info: "Diese Cookies werden benötigt, um unsere Anwendung funktional betreiben zu können. Hierunter fallen z.B. die Anmeldung, Registrierung (reCaptcha) oder Einstellungen zu Ihren Inhalten die Sie auf unserer Plattform einpflegen. Auch werden Cookies von unserem Payment Processor (Stripe Inc.) gesetzt, um Ihnen das Bezahlen von Plänen zu ermöglichen.",
+        always_active: "Immer Aktiv",
+        always_inactive: "Immer Aus",
+        analytics: "Analytische / Marketing Cookies",
+        analytics_info: "Für Analytische/Statistische zwecke nutzen wir unsere eigene Anwendung (statfox.io). Da statfox.io das Tracking vollkommen anonym und ohne den Einsatz von Cookies ausführt, sind hierzu keine Einstellungen notwendig.",
     }
 }

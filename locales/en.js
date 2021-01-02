@@ -17,6 +17,8 @@ export default {
     deleted_at: "Deleted at",
     status: "Status",
     language: "Language",
+    and: "and",
+    accept: "Akzeptieren",
 
     welcome: "Welcome.",
     welcome_text: "Thank you for the decision to use our service. Enjoy the following advantages:",
@@ -208,6 +210,12 @@ export default {
     plan_upgrade_year_to_month_info: "An update from a yearly to monthly plan is not possible.",
     plan_switch_year_to_month_info: "A switch from a yearly to monthly plan is not possible.",
 
+    // SIGN UP
+
+    signup: {
+        accept_agreement: "I have read and agree to the",
+    },
+
     // INVOICES
 
     balance: "Balance",
@@ -343,5 +351,19 @@ export default {
         failed_info: "The link to verify your user account is valid for maximum 1 hour. If you have opened this link after one hour after the email was sent, it will no longer be valid. You can have a new verification email sent to you at any time by clicking the corresponding button to resend the email in your user account settings.",
         continue_to: "Continue to {0}",
         open_account_settings: "Open my user account",
+    },
+
+    // COOKIE CONSENT
+
+    cookie_consent: {
+        title: "This Website use cookies",
+        info: "We use cookies to optimize your user experience and send improved content. By continuing to browse our website, you accept these cookies. You can personalize or change your settings at any time by returning to this website.",
+        settings: "Cookie-Settings",
+        required: "Required Cookies",
+        required_info: "These cookies are needed to operate our application functionally. This includes, for example, login, registration (reCaptcha) or settings for your content that you enter on our platform. Cookies are also set by our payment processor (Stripe Inc.) to enable you to pay for plans.",
+        always_active: "Always Active",
+        always_inactive: "Always Inactive",
+        analytics: "Analytics / Marketing Cookies",
+        analytics_info: "For analytical/statistical purposes, we use our own application (statfox.io). Since statfox.io performs tracking completely anonymously and without the use of cookies, no settings are necessary for this."
     }
 }
