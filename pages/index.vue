@@ -4,7 +4,7 @@
             <v-btn icon @click="$store.dispatch('toggleMenu')"><v-icon>mdi-menu</v-icon></v-btn>
             <v-toolbar-title class="d-flex align-center">
                 <div>
-                    {{website.name}}
+                    {{website?website.name:$t('statistic')}}
                     <v-menu bottom left v-if="websites.length>1" min-width="200">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn icon v-bind="attrs" v-on="on">
@@ -47,7 +47,34 @@
             </v-card>
         </v-app-bar>
 
-        <v-container class="max-w-900" v-if="!hasStats && website.apiKey">
+        <v-container class="max-w-1200 text-center" v-if="websites.length===0">
+            <div class="d-flex justify-center py-10">
+                <v-img src="/img/no_website.png" max-width="400"/>
+            </div>
+            <div class="text-h4 font-weight-thin my-5">
+                {{$t('no_websites_headline')}}
+            </div>
+            <div class="text-subtitle-1 font-weight-thin my-5">
+                {{$t('no_websites_text')}}
+            </div>
+            <v-btn x-large depressed color="primary" @click="createWebsiteDialog=true">
+                {{$t('add_website')}}
+            </v-btn>
+
+            <v-dialog persistent v-model="createWebsiteDialog" max-width="600">
+                <v-card>
+                    <v-card-title>
+                        <span>{{$t('add_website')}}</span>
+                        <v-spacer></v-spacer>
+                        <v-btn icon @click="createWebsiteDialog=false"><v-icon>mdi-close</v-icon></v-btn>
+                    </v-card-title>
+                    <v-card-text>
+                        <CreateWebsiteForm @close="createWebsiteDialog=false"/>
+                    </v-card-text>
+                </v-card>
+            </v-dialog>
+        </v-container>
+        <v-container class="max-w-900" v-else-if="noDataYet">
             <div class="text-h4 font-weight-thin my-5">
                 {{$t('no_tracking_data_headline')}}
             </div>
@@ -60,7 +87,7 @@
                 </v-card-text>
             </v-card>
         </v-container>
-        <v-container class="max-w-1400" v-if="websites.length && hasStats">
+        <v-container class="max-w-1400" v-else>
             <v-row v-if="limitReached">
                 <v-col>
                     <v-card outlined>
@@ -124,33 +151,6 @@
                 </v-col>
             </v-row>
         </v-container>
-        <v-container class="max-w-1200 text-center" v-else-if="websites.length===0">
-            <div class="d-flex justify-center py-10">
-                <v-img src="/img/no_website.png" max-width="400"/>
-            </div>
-            <div class="text-h4 font-weight-thin my-5">
-                {{$t('no_websites_headline')}}
-            </div>
-            <div class="text-subtitle-1 font-weight-thin my-5">
-                {{$t('no_websites_text')}}
-            </div>
-            <v-btn x-large depressed color="primary" @click="createWebsiteDialog=true">
-                {{$t('add_website')}}
-            </v-btn>
-
-            <v-dialog persistent v-model="createWebsiteDialog" max-width="600">
-                <v-card>
-                    <v-card-title>
-                        <span>{{$t('add_website')}}</span>
-                        <v-spacer></v-spacer>
-                        <v-btn icon @click="createWebsiteDialog=false"><v-icon>mdi-close</v-icon></v-btn>
-                    </v-card-title>
-                    <v-card-text>
-                        <CreateWebsiteForm @close="createWebsiteDialog=false"/>
-                    </v-card-text>
-                </v-card>
-            </v-dialog>
-        </v-container>
 
     </div>
 </template>
@@ -182,7 +182,7 @@ export default {
 
     head() {
         return {
-            title: this.website.name
+            title: this.website?this.website.name:this.$t('statistic')
         }
     },
 
@@ -212,16 +212,15 @@ export default {
         ...mapState({
             websites: state => state.website.websites,
             statistic: state => state.website.statistic,
-            hasStats: state => state.website.statistic.data.views.allTime > 0,
             limitReached: state => state.account.limitReached
         }),
 
-        hasStats() {
-            return this.statistic.data.websiteId !== null && this.statistic.data.views.allTime > 0
+        website() {
+            return this.websites.find(w => w.id === this.statistic.data.websiteId)
         },
 
-        website() {
-            return this.websites.find(w => w.id === this.statistic.data.websiteId)||{name:this.$t('statistic')}
+        noDataYet() {
+            return this.website && !this.statistic.data.views.allTime
         },
 
         dateRanges() {

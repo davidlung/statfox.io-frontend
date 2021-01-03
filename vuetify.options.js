@@ -24,7 +24,7 @@ export default {
                 secondary: colors.lightGreen.darken2,
                 info: colors.blue.lighten2,
                 warning: colors.amber.base,
-                error: colors.deepOrange.accent4,
+                error: colors.deepOrange.accent1,
                 success: colors.green.accent3
             },
         }

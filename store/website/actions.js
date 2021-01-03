@@ -39,8 +39,8 @@ export default {
 
     // STATISTIC
 
-    loadStatistic({commit, state, dispatch}, wid) {
-        dispatch('reloadStatistic', wid)
+    async loadStatistic({commit, state, dispatch}, wid) {
+        await dispatch('reloadStatistic', wid)
     },
 
     reloadStatistic({commit, state, dispatch}, wid) {

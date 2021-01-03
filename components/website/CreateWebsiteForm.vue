@@ -13,6 +13,10 @@
                           placeholder="https://www.example.com"
                           :rules="form.create.rules.url"
                           v-model="form.create.data.url"
+                          @blur="checkDomain"
+                          :append-icon="validUrl===null?null:(validUrl?'mdi-check':'mdi-close')"
+                          :error-messages="(validUrl===null||validUrl===true)?null:$t('domain_not_exists')"
+                          :loading="pendingDomainCheck"
                           :disabled="pendingCreate"
             ></v-text-field>
             <InputLabel>{{$t('time.timezone')}}</InputLabel>
@@ -72,6 +76,8 @@
         data() {
             return {
                 apiKey: '',
+                validUrl: null,
+                pendingDomainCheck: false,
                 form: {
                     create: {
                         valid: true,
@@ -82,7 +88,6 @@
                             ],
                             url: [
                                 v => (v && v.trim().length > 0) || this.$t('rule.url.empty'),
-                                v => (v && (/^(http|https):\/\/[\w.-]+\/?$/).test(v)) || this.$t('rule.url.invalid'),
                             ],
                             tz: [
                                 v => (v && v.trim().length > 0) || this.$t('rule.tz.empty'),
@@ -1837,7 +1842,7 @@
             },
 
             submitWebsite() {
-                if (this.pendingCreate || !this.$refs.formWebsiteCreate.validate()) return
+                if (this.pendingCreate || this.pendingDomainCheck || !this.$refs.formWebsiteCreate.validate()) return
 
                 let data = {
                     name: this.form.create.data.name,
@@ -1848,7 +1853,19 @@
                 this.$store.dispatch('website/createWebsite', data).then(res => {
                     this.apiKey = res.data.apiKey
                 }).catch(e => this.$error(e))
+
             },
+
+            checkDomain() {
+                this.pendingDomainCheck = true
+                this.$axios.post('/api/v1/websites:validate', {url:this.form.create.data.url}).then(res => {
+                    this.validUrl = res.data.valid
+                }).catch(e => {
+                    this.validUrl = false
+                }).finally(() => {
+                    this.pendingDomainCheck = false
+                })
+            }
 
         }
     }

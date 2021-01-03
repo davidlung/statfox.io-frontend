@@ -72,6 +72,7 @@ export default {
     first_time_online: "This is your first session.",
     all_rights_reserved: "© 2020 {0} All Rights reserved.",
     have_account_q: "You have already an account?",
+    domain_not_exists: "This domain does not exists. Please check the URL and change to an actual existing domain.",
 
     vcomp: {
         table: {

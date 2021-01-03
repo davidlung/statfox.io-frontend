@@ -72,6 +72,7 @@ export default {
     first_time_online: "Sie sind zum ersten Mal online.",
     all_rights_reserved: "© 2020 {0} Alle Rechte vorbehalten.",
     have_account_q: "Sie haben breits ein Konto?",
+    domain_not_exists: "Diese Domain/Website scheint nicht zu existieren. Bitte überprüfen Sie Ihre Eingabe und tragen Sie eine existierende Domain ein.",
 
     vcomp: {
         table: {
