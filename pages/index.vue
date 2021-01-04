@@ -12,7 +12,7 @@
                             </v-btn>
                         </template>
                         <v-list>
-                            <v-list-item v-for="w in websites.filter(ws => ws.id !== website.id)" :key="`menu-${w.id}`" @click="$store.dispatch('website/loadStatistic', w.id)">
+                            <v-list-item v-for="w in websites.filter(ws => ws.id !== (website?website.id:0))" :key="`menu-${w.id}`" @click="$store.dispatch('website/loadStatistic', w.id)">
                                 <v-list-item-content>
                                     <v-list-item-title>{{ w.name }}</v-list-item-title>
                                     <v-list-item-subtitle>{{ w.url }}</v-list-item-subtitle>
