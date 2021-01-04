@@ -11,6 +11,16 @@
             {{$t('welcome_text')}}
         </h2>
 
+        <div class="d-flex justify-center pb-10">
+            <v-btn x-large depressed nuxt link to="/" color="primary" class="px-10">
+                {{$t('get_started')}}
+            </v-btn>
+        </div>
+
+        <h2 class="text-h5 text-center pb-10 font-weight-light max-w-600 mx-auto">
+            {{$t('welcome_advantages_title')}}
+        </h2>
+
         <v-card outlined flat width="700" class="mx-auto">
             <v-card-text>
                 <v-list three-line color="transparent">
@@ -26,12 +36,6 @@
                 </v-list>
             </v-card-text>
         </v-card>
-
-        <div class="d-flex justify-center pt-10">
-            <v-btn x-large depressed nuxt link to="/" color="primary" class="px-10">
-                {{$t('get_started')}}
-            </v-btn>
-        </div>
 
     </v-container>
 </template>
@@ -53,7 +57,7 @@
 
         async middleware({store, route, redirect}) {
             if(store.state.auth.user.penultimateLoginAt !== null) {
-                await redirect('/')
+                //await redirect('/')
             }
         },
 
@@ -61,20 +65,26 @@
             return {
                 intro: [
                     {
-                        title: 'Anonymes Tracking ohne Cookies',
-                        description: 'Unser Tracking erfolgt komplet ohne die Nutzung von Cookies oder ähnlichen Techniken. Es werden keinerlei Informationen auf dem Gerät des Benutzers gespeichert.',
+                        title: this.$t('welcome_advantages.no_cookie.title'),
+                        description: this.$t('welcome_advantages.no_cookie.text'),
                         icon: 'mdi-cookie',
                         color: 'primary',
                     },
                     {
-                        title: 'Statistik für den einfachen Menschen',
-                        description: 'Eine Website zu besuchen ist keine komplizierte Angelegenheit. Daher bieten wir eine ebenso einfache und übersichtliche Statistik an, die jeder verstehen kann.',
+                        title: this.$t('welcome_advantages.unlimited.title'),
+                        description: this.$t('welcome_advantages.unlimited.text'),
+                        icon: 'mdi-rocket-launch',
+                        color: 'red',
+                    },
+                    {
+                        title: this.$t('welcome_advantages.easy.title'),
+                        description: this.$t('welcome_advantages.easy.text'),
                         icon: 'mdi-chart-bar',
                         color: 'green',
                     },
                     {
-                        title: 'Und vieles mehr',
-                        description: 'Zudem gibt es noch einige weitere Vorteile. Jetzt los legen um diese zu entdekcen.',
+                        title: this.$t('welcome_advantages.more.title'),
+                        description: this.$t('welcome_advantages.more.text'),
                         icon: 'mdi-dots-vertical',
                         color: 'indigo',
                     },

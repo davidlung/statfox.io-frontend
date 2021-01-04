@@ -18,7 +18,7 @@ export default {
             {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
         ],
         script: [
-             //{src: '/code.js', wid: 'ab9d24dfbb1c129be3cf695322bab901', defer: true}
+             {src: '/code.js', wid: 'ab9d24dfbb1c129be3cf695322bab901', defer: true}
         ]
     },
 
@@ -97,35 +97,35 @@ export default {
         optionsPath: './vuetify.options.js'
     },
 
-    build: {
-        extractCSS: true,
-        optimization: {
-            minimize: true,
-            splitChunks: {
-                chunks: 'all',
-                cacheGroups: {
-                    styles: {
-                        name: 'styles',
-                        test: /\.(css|vue)$/, // <-- This line is causing error
-                        chunks: 'all',
-                        enforce: true
-                    },
-                    vendors: {
-                        test: /[\\/]node_modules[\\/]/i,
-                        chunks: "all"
-                    },
-                    commons: {
-                        name: "commons",
-                        chunks: "initial",
-                        minChunks: 2
-                    }
-                }
-            },
-
-        },
-        extend(config, ctx) {
-        }
-    },
+    // build: {
+    //     extractCSS: true,
+    //     optimization: {
+    //         minimize: true,
+    //         splitChunks: {
+    //             chunks: 'all',
+    //             cacheGroups: {
+    //                 styles: {
+    //                     name: 'styles',
+    //                     test: /\.(css|vue)$/, // <-- This line is causing error
+    //                     chunks: 'all',
+    //                     enforce: true
+    //                 },
+    //                 vendors: {
+    //                     test: /[\\/]node_modules[\\/]/i,
+    //                     chunks: "all"
+    //                 },
+    //                 commons: {
+    //                     name: "commons",
+    //                     chunks: "initial",
+    //                     minChunks: 2
+    //                 }
+    //             }
+    //         },
+    //
+    //     },
+    //     extend(config, ctx) {
+    //     }
+    // },
 
     axios: {
         browserBaseURL: env.BASE_BROWSER_URL||'',

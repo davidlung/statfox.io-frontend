@@ -21,8 +21,28 @@ export default {
     accept: "Akzeptieren",
 
     welcome: "Welcome.",
-    welcome_text: "Thank you for the decision to use our service. Enjoy the following advantages:",
+    welcome_text: "Thank you for deciding to use our service.",
+    welcome_advantages_title: "Enjoy the following advantages:",
     get_started: "Get Started",
+    welcome_advantages: {
+        no_cookie: {
+            title: "Anonymous tracking without cookies",
+            text: "Our tracking is completely without the use of cookies or similar techniques. No information is stored on the user's device.",
+        },
+        unlimited: {
+            title: "Unlimited number of websites",
+            text: "Create as many websites as you need, for free!",
+        },
+        easy: {
+            title: "Statistics made easy",
+            text: "Visiting a website is not a complicated matter. Therefore, we offer equally simple and clear statistics that everyone can understand.",
+        },
+        more: {
+            title: "And more",
+            text: "In addition, there are several other advantages. Go ahead and discover them now.",
+        },
+    },
+
     administration: "Administration",
     account: "Account",
     payment_methods: "Payment Methods",
