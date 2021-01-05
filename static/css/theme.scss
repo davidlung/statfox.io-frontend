@@ -64,6 +64,10 @@ $dark-darken: #292b31;
         background: $dark-lighten
     }
 
+    .v-dialog--fullscreen {
+        background: $dark-comp !important;
+    }
+
 }
 
 .theme--light {

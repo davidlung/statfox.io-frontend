@@ -33,9 +33,11 @@
             </template>
         </v-app-bar>
 
-        <v-dialog fullscreen v-model="showDatePickerDialog" v-if="websites.length && $vuetify.breakpoint.smAndDown">
-            <v-card tile flat>
-                <DatePicker @applied="showDatePickerDialog=false"/>
+        <v-dialog scrollable fullscreen v-model="showDatePickerDialog" v-if="websites.length && $vuetify.breakpoint.smAndDown">
+            <v-card tile flat height="100%">
+                <v-card-text class="pa-0">
+                    <DatePicker @applied="showDatePickerDialog=false"/>
+                </v-card-text>
             </v-card>
         </v-dialog>
 
@@ -113,6 +115,11 @@
 
         </v-container>
         <v-container class="max-w-1400" v-else>
+
+            <div v-if="$vuetify.breakpoint.smAndDown" class="text-center text--secondary text-caption">
+                {{rangeLabel(statistic.dateRange.startDate, statistic.dateRange.endDate)}}
+            </div>
+
             <v-row v-if="limitReached">
                 <v-col>
                     <v-card outlined>
@@ -246,6 +253,80 @@ export default {
 
         noDataYet() {
             return this.website && !this.statistic.data.views.allTime
+        },
+
+        dateRanges() {
+            return {
+                [this.$t('time.today')]: (() => {
+                    let start = new Date(), end = new Date()
+                    start.setHours(0, 0, 0, 0)
+                    end.setHours(23, 59, 59, 59)
+                    return [start, end]
+                })(),
+                [this.$t('time.last_days', [7])]: (() => {
+                    let start = new Date(), end = new Date()
+                    start.setDate(start.getDate()-7)
+                    start.setHours(0, 0, 0, 0)
+                    end.setHours(23, 59, 59, 59)
+                    return [start, end]
+                })(),
+                [this.$t('time.last_days', [30])]: (() => {
+                    let start = new Date(), end = new Date()
+                    start.setDate(start.getDate()-30)
+                    start.setHours(0, 0, 0, 0)
+                    end.setHours(23, 59, 59, 59)
+                    return [start, end]
+                })(),
+                [this.$t('time.this_week')]: (() => {
+                    let start = new Date(), end = new Date()
+                    start.setDate(start.getDate() - start.getDay() + (start.getDay() === 0 ? -6 : 1))
+                    start.setHours(0, 0, 0, 0)
+                    end.setHours(23, 59, 59, 59)
+                    return [start, end]
+                })(),
+                [this.$t('time.this_month')]: (() => {
+                    let start = new Date(), end = new Date()
+                    start.setDate(1)
+                    start.setHours(0, 0, 0, 0)
+                    end.setHours(23, 59, 59, 59)
+                    return [start, end]
+                })(),
+                [this.$t('time.this_year')]: (() => {
+                    let start = new Date(), end = new Date()
+                    start.setFullYear(start.getFullYear(), 0, 1)
+                    start.setHours(0, 0, 0, 0)
+                    end.setHours(23, 59, 59, 59)
+                    return [start, end]
+                })(),
+                [this.$t('time.all_time')]: (() => {
+                    let start = new Date(), end = new Date()
+                    start.setFullYear(2020, 0, 1)
+                    start.setHours(0, 0, 0, 0)
+                    end.setHours(23, 59, 59, 59)
+                    return [start, end]
+                })()
+            }
+        },
+
+        rangeLabel() {
+            return (start, end) => {
+                let dateStart = new Date(start), dateEnd = new Date(end)
+
+                dateStart.setHours(0, 0, 0, 0)
+                dateEnd.setHours(23, 59, 59, 59)
+
+                let namedRange = Object.values(this.dateRanges).find(d => {
+                    return d[0].toLocaleDateString() === dateStart.toLocaleDateString()
+                        && d[1].toLocaleDateString() === dateEnd.toLocaleDateString()
+                })
+
+                if (namedRange) {
+                    return Object.keys(this.dateRanges).find(k => this.dateRanges[k] === namedRange)
+                }
+
+                let options = {day: '2-digit', month: 'short', year: '2-digit'}
+                return dateStart.toLocaleDateString(undefined, options) + ' - ' + dateEnd.toLocaleDateString(undefined, options)
+            }
         },
     },
 

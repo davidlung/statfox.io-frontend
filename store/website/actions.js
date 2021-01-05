@@ -43,6 +43,23 @@ export default {
         await dispatch('reloadStatistic', wid)
     },
 
+    async initializeDateRange({commit}) {
+        let start = new Date(), end = new Date()
+
+        start.setHours(0, 0, 0, 0)
+        end.setHours(23, 59, 59, 59)
+
+        if (this.$cookies.get('dateRangeFrom')) {
+            start.setTime(this.$cookies.get('dateRangeFrom'))
+            end.setTime(this.$cookies.get('dateRangeEnd'))
+        }
+
+        return await commit('SET_DATE_RANGE', {
+            startDate: start.getTime(),
+            endDate: end.getTime()
+        })
+    },
+
     reloadStatistic({commit, state, dispatch}, wid) {
         let cookieWid = this.$cookies.get('wid')
 
@@ -60,6 +77,10 @@ export default {
             this.$cookies.set('wid', wid, {
                 expires: this.$time.dateFromTime(undefined, +86400*7)
             })
+        }
+
+        if (state.statistic.dateRange.startDate === null) {
+            dispatch('initializeDateRange')
         }
 
         let starDate = new Date(state.statistic.dateRange.startDate),

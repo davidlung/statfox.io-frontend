@@ -1,32 +1,57 @@
 <template>
-    <v-card light flat color="transparent" :class="isMobile?'pa-3':''" >
-        <date-range-picker
-            ref="picker"
-            :opens="isMobile?'inline':'left'"
-            :locale-data="localeData"
-            v-model="dateRange"
-            :ranges="dateRanges"
-            :auto-apply="true"
-            @update="apply"
-        >
-            <template v-slot:input="picker">
-                <div class="d-flex">
-                    <v-theme-provider root>
-                        <v-btn icon dark v-if="isMobile" @click="$emit('applied')"><v-icon>mdi-close</v-icon></v-btn>
-                    </v-theme-provider>
-                    <v-spacer v-if="isMobile"></v-spacer>
-                    <v-btn dark :text="isMobile" :outlined="!isMobile" min-width="120" class="pa-2 px-3">
-                        {{rangeLabel(picker.startDate, picker.endDate)}}
-                    </v-btn>
-                </div>
-            </template>
-            <template v-slot:footer="data">
-                <div class="d-flex pa-2 bt-1-1">
-                    <v-spacer></v-spacer>
-                    <v-btn depressed small color="primary" @click="data.clickApply">{{$t('select')}}</v-btn>
-                </div>
-            </template>
-        </date-range-picker>
+    <v-card light flat color="transparent" :class="isMobile?'pa-3 mobile-view':''" >
+        <v-card-text class="pa-0">
+            <date-range-picker
+                ref="picker"
+                :opens="isMobile?'inline':'left'"
+                :locale-data="localeData"
+                v-model="dateRange"
+                :ranges="dateRanges"
+                :auto-apply="true"
+                @update="apply"
+            >
+                <template v-slot:input="picker">
+                    <div class="d-flex">
+                        <v-theme-provider root>
+                            <v-btn :text="isMobile" :outlined="!isMobile" min-width="120" class="pa-2 px-3">
+                                {{rangeLabel(picker.startDate, picker.endDate)}}
+                            </v-btn>
+                        </v-theme-provider>
+                        <v-spacer v-if="isMobile"></v-spacer>
+                        <v-theme-provider root>
+                            <v-btn icon v-if="isMobile" @click="$emit('applied')"><v-icon>mdi-close</v-icon></v-btn>
+                        </v-theme-provider>
+                    </div>
+                </template>
+                <template v-slot:footer="data">
+                    <div class="d-flex pa-2 bt-1-1" v-if="!isMobile">
+                        <v-spacer></v-spacer>
+                        <v-btn depressed small color="primary" @click="data.clickApply">{{$t('select')}}</v-btn>
+                    </div>
+                    <div v-else class="pt-2 d-flex">
+                        <v-btn block large depressed color="primary" @click="data.clickApply">{{$t('select')}}</v-btn>
+                    </div>
+                </template>
+                <template #ranges="ranges">
+                    <div class="ranges" v-if="!isMobile">
+                        <ul v-if="!isMobile">
+                            <li v-for="(range, name) in ranges.ranges" :key="name" @click="ranges.clickRange(range)">
+                                <b>{{name}}</b>
+                            </li>
+                        </ul>
+                    </div>
+                    <div v-else class="pa-3 full-width">
+                        <v-select
+                            :items="Object.keys(ranges.ranges)"
+                            @change="ranges.clickRange(ranges.ranges[$event])"
+                            label="Zeitraum wählen"
+                            class="" dense
+                            hide-details full-width solo flat
+                        ></v-select>
+                    </div>
+                </template>
+            </date-range-picker>
+        </v-card-text>
     </v-card>
 </template>
 
@@ -45,6 +70,15 @@
             ...mapState({
                 statistic: state => state.website.statistic,
             }),
+
+            dateRange: {
+                get() {
+                    return this.statistic.dateRange
+                },
+                set(dateRange) {
+                    this.$store.commit('website/SET_DATE_RANGE', dateRange)
+                }
+            },
 
             dateRanges() {
                 return {
@@ -99,15 +133,6 @@
                 }
             },
 
-            dateRange: {
-                get() {
-                    return this.statistic.dateRange
-                },
-                set(dateRange) {
-                    this.$store.commit('website/SET_DATE_RANGE', dateRange)
-                }
-            },
-
             rangeLabel() {
                 return (start, end) => {
                     let dateStart = new Date(start), dateEnd = new Date(end)
@@ -154,20 +179,8 @@
             }
         },
 
-        created() {
-            let start = new Date(), end = new Date()
-            start.setHours(0, 0, 0, 0)
-            end.setHours(23, 59, 59, 59)
-
-            if (this.$cookies.get('dateRangeFrom')) {
-                start.setTime(this.$cookies.get('dateRangeFrom'))
-                end.setTime(this.$cookies.get('dateRangeEnd'))
-            }
-
-            this.dateRange = {
-                startDate: start.getTime(),
-                endDate: end.getTime()
-            }
+        async beforeMount() {
+            await this.$store.dispatch('website/initializeDateRange')
         },
 
         methods: {
@@ -186,5 +199,25 @@
         .form-control.reportrange-text
             border: none
             background: transparent
+
+    .mobile-view
+        .vue-daterange-picker.inline
+            display: block
+
+            .daterangepicker.dropdown-menu
+                border: none
+                background-color: transparent
+
+                .calendars-container
+                    display: block
+                    width: 100%
+                    .drp-calendar.col
+                        width: 100%
+                        display: block
+                        max-width: 100%
+                        padding: 15px 0 0 0
+
+                        &.left
+                            padding: 0
 
 </style>
