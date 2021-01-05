@@ -94,6 +94,23 @@ export default {
     have_account_q: "You have already an account?",
     domain_not_exists: "This domain does not exists. Please check the URL and change to an actual existing domain.",
 
+    support: {
+        title: "Support",
+        no_data_event_visits: {
+            title: "No data is displayed, although the page was visited.",
+            please_follow_instructions: "Please follow the steps below to fix any problems:",
+            update_page: "Refresh this page (Ctrl+Shift+R or F5)",
+            check_range: "Check that you have selected the correct date time range.",
+            check_url: "Verify that the specified website URL is correct. The website URL must be identical to the URL in the address bar when you access your website in the browser. For example, if your website starts with www, then it should be specified the same way when you create it.",
+            check_tracking_code: "Please check if the tracking code or the whole script tag is embedded on your website. To check this briefly, you can go to your website/page that should be tracked and open the source code of your page with Ctrl+U or right-click -> Show page source. In the opened source code you should be able to find the tracking code or our script tag.",
+            check_tracking_code_position: "Please make sure that you have placed the tracking code within the HEAD tag of your website.",
+        },
+        no_know_how: {
+            title: "I would like to use tracking for my website but have no technical knowledge.",
+            text: "If you don't have technical know-how, feel free to contact us at {0}. We will help you to add the tracking code to your website for free.",
+        },
+    },
+
     vcomp: {
         table: {
             no_data: "No data available"
