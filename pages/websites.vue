@@ -7,7 +7,8 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn depressed color="primary" @click="dialog.create=true">
-                {{$t('add_website')}}
+                <span v-if="!$vuetify.breakpoint.smAndDown">{{$t('add_website')}}</span>
+                <v-icon v-else>mdi-plus</v-icon>
             </v-btn>
         </v-app-bar>
 
@@ -18,11 +19,17 @@
                         <v-list-item-content>
                             <v-list-item-title class="text-h6 pb-2">{{website.name}}</v-list-item-title>
                             <v-list-item-subtitle>{{website.url}}</v-list-item-subtitle>
+                            <v-list-item-subtitle v-if="$vuetify.breakpoint.smAndDown">
+                                {{website.timezone}}
+                            </v-list-item-subtitle>
                         </v-list-item-content>
                         <v-list-item-action class="flex-row align-center">
-                            <v-chip small outlined>{{website.timezone}}</v-chip>
-                            <v-divider vertical inset class="mx-5"></v-divider>
-                            <v-btn icon @click="dialogCode(website.apiKey)"><v-icon>mdi-xml</v-icon></v-btn>
+
+                            <template v-if="!$vuetify.breakpoint.smAndDown">
+                                <v-chip small outlined>{{website.timezone}}</v-chip>
+                                <v-divider vertical inset class="mx-5"></v-divider>
+                                <v-btn icon @click="dialogCode(website.apiKey)"><v-icon>mdi-xml</v-icon></v-btn>
+                            </template>
 
                             <v-menu bottom left>
                                 <template v-slot:activator="{ on, attrs }">
@@ -97,7 +104,7 @@
             </v-card>
         </v-container>
 
-        <v-dialog persistent v-model="dialog.create" max-width="600">
+        <v-dialog :fullscreen="$vuetify.breakpoint.smAndDown" persistent v-model="dialog.create" max-width="600">
             <v-card>
                 <v-card-title>
                     <span>{{$t('add_website')}}</span>

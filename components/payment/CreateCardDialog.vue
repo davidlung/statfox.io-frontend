@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="show" max-width="600" persistent>
+    <v-dialog v-model="show" max-width="600" persistent :fullscreen="$vuetify.breakpoint.smAndDown">
 
         <template v-slot:activator="{ on, attrs }">
             <slot name="activator" :on="on" :attrs="attrs"></slot>
@@ -19,7 +19,7 @@
                                   :rules="rules.cardNumber"
                     ></v-text-field>
                     <v-row>
-                        <v-col cols="4" class="pr-0 py-0">
+                        <v-col cols="6" sm="4" class="pr-0 py-0">
                             <InputLabel>{{$t('expiry_month')}}</InputLabel>
                             <v-select solo flat required
                                       hide-details="auto"
@@ -32,7 +32,7 @@
                             >
                             </v-select>
                         </v-col>
-                        <v-col cols="4" class="py-0">
+                        <v-col cols="6" sm="4" class="py-0">
                             <InputLabel>{{$t('expiry_year')}}</InputLabel>
                             <v-select solo flat required
                                       hide-details="auto"
@@ -43,7 +43,7 @@
                                       placeholder="YY"
                             ></v-select>
                         </v-col>
-                        <v-col cols="4" class="py-0">
+                        <v-col cols="12" sm="4" class="py-0">
                             <InputLabel>{{$t('card_cvc')}}</InputLabel>
                             <v-text-field solo flat required
                                           hide-details="auto"
@@ -55,7 +55,7 @@
                         </v-col>
                     </v-row>
                     <v-row>
-                        <v-col class="py-0">
+                        <v-col cols="12" sm="8" class="py-0">
                             <InputLabel>{{$t('card_holder')}}</InputLabel>
                             <v-text-field solo flat required
                                           hide-details="auto"
@@ -64,7 +64,7 @@
                                           :rules="rules.name"
                             ></v-text-field>
                         </v-col>
-                        <v-col cols="4" class="py-0" v-if="!showBilling">
+                        <v-col cols="12" sm="4" class="py-0" v-if="!showBilling">
                             <InputLabel>{{$t('postal_code_zip')}}</InputLabel>
                             <v-text-field solo flat required
                                           hide-details="auto"
@@ -91,7 +91,7 @@
                         ></v-text-field>
 
                         <v-row>
-                            <v-col class="py-0">
+                            <v-col cols="12" sm="8"  class="py-0">
                                 <InputLabel>{{$t('city')}}</InputLabel>
                                 <v-text-field solo flat
                                               hide-details="auto"
@@ -99,7 +99,7 @@
                                               v-model="billing.address.city"
                                 ></v-text-field>
                             </v-col>
-                            <v-col cols="4" class="py-0">
+                            <v-col cols="12" sm="4" class="py-0">
                                 <InputLabel>{{$t('postal_code_zip')}}</InputLabel>
                                 <v-text-field solo flat
                                               hide-details="auto"
@@ -133,19 +133,23 @@
                     </div>
 
                     <!-- ACTIONS -->
-                    <div class="d-flex pt-5">
-                        <v-btn text :disabled="pending" @click="showBilling=!showBilling">
-                            <span v-if="!showBilling">{{$t('add_billing_information')}}</span>
-                            <span v-if="showBilling">{{$t('remove_billing_information')}}</span>
-                        </v-btn>
-                        <v-spacer></v-spacer>
-                        <v-btn text :disabled="pending" @click="close">
-                            {{$t('cancel')}}
-                        </v-btn>
-                        <v-btn depressed color="primary" class="px-8" type="submit" :loading="pending" :disabled="!valid">
-                            {{$t('add')}}
-                        </v-btn>
-                    </div>
+                    <v-row class="d-flex pt-5">
+                        <v-col>
+                            <v-btn text :disabled="pending" @click="showBilling=!showBilling">
+                                <span v-if="!showBilling">{{$t('add_billing_information')}}</span>
+                                <span v-if="showBilling">{{$t('remove_billing_information')}}</span>
+                            </v-btn>
+                        </v-col>
+                        <v-col class="d-flex">
+                            <v-spacer></v-spacer>
+                            <v-btn text :disabled="pending" @click="close">
+                                {{$t('cancel')}}
+                            </v-btn>
+                            <v-btn depressed color="primary" class="px-8" type="submit" :loading="pending" :disabled="!valid">
+                                {{$t('add')}}
+                            </v-btn>
+                        </v-col>
+                    </v-row>
 
                 </v-form>
             </v-card-text>

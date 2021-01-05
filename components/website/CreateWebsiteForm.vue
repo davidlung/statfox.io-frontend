@@ -10,25 +10,27 @@
             ></v-text-field>
             <InputLabel>Website-URL</InputLabel>
             <v-text-field solo flat required persistent-hint
-                          placeholder="https://www.example.com"
+                          placeholder="www.example.com"
                           :rules="form.create.rules.url"
                           v-model="form.create.data.url"
                           @blur="checkDomain"
-                          :append-icon="validUrl===null?null:(validUrl?'mdi-check':'mdi-close')"
+                          :append-icon="validUrl===false?'mdi-alert-octagon':''"
                           :error-messages="(validUrl===null||validUrl===true)?null:$t('domain_not_exists')"
                           :loading="pendingDomainCheck"
+                          :prefix="proto"
                           :disabled="pendingCreate"
             ></v-text-field>
             <InputLabel>{{$t('time.timezone')}}</InputLabel>
             <v-row>
-                <v-col>
+                <v-col cols="12" md="6" class="pt-0">
                     <v-select solo flat required
                               :items="Object.keys(timezone.items)"
                               :label="$t('please_select')"
                               v-model="timezone.zone"
+                              hide-details="auto"
                     ></v-select>
                 </v-col>
-                <v-col>
+                <v-col cols="12" md="6" class="pt-0">
                     <v-select solo flat required
                               :items="timezone.items[timezone.zone]||[]"
                               item-text="t"
@@ -37,6 +39,7 @@
                               :label="$t('please_select')"
                               v-model="form.create.data.tz"
                               :no-data-text="$t('select_timezone_first')"
+                              hide-details="auto"
                     ></v-select>
                 </v-col>
             </v-row>
@@ -78,6 +81,7 @@
                 apiKey: '',
                 validUrl: null,
                 pendingDomainCheck: false,
+                proto: 'https://',
                 form: {
                     create: {
                         valid: true,
@@ -104,214 +108,246 @@
                 timezone: {
                     zone: null,
                     items: {
-                        "Africa": [
+                        "Europe": [
                             {
-                                "t": "Abidjan (GMT +00:00)",
-                                "v": "Africa\/Abidjan"
+                                "t": "Amsterdam (GMT +01:00)",
+                                "v": "Europe\/Amsterdam"
                             },
                             {
-                                "t": "Accra (GMT +00:00)",
-                                "v": "Africa\/Accra"
+                                "t": "Andorra (GMT +01:00)",
+                                "v": "Europe\/Andorra"
                             },
                             {
-                                "t": "Addis_Ababa (GMT +03:00)",
-                                "v": "Africa\/Addis_Ababa"
+                                "t": "Astrakhan (GMT +04:00)",
+                                "v": "Europe\/Astrakhan"
                             },
                             {
-                                "t": "Algiers (GMT +01:00)",
-                                "v": "Africa\/Algiers"
+                                "t": "Athens (GMT +02:00)",
+                                "v": "Europe\/Athens"
                             },
                             {
-                                "t": "Asmara (GMT +03:00)",
-                                "v": "Africa\/Asmara"
+                                "t": "Belgrade (GMT +01:00)",
+                                "v": "Europe\/Belgrade"
                             },
                             {
-                                "t": "Bamako (GMT +00:00)",
-                                "v": "Africa\/Bamako"
+                                "t": "Berlin (GMT +01:00)",
+                                "v": "Europe\/Berlin"
                             },
                             {
-                                "t": "Bangui (GMT +01:00)",
-                                "v": "Africa\/Bangui"
+                                "t": "Bratislava (GMT +01:00)",
+                                "v": "Europe\/Bratislava"
                             },
                             {
-                                "t": "Banjul (GMT +00:00)",
-                                "v": "Africa\/Banjul"
+                                "t": "Brussels (GMT +01:00)",
+                                "v": "Europe\/Brussels"
                             },
                             {
-                                "t": "Bissau (GMT +00:00)",
-                                "v": "Africa\/Bissau"
+                                "t": "Bucharest (GMT +02:00)",
+                                "v": "Europe\/Bucharest"
                             },
                             {
-                                "t": "Blantyre (GMT +02:00)",
-                                "v": "Africa\/Blantyre"
+                                "t": "Budapest (GMT +01:00)",
+                                "v": "Europe\/Budapest"
                             },
                             {
-                                "t": "Brazzaville (GMT +01:00)",
-                                "v": "Africa\/Brazzaville"
+                                "t": "Busingen (GMT +01:00)",
+                                "v": "Europe\/Busingen"
                             },
                             {
-                                "t": "Bujumbura (GMT +02:00)",
-                                "v": "Africa\/Bujumbura"
+                                "t": "Chisinau (GMT +02:00)",
+                                "v": "Europe\/Chisinau"
                             },
                             {
-                                "t": "Cairo (GMT +02:00)",
-                                "v": "Africa\/Cairo"
+                                "t": "Copenhagen (GMT +01:00)",
+                                "v": "Europe\/Copenhagen"
                             },
                             {
-                                "t": "Casablanca (GMT +01:00)",
-                                "v": "Africa\/Casablanca"
+                                "t": "Dublin (GMT +00:00)",
+                                "v": "Europe\/Dublin"
                             },
                             {
-                                "t": "Ceuta (GMT +01:00)",
-                                "v": "Africa\/Ceuta"
+                                "t": "Gibraltar (GMT +01:00)",
+                                "v": "Europe\/Gibraltar"
                             },
                             {
-                                "t": "Conakry (GMT +00:00)",
-                                "v": "Africa\/Conakry"
+                                "t": "Guernsey (GMT +00:00)",
+                                "v": "Europe\/Guernsey"
                             },
                             {
-                                "t": "Dakar (GMT +00:00)",
-                                "v": "Africa\/Dakar"
+                                "t": "Helsinki (GMT +02:00)",
+                                "v": "Europe\/Helsinki"
                             },
                             {
-                                "t": "Dar_es_Salaam (GMT +03:00)",
-                                "v": "Africa\/Dar_es_Salaam"
+                                "t": "Isle_of_Man (GMT +00:00)",
+                                "v": "Europe\/Isle_of_Man"
                             },
                             {
-                                "t": "Djibouti (GMT +03:00)",
-                                "v": "Africa\/Djibouti"
+                                "t": "Istanbul (GMT +03:00)",
+                                "v": "Europe\/Istanbul"
                             },
                             {
-                                "t": "Douala (GMT +01:00)",
-                                "v": "Africa\/Douala"
+                                "t": "Jersey (GMT +00:00)",
+                                "v": "Europe\/Jersey"
                             },
                             {
-                                "t": "El_Aaiun (GMT +01:00)",
-                                "v": "Africa\/El_Aaiun"
+                                "t": "Kaliningrad (GMT +02:00)",
+                                "v": "Europe\/Kaliningrad"
                             },
                             {
-                                "t": "Freetown (GMT +00:00)",
-                                "v": "Africa\/Freetown"
+                                "t": "Kiev (GMT +02:00)",
+                                "v": "Europe\/Kiev"
                             },
                             {
-                                "t": "Gaborone (GMT +02:00)",
-                                "v": "Africa\/Gaborone"
+                                "t": "Kirov (GMT +03:00)",
+                                "v": "Europe\/Kirov"
                             },
                             {
-                                "t": "Harare (GMT +02:00)",
-                                "v": "Africa\/Harare"
+                                "t": "Lisbon (GMT +00:00)",
+                                "v": "Europe\/Lisbon"
                             },
                             {
-                                "t": "Johannesburg (GMT +02:00)",
-                                "v": "Africa\/Johannesburg"
+                                "t": "Ljubljana (GMT +01:00)",
+                                "v": "Europe\/Ljubljana"
                             },
                             {
-                                "t": "Juba (GMT +03:00)",
-                                "v": "Africa\/Juba"
+                                "t": "London (GMT +00:00)",
+                                "v": "Europe\/London"
                             },
                             {
-                                "t": "Kampala (GMT +03:00)",
-                                "v": "Africa\/Kampala"
+                                "t": "Luxembourg (GMT +01:00)",
+                                "v": "Europe\/Luxembourg"
                             },
                             {
-                                "t": "Khartoum (GMT +02:00)",
-                                "v": "Africa\/Khartoum"
+                                "t": "Madrid (GMT +01:00)",
+                                "v": "Europe\/Madrid"
                             },
                             {
-                                "t": "Kigali (GMT +02:00)",
-                                "v": "Africa\/Kigali"
+                                "t": "Malta (GMT +01:00)",
+                                "v": "Europe\/Malta"
                             },
                             {
-                                "t": "Kinshasa (GMT +01:00)",
-                                "v": "Africa\/Kinshasa"
+                                "t": "Mariehamn (GMT +02:00)",
+                                "v": "Europe\/Mariehamn"
                             },
                             {
-                                "t": "Lagos (GMT +01:00)",
-                                "v": "Africa\/Lagos"
+                                "t": "Minsk (GMT +03:00)",
+                                "v": "Europe\/Minsk"
                             },
                             {
-                                "t": "Libreville (GMT +01:00)",
-                                "v": "Africa\/Libreville"
+                                "t": "Monaco (GMT +01:00)",
+                                "v": "Europe\/Monaco"
                             },
                             {
-                                "t": "Lome (GMT +00:00)",
-                                "v": "Africa\/Lome"
+                                "t": "Moscow (GMT +03:00)",
+                                "v": "Europe\/Moscow"
                             },
                             {
-                                "t": "Luanda (GMT +01:00)",
-                                "v": "Africa\/Luanda"
+                                "t": "Oslo (GMT +01:00)",
+                                "v": "Europe\/Oslo"
                             },
                             {
-                                "t": "Lubumbashi (GMT +02:00)",
-                                "v": "Africa\/Lubumbashi"
+                                "t": "Paris (GMT +01:00)",
+                                "v": "Europe\/Paris"
                             },
                             {
-                                "t": "Lusaka (GMT +02:00)",
-                                "v": "Africa\/Lusaka"
+                                "t": "Podgorica (GMT +01:00)",
+                                "v": "Europe\/Podgorica"
                             },
                             {
-                                "t": "Malabo (GMT +01:00)",
-                                "v": "Africa\/Malabo"
+                                "t": "Prague (GMT +01:00)",
+                                "v": "Europe\/Prague"
                             },
                             {
-                                "t": "Maputo (GMT +02:00)",
-                                "v": "Africa\/Maputo"
+                                "t": "Riga (GMT +02:00)",
+                                "v": "Europe\/Riga"
                             },
                             {
-                                "t": "Maseru (GMT +02:00)",
-                                "v": "Africa\/Maseru"
+                                "t": "Rome (GMT +01:00)",
+                                "v": "Europe\/Rome"
                             },
                             {
-                                "t": "Mbabane (GMT +02:00)",
-                                "v": "Africa\/Mbabane"
+                                "t": "Samara (GMT +04:00)",
+                                "v": "Europe\/Samara"
                             },
                             {
-                                "t": "Mogadishu (GMT +03:00)",
-                                "v": "Africa\/Mogadishu"
+                                "t": "San_Marino (GMT +01:00)",
+                                "v": "Europe\/San_Marino"
                             },
                             {
-                                "t": "Monrovia (GMT +00:00)",
-                                "v": "Africa\/Monrovia"
+                                "t": "Sarajevo (GMT +01:00)",
+                                "v": "Europe\/Sarajevo"
                             },
                             {
-                                "t": "Nairobi (GMT +03:00)",
-                                "v": "Africa\/Nairobi"
+                                "t": "Saratov (GMT +04:00)",
+                                "v": "Europe\/Saratov"
                             },
                             {
-                                "t": "Ndjamena (GMT +01:00)",
-                                "v": "Africa\/Ndjamena"
+                                "t": "Simferopol (GMT +03:00)",
+                                "v": "Europe\/Simferopol"
                             },
                             {
-                                "t": "Niamey (GMT +01:00)",
-                                "v": "Africa\/Niamey"
+                                "t": "Skopje (GMT +01:00)",
+                                "v": "Europe\/Skopje"
                             },
                             {
-                                "t": "Nouakchott (GMT +00:00)",
-                                "v": "Africa\/Nouakchott"
+                                "t": "Sofia (GMT +02:00)",
+                                "v": "Europe\/Sofia"
                             },
                             {
-                                "t": "Ouagadougou (GMT +00:00)",
-                                "v": "Africa\/Ouagadougou"
+                                "t": "Stockholm (GMT +01:00)",
+                                "v": "Europe\/Stockholm"
                             },
                             {
-                                "t": "Porto-Novo (GMT +01:00)",
-                                "v": "Africa\/Porto-Novo"
+                                "t": "Tallinn (GMT +02:00)",
+                                "v": "Europe\/Tallinn"
                             },
                             {
-                                "t": "Sao_Tome (GMT +00:00)",
-                                "v": "Africa\/Sao_Tome"
+                                "t": "Tirane (GMT +01:00)",
+                                "v": "Europe\/Tirane"
                             },
                             {
-                                "t": "Tripoli (GMT +02:00)",
-                                "v": "Africa\/Tripoli"
+                                "t": "Ulyanovsk (GMT +04:00)",
+                                "v": "Europe\/Ulyanovsk"
                             },
                             {
-                                "t": "Tunis (GMT +01:00)",
-                                "v": "Africa\/Tunis"
+                                "t": "Uzhgorod (GMT +02:00)",
+                                "v": "Europe\/Uzhgorod"
                             },
                             {
-                                "t": "Windhoek (GMT +02:00)",
-                                "v": "Africa\/Windhoek"
+                                "t": "Vaduz (GMT +01:00)",
+                                "v": "Europe\/Vaduz"
+                            },
+                            {
+                                "t": "Vatican (GMT +01:00)",
+                                "v": "Europe\/Vatican"
+                            },
+                            {
+                                "t": "Vienna (GMT +01:00)",
+                                "v": "Europe\/Vienna"
+                            },
+                            {
+                                "t": "Vilnius (GMT +02:00)",
+                                "v": "Europe\/Vilnius"
+                            },
+                            {
+                                "t": "Volgograd (GMT +04:00)",
+                                "v": "Europe\/Volgograd"
+                            },
+                            {
+                                "t": "Warsaw (GMT +01:00)",
+                                "v": "Europe\/Warsaw"
+                            },
+                            {
+                                "t": "Zagreb (GMT +01:00)",
+                                "v": "Europe\/Zagreb"
+                            },
+                            {
+                                "t": "Zaporozhye (GMT +02:00)",
+                                "v": "Europe\/Zaporozhye"
+                            },
+                            {
+                                "t": "Zurich (GMT +01:00)",
+                                "v": "Europe\/Zurich"
                             }
                         ],
                         "America": [
@@ -904,6 +940,216 @@
                                 "v": "America\/Yellowknife"
                             }
                         ],
+                        "Africa": [
+                            {
+                                "t": "Abidjan (GMT +00:00)",
+                                "v": "Africa\/Abidjan"
+                            },
+                            {
+                                "t": "Accra (GMT +00:00)",
+                                "v": "Africa\/Accra"
+                            },
+                            {
+                                "t": "Addis_Ababa (GMT +03:00)",
+                                "v": "Africa\/Addis_Ababa"
+                            },
+                            {
+                                "t": "Algiers (GMT +01:00)",
+                                "v": "Africa\/Algiers"
+                            },
+                            {
+                                "t": "Asmara (GMT +03:00)",
+                                "v": "Africa\/Asmara"
+                            },
+                            {
+                                "t": "Bamako (GMT +00:00)",
+                                "v": "Africa\/Bamako"
+                            },
+                            {
+                                "t": "Bangui (GMT +01:00)",
+                                "v": "Africa\/Bangui"
+                            },
+                            {
+                                "t": "Banjul (GMT +00:00)",
+                                "v": "Africa\/Banjul"
+                            },
+                            {
+                                "t": "Bissau (GMT +00:00)",
+                                "v": "Africa\/Bissau"
+                            },
+                            {
+                                "t": "Blantyre (GMT +02:00)",
+                                "v": "Africa\/Blantyre"
+                            },
+                            {
+                                "t": "Brazzaville (GMT +01:00)",
+                                "v": "Africa\/Brazzaville"
+                            },
+                            {
+                                "t": "Bujumbura (GMT +02:00)",
+                                "v": "Africa\/Bujumbura"
+                            },
+                            {
+                                "t": "Cairo (GMT +02:00)",
+                                "v": "Africa\/Cairo"
+                            },
+                            {
+                                "t": "Casablanca (GMT +01:00)",
+                                "v": "Africa\/Casablanca"
+                            },
+                            {
+                                "t": "Ceuta (GMT +01:00)",
+                                "v": "Africa\/Ceuta"
+                            },
+                            {
+                                "t": "Conakry (GMT +00:00)",
+                                "v": "Africa\/Conakry"
+                            },
+                            {
+                                "t": "Dakar (GMT +00:00)",
+                                "v": "Africa\/Dakar"
+                            },
+                            {
+                                "t": "Dar_es_Salaam (GMT +03:00)",
+                                "v": "Africa\/Dar_es_Salaam"
+                            },
+                            {
+                                "t": "Djibouti (GMT +03:00)",
+                                "v": "Africa\/Djibouti"
+                            },
+                            {
+                                "t": "Douala (GMT +01:00)",
+                                "v": "Africa\/Douala"
+                            },
+                            {
+                                "t": "El_Aaiun (GMT +01:00)",
+                                "v": "Africa\/El_Aaiun"
+                            },
+                            {
+                                "t": "Freetown (GMT +00:00)",
+                                "v": "Africa\/Freetown"
+                            },
+                            {
+                                "t": "Gaborone (GMT +02:00)",
+                                "v": "Africa\/Gaborone"
+                            },
+                            {
+                                "t": "Harare (GMT +02:00)",
+                                "v": "Africa\/Harare"
+                            },
+                            {
+                                "t": "Johannesburg (GMT +02:00)",
+                                "v": "Africa\/Johannesburg"
+                            },
+                            {
+                                "t": "Juba (GMT +03:00)",
+                                "v": "Africa\/Juba"
+                            },
+                            {
+                                "t": "Kampala (GMT +03:00)",
+                                "v": "Africa\/Kampala"
+                            },
+                            {
+                                "t": "Khartoum (GMT +02:00)",
+                                "v": "Africa\/Khartoum"
+                            },
+                            {
+                                "t": "Kigali (GMT +02:00)",
+                                "v": "Africa\/Kigali"
+                            },
+                            {
+                                "t": "Kinshasa (GMT +01:00)",
+                                "v": "Africa\/Kinshasa"
+                            },
+                            {
+                                "t": "Lagos (GMT +01:00)",
+                                "v": "Africa\/Lagos"
+                            },
+                            {
+                                "t": "Libreville (GMT +01:00)",
+                                "v": "Africa\/Libreville"
+                            },
+                            {
+                                "t": "Lome (GMT +00:00)",
+                                "v": "Africa\/Lome"
+                            },
+                            {
+                                "t": "Luanda (GMT +01:00)",
+                                "v": "Africa\/Luanda"
+                            },
+                            {
+                                "t": "Lubumbashi (GMT +02:00)",
+                                "v": "Africa\/Lubumbashi"
+                            },
+                            {
+                                "t": "Lusaka (GMT +02:00)",
+                                "v": "Africa\/Lusaka"
+                            },
+                            {
+                                "t": "Malabo (GMT +01:00)",
+                                "v": "Africa\/Malabo"
+                            },
+                            {
+                                "t": "Maputo (GMT +02:00)",
+                                "v": "Africa\/Maputo"
+                            },
+                            {
+                                "t": "Maseru (GMT +02:00)",
+                                "v": "Africa\/Maseru"
+                            },
+                            {
+                                "t": "Mbabane (GMT +02:00)",
+                                "v": "Africa\/Mbabane"
+                            },
+                            {
+                                "t": "Mogadishu (GMT +03:00)",
+                                "v": "Africa\/Mogadishu"
+                            },
+                            {
+                                "t": "Monrovia (GMT +00:00)",
+                                "v": "Africa\/Monrovia"
+                            },
+                            {
+                                "t": "Nairobi (GMT +03:00)",
+                                "v": "Africa\/Nairobi"
+                            },
+                            {
+                                "t": "Ndjamena (GMT +01:00)",
+                                "v": "Africa\/Ndjamena"
+                            },
+                            {
+                                "t": "Niamey (GMT +01:00)",
+                                "v": "Africa\/Niamey"
+                            },
+                            {
+                                "t": "Nouakchott (GMT +00:00)",
+                                "v": "Africa\/Nouakchott"
+                            },
+                            {
+                                "t": "Ouagadougou (GMT +00:00)",
+                                "v": "Africa\/Ouagadougou"
+                            },
+                            {
+                                "t": "Porto-Novo (GMT +01:00)",
+                                "v": "Africa\/Porto-Novo"
+                            },
+                            {
+                                "t": "Sao_Tome (GMT +00:00)",
+                                "v": "Africa\/Sao_Tome"
+                            },
+                            {
+                                "t": "Tripoli (GMT +02:00)",
+                                "v": "Africa\/Tripoli"
+                            },
+                            {
+                                "t": "Tunis (GMT +01:00)",
+                                "v": "Africa\/Tunis"
+                            },
+                            {
+                                "t": "Windhoek (GMT +02:00)",
+                                "v": "Africa\/Windhoek"
+                            }
+                        ],
                         "Antarctica": [
                             {
                                 "t": "Casey (GMT +11:00)",
@@ -1382,248 +1628,6 @@
                                 "v": "Australia\/Sydney"
                             }
                         ],
-                        "Europe": [
-                            {
-                                "t": "Amsterdam (GMT +01:00)",
-                                "v": "Europe\/Amsterdam"
-                            },
-                            {
-                                "t": "Andorra (GMT +01:00)",
-                                "v": "Europe\/Andorra"
-                            },
-                            {
-                                "t": "Astrakhan (GMT +04:00)",
-                                "v": "Europe\/Astrakhan"
-                            },
-                            {
-                                "t": "Athens (GMT +02:00)",
-                                "v": "Europe\/Athens"
-                            },
-                            {
-                                "t": "Belgrade (GMT +01:00)",
-                                "v": "Europe\/Belgrade"
-                            },
-                            {
-                                "t": "Berlin (GMT +01:00)",
-                                "v": "Europe\/Berlin"
-                            },
-                            {
-                                "t": "Bratislava (GMT +01:00)",
-                                "v": "Europe\/Bratislava"
-                            },
-                            {
-                                "t": "Brussels (GMT +01:00)",
-                                "v": "Europe\/Brussels"
-                            },
-                            {
-                                "t": "Bucharest (GMT +02:00)",
-                                "v": "Europe\/Bucharest"
-                            },
-                            {
-                                "t": "Budapest (GMT +01:00)",
-                                "v": "Europe\/Budapest"
-                            },
-                            {
-                                "t": "Busingen (GMT +01:00)",
-                                "v": "Europe\/Busingen"
-                            },
-                            {
-                                "t": "Chisinau (GMT +02:00)",
-                                "v": "Europe\/Chisinau"
-                            },
-                            {
-                                "t": "Copenhagen (GMT +01:00)",
-                                "v": "Europe\/Copenhagen"
-                            },
-                            {
-                                "t": "Dublin (GMT +00:00)",
-                                "v": "Europe\/Dublin"
-                            },
-                            {
-                                "t": "Gibraltar (GMT +01:00)",
-                                "v": "Europe\/Gibraltar"
-                            },
-                            {
-                                "t": "Guernsey (GMT +00:00)",
-                                "v": "Europe\/Guernsey"
-                            },
-                            {
-                                "t": "Helsinki (GMT +02:00)",
-                                "v": "Europe\/Helsinki"
-                            },
-                            {
-                                "t": "Isle_of_Man (GMT +00:00)",
-                                "v": "Europe\/Isle_of_Man"
-                            },
-                            {
-                                "t": "Istanbul (GMT +03:00)",
-                                "v": "Europe\/Istanbul"
-                            },
-                            {
-                                "t": "Jersey (GMT +00:00)",
-                                "v": "Europe\/Jersey"
-                            },
-                            {
-                                "t": "Kaliningrad (GMT +02:00)",
-                                "v": "Europe\/Kaliningrad"
-                            },
-                            {
-                                "t": "Kiev (GMT +02:00)",
-                                "v": "Europe\/Kiev"
-                            },
-                            {
-                                "t": "Kirov (GMT +03:00)",
-                                "v": "Europe\/Kirov"
-                            },
-                            {
-                                "t": "Lisbon (GMT +00:00)",
-                                "v": "Europe\/Lisbon"
-                            },
-                            {
-                                "t": "Ljubljana (GMT +01:00)",
-                                "v": "Europe\/Ljubljana"
-                            },
-                            {
-                                "t": "London (GMT +00:00)",
-                                "v": "Europe\/London"
-                            },
-                            {
-                                "t": "Luxembourg (GMT +01:00)",
-                                "v": "Europe\/Luxembourg"
-                            },
-                            {
-                                "t": "Madrid (GMT +01:00)",
-                                "v": "Europe\/Madrid"
-                            },
-                            {
-                                "t": "Malta (GMT +01:00)",
-                                "v": "Europe\/Malta"
-                            },
-                            {
-                                "t": "Mariehamn (GMT +02:00)",
-                                "v": "Europe\/Mariehamn"
-                            },
-                            {
-                                "t": "Minsk (GMT +03:00)",
-                                "v": "Europe\/Minsk"
-                            },
-                            {
-                                "t": "Monaco (GMT +01:00)",
-                                "v": "Europe\/Monaco"
-                            },
-                            {
-                                "t": "Moscow (GMT +03:00)",
-                                "v": "Europe\/Moscow"
-                            },
-                            {
-                                "t": "Oslo (GMT +01:00)",
-                                "v": "Europe\/Oslo"
-                            },
-                            {
-                                "t": "Paris (GMT +01:00)",
-                                "v": "Europe\/Paris"
-                            },
-                            {
-                                "t": "Podgorica (GMT +01:00)",
-                                "v": "Europe\/Podgorica"
-                            },
-                            {
-                                "t": "Prague (GMT +01:00)",
-                                "v": "Europe\/Prague"
-                            },
-                            {
-                                "t": "Riga (GMT +02:00)",
-                                "v": "Europe\/Riga"
-                            },
-                            {
-                                "t": "Rome (GMT +01:00)",
-                                "v": "Europe\/Rome"
-                            },
-                            {
-                                "t": "Samara (GMT +04:00)",
-                                "v": "Europe\/Samara"
-                            },
-                            {
-                                "t": "San_Marino (GMT +01:00)",
-                                "v": "Europe\/San_Marino"
-                            },
-                            {
-                                "t": "Sarajevo (GMT +01:00)",
-                                "v": "Europe\/Sarajevo"
-                            },
-                            {
-                                "t": "Saratov (GMT +04:00)",
-                                "v": "Europe\/Saratov"
-                            },
-                            {
-                                "t": "Simferopol (GMT +03:00)",
-                                "v": "Europe\/Simferopol"
-                            },
-                            {
-                                "t": "Skopje (GMT +01:00)",
-                                "v": "Europe\/Skopje"
-                            },
-                            {
-                                "t": "Sofia (GMT +02:00)",
-                                "v": "Europe\/Sofia"
-                            },
-                            {
-                                "t": "Stockholm (GMT +01:00)",
-                                "v": "Europe\/Stockholm"
-                            },
-                            {
-                                "t": "Tallinn (GMT +02:00)",
-                                "v": "Europe\/Tallinn"
-                            },
-                            {
-                                "t": "Tirane (GMT +01:00)",
-                                "v": "Europe\/Tirane"
-                            },
-                            {
-                                "t": "Ulyanovsk (GMT +04:00)",
-                                "v": "Europe\/Ulyanovsk"
-                            },
-                            {
-                                "t": "Uzhgorod (GMT +02:00)",
-                                "v": "Europe\/Uzhgorod"
-                            },
-                            {
-                                "t": "Vaduz (GMT +01:00)",
-                                "v": "Europe\/Vaduz"
-                            },
-                            {
-                                "t": "Vatican (GMT +01:00)",
-                                "v": "Europe\/Vatican"
-                            },
-                            {
-                                "t": "Vienna (GMT +01:00)",
-                                "v": "Europe\/Vienna"
-                            },
-                            {
-                                "t": "Vilnius (GMT +02:00)",
-                                "v": "Europe\/Vilnius"
-                            },
-                            {
-                                "t": "Volgograd (GMT +04:00)",
-                                "v": "Europe\/Volgograd"
-                            },
-                            {
-                                "t": "Warsaw (GMT +01:00)",
-                                "v": "Europe\/Warsaw"
-                            },
-                            {
-                                "t": "Zagreb (GMT +01:00)",
-                                "v": "Europe\/Zagreb"
-                            },
-                            {
-                                "t": "Zaporozhye (GMT +02:00)",
-                                "v": "Europe\/Zaporozhye"
-                            },
-                            {
-                                "t": "Zurich (GMT +01:00)",
-                                "v": "Europe\/Zurich"
-                            }
-                        ],
                         "Indian": [
                             {
                                 "t": "Antananarivo (GMT +03:00)",
@@ -1829,6 +1833,19 @@
             }
         },
 
+        watch: {
+            'form.create.data.url': function(url) {
+                if(url && url.startsWith('http://')) {
+                    this.form.create.data.url = url.substr(7)
+                    this.proto = 'http://'
+                }
+                if(url && url.startsWith('https://')) {
+                    this.form.create.data.url = url.substr(8)
+                    this.proto = 'https://'
+                }
+            }
+        },
+
         methods: {
 
             close() {
@@ -1846,7 +1863,7 @@
 
                 let data = {
                     name: this.form.create.data.name,
-                    url: this.form.create.data.url,
+                    url: this.proto+this.form.create.data.url,
                     timezone: this.form.create.data.tz,
                 }
 
@@ -1857,14 +1874,18 @@
             },
 
             checkDomain() {
-                this.pendingDomainCheck = true
-                this.$axios.post('/api/v1/websites:validate', {url:this.form.create.data.url}).then(res => {
-                    this.validUrl = res.data.valid
-                }).catch(e => {
-                    this.validUrl = false
-                }).finally(() => {
-                    this.pendingDomainCheck = false
-                })
+                if (this.form.create.data.url) {
+                    this.pendingDomainCheck = true
+                    this.$axios.post('/api/v1/websites:validate', {
+                        url:this.proto+this.form.create.data.url
+                    }).then(res => {
+                        this.validUrl = res.data.valid
+                    }).catch(e => {
+                        this.validUrl = false
+                    }).finally(() => {
+                        this.pendingDomainCheck = false
+                    })
+                }
             }
 
         }

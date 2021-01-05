@@ -76,7 +76,7 @@
                     {{$t('language')}}
                 </v-list-item-content>
                 <v-list-item-action>
-                    <v-select solo flat hide-details :items="locales" v-model="locale"></v-select>
+                    <v-select class="max-w-150" solo flat hide-details :items="locales" v-model="locale"></v-select>
                 </v-list-item-action>
             </v-list-item>
         </v-list>

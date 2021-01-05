@@ -52,6 +52,14 @@ $dark-darken: #292b31;
         }
     }
 
+    &.v-expansion-panels {
+        background: $dark-comp !important;
+    }
+
+    .v-expansion-panel::before {
+        box-shadow: none !important;
+    }
+
     .cookie-consent {
         background: $dark-lighten
     }
@@ -74,6 +82,10 @@ $dark-darken: #292b31;
 
     &.v-text-field--solo > .v-input__control > .v-input__slot {
         background-color: #eeeeee !important;
+    }
+
+    .v-expansion-panel::before {
+        box-shadow: none !important;
     }
 
     .cookie-consent {

@@ -94,6 +94,24 @@ export default {
     have_account_q: "Sie haben breits ein Konto?",
     domain_not_exists: "Diese Domain/Website scheint nicht zu existieren. Bitte überprüfen Sie Ihre Eingabe und tragen Sie eine existierende Domain ein.",
 
+    support: {
+        title: "Hilfestellung",
+        no_data_event_visits: {
+            title: "Es werden keine Daten angezeigt, obwohl die Seite besucht wurde.",
+            please_follow_instructions: "Bitte befolgen Sie die folgenden Schritte, um eventuelle Probleme zu beheben:",
+            update_page: "Aktualisieren Sie diese Seite (Strg+Shift+R oder F5)",
+            check_range: "Prüfen Sie, ob Sie den richtigen Zeitraum ausgewählt haben.",
+            check_url: "Überprüfen Sie, ob die angegebene Website-URL richtig ist. Die Website-URL muss identisch mit der URL in der Adress-Leiste sein, wenn Sie Ihre Website im Browser aufrufen. Wenn z.B. Ihre Website mit www beginnt, dann sollte es auch genauso beim Anlegen angegeben werden.",
+            check_tracking_code: "Bitte überprüfen Sie, ob der Tracking-Code bzw. das gesamte script Tag auf Ihrer Website eingebettet ist. Um dies kurz zu prüfen, können Sie Ihre Website/Seite aufrufen die erfasst werden soll und öffnen den Quellcode Ihrer Seite mit Strg+U oder Rechtsklick -> Seitenquelltext anzeigen. In dem geöffnetem Quelltext sollten Sie den Tracking-Code bzw. unser script tag finden können.",
+            check_tracking_code_position: "Bitte achten Sie darauf, dass Sie den Tracking-Code innerhalb des HEAD tags Ihrer Website platziert haben.",
+        },
+        no_know_how: {
+            title: "Ich möchte das Tracking für meine Website nutzen, habe aber kein technisches Wissen.",
+            text: "Wenn Sie kein technisches Know-How besitzen, können Sie uns gerne unter {0} kontaktieren. Wir helfen Ihnen den Tracking-Code in Ihre Website kostenlos einzupflegen.",
+        },
+    },
+
+
     vcomp: {
         table: {
             no_data: "Keine Daten verfügbar"
@@ -159,7 +177,7 @@ export default {
     },
 
     bounce_rate: "Absprungsrate",
-    avg_visit_duration: "Verweildauer pro Seite",
+    avg_visit_duration: "Verweildauer",
     ratio: "Anteil",
     views: "Aufrufe",
     uniques: "Nutzer",

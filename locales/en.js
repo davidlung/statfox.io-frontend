@@ -159,7 +159,7 @@ export default {
     },
 
     bounce_rate: "Bounce Rate",
-    avg_visit_duration: "Avg time on site",
+    avg_visit_duration: "Avg time",
     ratio: "Ratio",
     views: "Views",
     uniques: "User",

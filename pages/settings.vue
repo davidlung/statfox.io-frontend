@@ -4,12 +4,12 @@
             <v-btn icon @click="$store.dispatch('toggleMenu')"><v-icon>mdi-menu</v-icon></v-btn>
             <v-toolbar-title class="d-flex align-center">{{$t('settings')}}</v-toolbar-title>
             <template v-slot:extension>
-                <v-tabs centered show-arrows v-model="tab">
+                <v-tabs centered v-model="tab" center-active>
                     <v-tab>{{$t('account')}}</v-tab>
                     <v-tab>{{$t('payment_methods')}}</v-tab>
                     <v-tab>{{$t('invoices')}}</v-tab>
-                    <v-tab link nuxt to="/subscription">{{$t('upgrade_downgrade')}}</v-tab>
                     <v-tab>{{$t('design')}}</v-tab>
+                    <v-tab link nuxt to="/subscription">{{$t('upgrade_downgrade')}}</v-tab>
                 </v-tabs>
             </template>
         </v-app-bar>
@@ -43,8 +43,6 @@
                     <invoices/>
                 </v-tab-item>
 
-                <v-tab-item></v-tab-item>
-
                 <v-tab-item>
                     <j-section-title>Theme</j-section-title>
                     <v-radio-group v-model="theme">
@@ -60,6 +58,8 @@
                         </v-card>
                     </v-radio-group>
                 </v-tab-item>
+
+                <v-tab-item></v-tab-item>
             </v-tabs-items>
 
             <div class="text-center pa-3 text-caption">v{{package.version}}</div>

@@ -1,9 +1,9 @@
 <template>
     <v-card outlined min-height="110">
-        <v-card-title class="pt-3 text-subtitle-2">{{$t('avg_visit_duration')}}</v-card-title>
+        <v-card-title class="pt-3 text-subtitle-2">{{$t('avg_visit_duration')}} ø</v-card-title>
         <v-card-text class="text-h4">
             <v-skeleton-loader type="button" :loading="pending">
-                <span class="text-h4">ø</span> {{stats}} <span class="text-body-1">min</span>
+                {{stats}}
             </v-skeleton-loader>
         </v-card-text>
     </v-card>

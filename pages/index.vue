@@ -5,47 +5,39 @@
             <v-toolbar-title class="d-flex align-center">
                 <div>
                     {{website?website.name:$t('statistic')}}
-                    <v-menu bottom left v-if="websites.length>1" min-width="200">
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-btn icon v-bind="attrs" v-on="on">
-                                <v-icon>mdi-menu-down</v-icon>
-                            </v-btn>
-                        </template>
-                        <v-list>
-                            <v-list-item v-for="w in websites.filter(ws => ws.id !== (website?website.id:0))" :key="`menu-${w.id}`" @click="$store.dispatch('website/loadStatistic', w.id)">
-                                <v-list-item-content>
-                                    <v-list-item-title>{{ w.name }}</v-list-item-title>
-                                    <v-list-item-subtitle>{{ w.url }}</v-list-item-subtitle>
-                                </v-list-item-content>
-                            </v-list-item>
-                        </v-list>
-                    </v-menu>
                 </div>
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-card light flat color="transparent" v-if="websites.length">
-                <date-range-picker
-                    ref="picker"
-                    opens="left"
-                    :locale-data="localeData"
-                    v-model="dateRange"
-                    :ranges="dateRanges"
-                    @update="$store.dispatch('website/loadStatistic')"
-                >
-                    <template v-slot:input="picker">
-                        <v-btn dark outlined min-width="120" class="pa-2 px-3">
-                            {{rangeLabel(picker.startDate, picker.endDate)}}
-                        </v-btn>
-                    </template>
-                    <template v-slot:footer="data">
-                        <div class="d-flex pa-2 bt-1-1">
-                            <v-spacer></v-spacer>
-                            <v-btn depressed small color="primary" @click="data.clickApply">{{$t('select')}}</v-btn>
-                        </div>
-                    </template>
-                </date-range-picker>
-            </v-card>
+
+            <v-menu bottom left v-if="websites.length>1" min-width="200">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon v-bind="attrs" v-on="on">
+                        <v-icon>mdi-monitor-dashboard</v-icon>
+                    </v-btn>
+                </template>
+                <v-list>
+                    <v-list-item v-for="w in websites.filter(ws => ws.id !== (website?website.id:0))" :key="`menu-${w.id}`" @click="$store.dispatch('website/loadStatistic', w.id)">
+                        <v-list-item-content>
+                            <v-list-item-title>{{ w.name }}</v-list-item-title>
+                            <v-list-item-subtitle>{{ w.url }}</v-list-item-subtitle>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
+
+            <template v-if="websites.length && !$vuetify.breakpoint.smAndDown">
+                <DatePicker/>
+            </template>
+            <template v-else>
+                <v-btn icon @click="showDatePickerDialog=!showDatePickerDialog"><v-icon>mdi-calendar</v-icon></v-btn>
+            </template>
         </v-app-bar>
+
+        <v-dialog fullscreen v-model="showDatePickerDialog" v-if="websites.length && $vuetify.breakpoint.smAndDown">
+            <v-card tile flat>
+                <DatePicker @applied="showDatePickerDialog=false"/>
+            </v-card>
+        </v-dialog>
 
         <v-container class="max-w-1200 text-center" v-if="websites.length===0">
             <div class="d-flex justify-center py-10">
@@ -86,6 +78,39 @@
                     <TrackingCode :api-key="website.apiKey"/>
                 </v-card-text>
             </v-card>
+
+            <div class="text-h5 font-weight-thin mt-10 mb-6">
+                {{$t('support.title')}}
+            </div>
+
+            <v-card outlined>
+                <v-expansion-panels accordion>
+                    <v-expansion-panel>
+                        <v-expansion-panel-header class="font-weight-medium">
+                            {{$t('support.no_data_event_visits.title')}}
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            {{$t('support.no_data_event_visits.please_follow_instructions')}}
+                            <ol>
+                                <li class="py-1">{{$t('support.no_data_event_visits.update_page')}}</li>
+                                <li class="py-1">{{$t('support.no_data_event_visits.check_range')}}</li>
+                                <li class="py-1">{{$t('support.no_data_event_visits.check_url')}}</li>
+                                <li class="py-1">{{$t('support.no_data_event_visits.check_tracking_code')}}</li>
+                                <li class="py-1">{{$t('support.no_data_event_visits.check_tracking_code_position')}}</li>
+                            </ol>
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
+                    <v-expansion-panel>
+                        <v-expansion-panel-header class="font-weight-medium">
+                            {{$t('support.no_know_how.title')}}
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            {{$t('support.no_know_how.text', ['support@statfox.io'])}}
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
+                </v-expansion-panels>
+            </v-card>
+
         </v-container>
         <v-container class="max-w-1400" v-else>
             <v-row v-if="limitReached">
@@ -157,8 +182,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import DateRangePicker from 'vue2-daterange-picker'
-import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
+
 import JSectionTitle from "../components/JSectionTitle";
 import Verification from "../components/Verification";
 import SubscriptionProblem from "../components/subscription/SubscriptionProblem";
@@ -177,6 +201,7 @@ import UtmList from "~/components/statistic/UtmList";
 import CreateWebsiteForm from "~/components/website/CreateWebsiteForm";
 import TrackingCode from "~/components/website/TrackingCode";
 import AvgVisitTimeCounter from "@/components/statistic/AvgVisitTimeCounter";
+import DatePicker from "@/components/DatePicker";
 
 export default {
 
@@ -187,6 +212,7 @@ export default {
     },
 
     components: {
+        DatePicker,
         AvgVisitTimeCounter,
         TrackingCode,
         CreateWebsiteForm,
@@ -205,7 +231,6 @@ export default {
         SubscriptionProblem,
         Verification,
         JSectionTitle,
-        DateRangePicker
     },
 
     computed: {
@@ -222,125 +247,6 @@ export default {
         noDataYet() {
             return this.website && !this.statistic.data.views.allTime
         },
-
-        dateRanges() {
-            return {
-                [this.$t('time.today')]: (() => {
-                    let start = new Date(), end = new Date()
-                    start.setHours(0, 0, 0, 0)
-                    end.setHours(23, 59, 59, 59)
-                    return [start, end]
-                })(),
-                [this.$t('time.last_days', [7])]: (() => {
-                    let start = new Date(), end = new Date()
-                    start.setDate(start.getDate()-7)
-                    start.setHours(0, 0, 0, 0)
-                    end.setHours(23, 59, 59, 59)
-                    return [start, end]
-                })(),
-                [this.$t('time.last_days', [30])]: (() => {
-                    let start = new Date(), end = new Date()
-                    start.setDate(start.getDate()-30)
-                    start.setHours(0, 0, 0, 0)
-                    end.setHours(23, 59, 59, 59)
-                    return [start, end]
-                })(),
-                [this.$t('time.this_week')]: (() => {
-                    let start = new Date(), end = new Date()
-                    start.setDate(start.getDate() - start.getDay() + (start.getDay() === 0 ? -6 : 1))
-                    start.setHours(0, 0, 0, 0)
-                    end.setHours(23, 59, 59, 59)
-                    return [start, end]
-                })(),
-                [this.$t('time.this_month')]: (() => {
-                    let start = new Date(), end = new Date()
-                    start.setDate(1)
-                    start.setHours(0, 0, 0, 0)
-                    end.setHours(23, 59, 59, 59)
-                    return [start, end]
-                })(),
-                [this.$t('time.this_year')]: (() => {
-                    let start = new Date(), end = new Date()
-                    start.setFullYear(start.getFullYear(), 0, 1)
-                    start.setHours(0, 0, 0, 0)
-                    end.setHours(23, 59, 59, 59)
-                    return [start, end]
-                })(),
-                [this.$t('time.all_time')]: (() => {
-                    let start = new Date(), end = new Date()
-                    start.setFullYear(2020, 0, 1)
-                    start.setHours(0, 0, 0, 0)
-                    end.setHours(23, 59, 59, 59)
-                    return [start, end]
-                })()
-            }
-        },
-
-        dateRange: {
-            get() {
-                return this.statistic.dateRange
-            },
-            set(dateRange) {
-                this.$store.commit('website/SET_DATE_RANGE', dateRange)
-            }
-        },
-
-        rangeLabel() {
-            return (start, end) => {
-                let dateStart = new Date(start), dateEnd = new Date(end)
-
-                dateStart.setHours(0, 0, 0, 0)
-                dateEnd.setHours(23, 59, 59, 59)
-
-                let namedRange = Object.values(this.dateRanges).find(d => {
-                    return d[0].toLocaleDateString() === dateStart.toLocaleDateString()
-                        && d[1].toLocaleDateString() === dateEnd.toLocaleDateString()
-                })
-
-                if (namedRange) {
-                    return Object.keys(this.dateRanges).find(k => this.dateRanges[k] === namedRange)
-                }
-
-                let options = {day: '2-digit', month: 'short', year: '2-digit'}
-                return dateStart.toLocaleDateString(undefined, options) + ' - ' + dateEnd.toLocaleDateString(undefined, options)
-            }
-        },
-
-        localeData() {
-            let date = new Date(), data = {
-                firstDay: 1,
-                daysOfWeek: [],
-                monthNames: []
-            }, monthIndexes = [0,1,2,3,4,5,6,7,8,9,10,11], dayIndexes = [0,1,2,3,4,5,6]
-
-            monthIndexes.forEach(m => {
-                date.setMonth(m)
-                data.monthNames.push(date.toLocaleString('default', {month: 'short'}))
-            })
-
-            dayIndexes.forEach(d => {
-                date.setDate(date.getDate() + (d - date.getDay()))
-                data.daysOfWeek.push(date.toLocaleString('default', {weekday: 'short'}))
-            })
-
-            return data
-        }
-    },
-
-    created() {
-        let start = new Date(), end = new Date()
-        start.setHours(0, 0, 0, 0)
-        end.setHours(23, 59, 59, 59)
-
-        if (this.$cookies.get('dateRangeFrom')) {
-            start.setTime(this.$cookies.get('dateRangeFrom'))
-            end.setTime(this.$cookies.get('dateRangeEnd'))
-        }
-
-        this.dateRange = {
-            startDate: start.getTime(),
-            endDate: end.getTime()
-        }
     },
 
     mounted() {
@@ -351,20 +257,16 @@ export default {
 
     data() {
         return {
-            createWebsiteDialog: false
+            createWebsiteDialog: false,
+            showDatePickerDialog: false,
         }
     },
 }
 </script>
 
 <style lang="sass">
+
     .v-data-footer__select
         display: none !important
-
-    .vue-daterange-picker
-        .form-control.reportrange-text
-            border: none
-            background: transparent
-
 
 </style>
