@@ -1,7 +1,7 @@
 import cred from './auth-client.json'
 
 require('dotenv').config()
-let env = process.env
+let env = process.env, isDev = process.env.NODE_ENV !== 'production'
 
 export default {
     ssr: true,
@@ -17,9 +17,6 @@ export default {
         link: [
             {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
         ],
-        script: [
-             //{src: '/code.js', wid: 'ab9d24dfbb1c129be3cf695322bab901', defer: true}
-        ]
     },
 
     loading: false,
@@ -28,6 +25,17 @@ export default {
         '~/static/css/main.css',
         '~/static/css/theme.scss',
     ],
+
+    pwa: {
+        meta: {
+            name: "StatFox.io",
+            theme_color: "#e47522",
+            nativeUI: true
+        },
+        workbox: {
+            /* workbox options */
+        }
+    },
 
     plugins: [
         '~/plugins/auth.js',
@@ -97,7 +105,7 @@ export default {
         optionsPath: './vuetify.options.js'
     },
 
-    build: {
+    build: isDev ? {} : {
         extractCSS: true,
         optimization: {
             minimize: true,

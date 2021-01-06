@@ -109,7 +109,13 @@ export default {
             title: "I would like to use tracking for my website but have no technical knowledge.",
             text: "If you don't have technical know-how, feel free to contact us at {0}. We will help you to add the tracking code to your website for free.",
         },
+        no_ad_utm: {
+            title: "I use paid clicks or Google/Bing Ads, but I don't see any data on views.",
+            text: "In order for us to collect data on paid clicks through e.g. Google Ads, you need to configure the UTM parameters for your URL with your Ads provider.",
+        },
     },
+
+    pwa_new_version: "There is a new version of this app.",
 
     vcomp: {
         table: {

@@ -26,7 +26,7 @@
         </v-card>
 
         <div class="mt-3">
-            <div class="max-w-100 mx-auto">
+            <div class="max-w-100 mx-auto text-center">
                 <DarkModeSwitch/>
             </div>
         </div>

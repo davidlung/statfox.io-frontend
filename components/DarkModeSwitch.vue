@@ -1,20 +1,24 @@
 <template>
-    <v-switch v-model="theme" prepend-icon="mdi-moon-waxing-crescent" hide-details flat dense inset></v-switch>
+    <v-btn icon @click="switchTheme">
+        <v-icon>{{isDark ? 'mdi-moon-waxing-crescent' : 'mdi-white-balance-sunny'}}</v-icon>
+    </v-btn>
 </template>
 
 <script>
     export default {
-        computed: {
-            theme: {
-                set(v) {
-                    this.$cookies.set('darkMode', this.$vuetify.theme.dark = v, {
-                        expires: this.$time.dateFromTime(undefined, +86400*720)
-                    })
-                },
-                get() {
-                    return this.$cookies.get('darkMode')||this.$vuetify.theme.dark
-                }
-            },
+
+        data() {
+            return {
+                isDark: this.$cookies.get('darkMode')||this.$vuetify.theme.dark
+            }
         },
+
+        methods: {
+            switchTheme() {
+                this.$cookies.set('darkMode', this.isDark = this.$vuetify.theme.dark = !this.isDark, {
+                    expires: this.$time.dateFromTime(undefined, +86400*720)
+                })
+            }
+        }
     }
 </script>

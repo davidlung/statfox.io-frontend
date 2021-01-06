@@ -21,6 +21,10 @@
                 </v-list-item>
             </v-list>
 
+            <div class="theme-switcher pa-3 full-width">
+                <DarkModeSwitch/>
+            </div>
+
         </v-navigation-drawer>
 
         <v-main class="fill-height">
@@ -46,10 +50,11 @@
     import Logo from "~/components/Logo";
     import Brand from "~/components/Brand";
     import CookieConsent from "~/components/CookieConsent";
+    import DarkModeSwitch from "@/components/DarkModeSwitch";
 
     export default {
 
-        components: {Brand, Logo, Toast, JSectionTitle, CookieConsent},
+        components: {DarkModeSwitch, Brand, Logo, Toast, JSectionTitle, CookieConsent},
 
         data() {
             return {
@@ -80,6 +85,19 @@
             }
         },
 
+        async mounted() {
+
+            const workbox = await window.$workbox;
+            if (workbox) {
+                workbox.addEventListener('installed', (event) => {
+                    if (event.isUpdate) {
+                        this.$store.dispatch('showSystemMessage', this.$t('pwa_new_version'))
+                    }
+                });
+            }
+
+        },
+
         computed: {
             ...mapState({
                 user: state => state.auth.user,
@@ -98,3 +116,9 @@
         }
     }
 </script>
+
+<style scoped lang="sass">
+    .theme-switcher
+        position: absolute
+        bottom: 0
+</style>

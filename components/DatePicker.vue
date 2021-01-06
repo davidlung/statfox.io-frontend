@@ -12,11 +12,14 @@
             >
                 <template v-slot:input="picker">
                     <div class="d-flex">
-                        <v-theme-provider root>
-                            <v-btn :text="isMobile" :outlined="!isMobile" min-width="120" class="pa-2 px-3">
+                        <v-theme-provider root v-if="isMobile">
+                            <v-btn text min-width="120" class="pa-2 px-3">
                                 {{rangeLabel(picker.startDate, picker.endDate)}}
                             </v-btn>
                         </v-theme-provider>
+                        <v-btn v-else outlined dark min-width="120" class="pa-2 px-3">
+                            {{rangeLabel(picker.startDate, picker.endDate)}}
+                        </v-btn>
                         <v-spacer v-if="isMobile"></v-spacer>
                         <v-theme-provider root>
                             <v-btn icon v-if="isMobile" @click="$emit('applied')"><v-icon>mdi-close</v-icon></v-btn>
@@ -28,7 +31,7 @@
                         <v-spacer></v-spacer>
                         <v-btn depressed small color="primary" @click="data.clickApply">{{$t('select')}}</v-btn>
                     </div>
-                    <div v-else class="pt-2 d-flex">
+                    <div v-else class="pt-4 d-flex">
                         <v-btn block large depressed color="primary" @click="data.clickApply">{{$t('select')}}</v-btn>
                     </div>
                 </template>
@@ -40,7 +43,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div v-else class="pa-3 full-width">
+                    <div v-else class="full-width">
                         <v-select
                             :items="Object.keys(ranges.ranges)"
                             @change="ranges.clickRange(ranges.ranges[$event])"
@@ -204,6 +207,9 @@
         .vue-daterange-picker.inline
             display: block
 
+            .reportrange-text
+                padding: 0 0 10px 0
+
             .daterangepicker.dropdown-menu
                 border: none
                 background-color: transparent
@@ -216,8 +222,5 @@
                         display: block
                         max-width: 100%
                         padding: 15px 0 0 0
-
-                        &.left
-                            padding: 0
 
 </style>

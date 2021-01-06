@@ -53,6 +53,10 @@ export const actions = {
         await dispatch('auth/nuxtClientInit', context)
     },
 
+    showSystemMessage({commit}, message) {
+        commit('SET_SYSTEM_MESSAGE', message)
+    },
+
     showLoadingOverlay({commit}, message) {
         commit('SET_OVERLAY_LOADING', {show: true, message: message})
     },

@@ -43,7 +43,9 @@
 
         methods: {
             consent() {
-                this.$cookies.set('SF_CONSENT', this.$time.now())
+                this.$cookies.set('SF_CONSENT', this.$time.now(), {
+                    expires: this.$time.dateFromTime(undefined, +86400*720)
+                })
                 this.showConsent = false
                 this.showSettings = false
             }

@@ -110,6 +110,25 @@
                             {{$t('support.no_know_how.text', ['support@statfox.io'])}}
                         </v-expansion-panel-content>
                     </v-expansion-panel>
+                    <v-expansion-panel>
+                        <v-expansion-panel-header class="font-weight-medium">
+                            {{$t('support.no_ad_utm.title')}}
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            {{$t('support.no_ad_utm.text')}}
+                            <div>
+                                <br>Google Ads:<br>
+                                <a href="https://support.google.com/analytics/answer/1033981?hl=de" target="_blank">
+                                    https://support.google.com/analytics/answer/1033981?hl=de
+                                </a>
+                                <br>
+                                <br>Bing Ads:<br>
+                                <a href="https://help.ads.microsoft.com/apex/index/3/de/56762" target="_blank">
+                                    https://help.ads.microsoft.com/apex/index/3/de/56762
+                                </a>
+                            </div>
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
                 </v-expansion-panels>
             </v-card>
 

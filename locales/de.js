@@ -109,8 +109,13 @@ export default {
             title: "Ich möchte das Tracking für meine Website nutzen, habe aber kein technisches Wissen.",
             text: "Wenn Sie kein technisches Know-How besitzen, können Sie uns gerne unter {0} kontaktieren. Wir helfen Ihnen den Tracking-Code in Ihre Website kostenlos einzupflegen.",
         },
+        no_ad_utm: {
+            title: "Ich verwende bezahlte Klicks bzw. Google/Bing Ads, sehe aber keine Daten zu den Aufrufen.",
+            text: "Damit wir Daten zu bezahlten Klicks durch z.B. Google Ads erfassen können, müssen Sie die UTM-Parameter für Ihre URL bei Ihrem Ads Anbieter konfigurieren.",
+        },
     },
 
+    pwa_new_version: "Es gibt eine neue Version dieser App.",
 
     vcomp: {
         table: {
