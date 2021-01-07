@@ -28,7 +28,7 @@
                             <template v-if="!$vuetify.breakpoint.smAndDown">
                                 <v-chip small outlined>{{website.timezone}}</v-chip>
                                 <v-divider vertical inset class="mx-5"></v-divider>
-                                <v-btn icon @click="dialogCode(website.apiKey)"><v-icon>mdi-xml</v-icon></v-btn>
+                                <v-btn icon @click="dialogCode(website.apiKey, website.name)"><v-icon>mdi-xml</v-icon></v-btn>
                             </template>
 
                             <v-menu bottom left>
@@ -46,7 +46,7 @@
                                             <v-list-item-title>{{$t('statistic')}}</v-list-item-title>
                                         </v-list-item-content>
                                     </v-list-item>
-                                    <v-list-item @click="dialog.code=true">
+                                    <v-list-item @click="dialogCode(website.apiKey, website.name)">
                                         <v-list-item-icon class="mr-5">
                                             <v-icon>mdi-xml</v-icon>
                                         </v-list-item-icon>
@@ -120,7 +120,7 @@
         <v-dialog v-model="dialog.code" max-width="700">
             <v-card>
                 <v-card-title>
-                    <span>{{$t('tracking_code')}}</span>
+                    <span>{{websiteName}}</span>
                     <v-spacer></v-spacer>
                     <v-btn icon @click="dialog.code=false"><v-icon>mdi-close</v-icon></v-btn>
                 </v-card-title>
@@ -178,13 +178,14 @@
                     rename: false
                 },
                 websiteId: null,
+                websiteName: null,
             }
         },
 
         methods: {
 
-            dialogCode(id) {
-                id !== undefined && (this.websiteId = id) && (this.dialog.code = true)
+            dialogCode(id, name) {
+                id !== undefined && (this.websiteId = id) && (this.websiteName = name) && (this.dialog.code = true)
             },
 
             dialogRename(id) {

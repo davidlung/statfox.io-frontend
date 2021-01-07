@@ -2,7 +2,7 @@
     <v-card outlined min-height="110">
         <v-card-title class="pt-3 text-subtitle-2">{{$t('avg_visit_duration')}} ø</v-card-title>
         <v-card-text class="text-h4">
-            <v-skeleton-loader type="button" :loading="pending">
+            <v-skeleton-loader type="button" :loading="pending||!wid">
                 {{stats}}
             </v-skeleton-loader>
         </v-card-text>

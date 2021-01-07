@@ -10,6 +10,9 @@
             <bar-chart v-if="stats.data.length && type==='bar'" :chart-data="{labels, datasets}" :options="options" :height="150"/>
             <line-chart v-if="stats.data.length && type==='line'" :chart-data="{labels, datasets}" :options="options" :height="150"/>
         </v-card-text>
+        <v-card-text v-else-if="pending||!wid" class="py-10 d-flex justify-center">
+            <v-progress-circular :size="70" :width="7" color="primary" indeterminate></v-progress-circular>
+        </v-card-text>
         <v-card-text v-else class="py-10 d-flex justify-center">
             <v-icon >mdi-tea</v-icon>
             <span class="pl-4 text-h6 font-weight-thin">{{$t('vcomp.table.no_data')}}</span>

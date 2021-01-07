@@ -1,7 +1,9 @@
 <template>
     <div>
         <v-app-bar dark elevate-on-scroll app class="" height="64">
-            <v-btn icon @click="$store.dispatch('toggleMenu')"><v-icon>mdi-menu</v-icon></v-btn>
+            <v-btn icon @click="$store.dispatch('toggleMenu')" v-if="!$route.query.embedded">
+                <v-icon>mdi-menu</v-icon>
+            </v-btn>
             <v-toolbar-title class="d-flex align-center">
                 <div>
                     {{website?website.name:$t('statistic')}}
@@ -9,7 +11,7 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
 
-            <v-menu bottom left v-if="websites.length>1" min-width="200">
+            <v-menu bottom left v-if="websites.length>1 && !$route.query.pwk" min-width="200">
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn icon v-bind="attrs" v-on="on">
                         <v-icon>mdi-monitor-dashboard</v-icon>
@@ -24,6 +26,14 @@
                     </v-list-item>
                 </v-list>
             </v-menu>
+
+            <template v-if="$route.query.embedded">
+                <DarkModeSwitch/>
+                <v-btn icon link target="_blank" :href="$config.BASE_BROWSER_URL">
+                    <v-icon>mdi-open-in-new</v-icon>
+                </v-btn>
+            </template>
+
 
             <template v-if="websites.length && !$vuetify.breakpoint.smAndDown">
                 <DatePicker/>
@@ -228,6 +238,7 @@ import CreateWebsiteForm from "~/components/website/CreateWebsiteForm";
 import TrackingCode from "~/components/website/TrackingCode";
 import AvgVisitTimeCounter from "@/components/statistic/AvgVisitTimeCounter";
 import DatePicker from "@/components/DatePicker";
+import DarkModeSwitch from "@/components/DarkModeSwitch";
 
 export default {
 
@@ -257,6 +268,7 @@ export default {
         SubscriptionProblem,
         Verification,
         JSectionTitle,
+        DarkModeSwitch
     },
 
     computed: {
@@ -351,7 +363,11 @@ export default {
 
     mounted() {
         if (this.websites.length && this.statistic.data.websiteId === null) {
-            this.$store.dispatch('website/loadStatistic')
+            let websiteId = undefined
+            if (this.$route.query.pwk && this.websites.filter(w => w.apiKey === this.$route.query.pwk)) {
+                websiteId = this.websites.find(w => w.apiKey === this.$route.query.pwk).id
+            }
+            this.$store.dispatch('website/loadStatistic', websiteId)
         }
     },
 

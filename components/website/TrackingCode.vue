@@ -2,9 +2,18 @@
     <div>
         <div class="text-h5">{{$t('tracking_code')}}</div>
         <div class="py-4">{{$t('tracking_code_info')}}</div>
+        <div class="pb-1 text-h6">Script-Tag</div>
         <v-text-field solo outlined flat
                       class="tracking-code-field"
                       :value="code"
+                      @focus="select($event)"
+                      @click="select($event)"
+                      hide-details>
+        </v-text-field>
+        <div class="pt-4 pb-1 text-h6">Public Website Key</div>
+        <v-text-field solo outlined flat
+                      class="tracking-code-field"
+                      :value="apiKey"
                       @focus="select($event)"
                       @click="select($event)"
                       hide-details>

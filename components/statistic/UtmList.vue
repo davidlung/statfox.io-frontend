@@ -1,7 +1,7 @@
 <template>
     <v-card outlined>
         <v-card-title class="pt-3 text-subtitle-2">{{$t('ad_campaigns')}}</v-card-title>
-        <v-skeleton-loader tile :loading="pending" type="text@10, actions">
+        <v-skeleton-loader tile :loading="pending||!wid" type="text@10, actions">
             <v-data-table dense :headers="headers" :items="stats" :items-per-page="10" mobile-breakpoint="100"
                           :no-data-text="$t('vcomp.table.no_data')"></v-data-table>
         </v-skeleton-loader>

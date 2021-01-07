@@ -6,7 +6,7 @@
             {{systemMessage}}
         </v-system-bar>
 
-        <v-navigation-drawer app :width="300" floating v-model="drawer">
+        <v-navigation-drawer v-if="!$route.query.embedded" app :width="300" floating v-model="drawer">
 
             <Brand :compact="true"/>
 
