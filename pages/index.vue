@@ -34,11 +34,10 @@
                 </v-btn>
             </template>
 
-
             <template v-if="websites.length && !$vuetify.breakpoint.smAndDown">
                 <DatePicker/>
             </template>
-            <template v-else>
+            <template v-else-if="$vuetify.breakpoint.smAndDown">
                 <v-btn icon @click="showDatePickerDialog=!showDatePickerDialog"><v-icon>mdi-calendar</v-icon></v-btn>
             </template>
         </v-app-bar>
