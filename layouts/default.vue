@@ -21,10 +21,6 @@
                 </v-list-item>
             </v-list>
 
-            <div class="theme-switcher pa-3 full-width">
-                <DarkModeSwitch/>
-            </div>
-
         </v-navigation-drawer>
 
         <v-main class="fill-height">
@@ -116,9 +112,3 @@
         }
     }
 </script>
-
-<style scoped lang="sass">
-    .theme-switcher
-        position: absolute
-        bottom: 0
-</style>

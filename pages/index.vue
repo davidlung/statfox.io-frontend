@@ -28,7 +28,9 @@
             </v-menu>
 
             <template v-if="$route.query.embedded">
-                <DarkModeSwitch/>
+                <v-toolbar-items>
+                    <DarkModeSwitch/>
+                </v-toolbar-items>
                 <v-btn icon link target="_blank" :href="$config.BASE_BROWSER_URL">
                     <v-icon>mdi-open-in-new</v-icon>
                 </v-btn>

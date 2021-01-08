@@ -11,6 +11,20 @@
             {{$t('welcome_text')}}
         </h2>
 
+        <v-card outlined flat max-width="500" class="text-center mx-auto mb-10 py-3">
+            <v-card-text>
+                <div class="text-body-1" v-if="$vuetify.theme.dark">
+                    {{$t('welcome_use_dark_mode_1')}}
+                </div>
+                <div class="text-body-1" v-else>
+                    {{$t('welcome_use_dark_mode_2')}}
+                </div>
+                <div class="max-w-50 mx-auto">
+                    <DarkModeSwitch/>
+                </div>
+            </v-card-text>
+        </v-card>
+
         <div class="d-flex justify-center pb-10">
             <v-btn x-large depressed nuxt link to="/" color="primary" class="px-10">
                 {{$t('get_started')}}
@@ -42,12 +56,13 @@
 
 <script>
     import Brand from "~/components/Brand";
+    import DarkModeSwitch from "~/components/DarkModeSwitch";
 
     export default {
 
         layout: 'blank',
 
-        components: {Brand},
+        components: {Brand, DarkModeSwitch},
 
         head() {
             return {
@@ -57,7 +72,7 @@
 
         async middleware({store, route, redirect}) {
             if(store.state.auth.user.penultimateLoginAt !== null) {
-                //await redirect('/')
+                await redirect('/')
             }
         },
 

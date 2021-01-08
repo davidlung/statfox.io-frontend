@@ -46,6 +46,7 @@ export default {
     async initializeDateRange({commit}) {
         let start = new Date(), end = new Date()
 
+        start.setDate(start.getDate()-7)
         start.setHours(0, 0, 0, 0)
         end.setHours(23, 59, 59, 59)
 

@@ -23,6 +23,8 @@ export default {
     welcome: "Welcome.",
     welcome_text: "Thank you for deciding to use our service.",
     welcome_advantages_title: "Enjoy the following advantages:",
+    welcome_use_dark_mode_1: "Do you want to keep the dark mode on?",
+    welcome_use_dark_mode_2: "Do you want turn on the dark mode?",
     get_started: "Get Started",
     welcome_advantages: {
         no_cookie: {
@@ -168,6 +170,10 @@ export default {
             updated: "Website has been updated.",
             deleted: "Website has been deleted.",
             created: "Website has been created.",
+        },
+        tracking_code: {
+            copied_success: "Code has been copied to your clipboard.",
+            copied_error: "Could not copy the code, please use the conventional way to copy.",
         }
     },
 

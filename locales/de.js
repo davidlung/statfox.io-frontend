@@ -23,6 +23,8 @@ export default {
     welcome: "Willkommen.",
     welcome_text: "Danke, dass Sie sich für unseren Dienst entschieden haben.",
     welcome_advantages_title: "Bei uns können Sie folgende Vorteile genießen:",
+    welcome_use_dark_mode_1: "Möchten Sie den Dark-Mode weiterhin verwenden?",
+    welcome_use_dark_mode_2: "Möchten Sie den Dark-Mode aktivieren?",
     get_started: "Jetzt loslegen",
     welcome_advantages: {
         no_cookie: {
@@ -168,6 +170,10 @@ export default {
             updated: "Website wurde aktualisiert.",
             deleted: "Website wurde gelöscht..",
             created: "Website wurde erstellt.",
+        },
+        tracking_code: {
+            copied_success: "Der Code wurde in Ihre Zwischenablage kopiert.",
+            copied_error: "Der Code konnte nicht kopiert werden.",
         }
     },
 
@@ -208,7 +214,7 @@ export default {
     ad_campaign: "Kampagne",
 
     no_tracking_data_headline: "Wir haben noch keine Tracking-Daten zu dieser Website empfangen.",
-    no_tracking_data_text: "Sobald die erste Tracking-Information bei uns eingeht, wird hier die Statistik zusehen sein. Dies passiert in der Regel, sobald der Tracking-Code auf der Seite die erfasst werden soll platziert ist und die Seite aufgerufen wird. Wenn Sie den Tracking-Code noch nicht auf Ihr Webseite hinzugrfügt haben, dann folgen Sie der Anleitung unterhalb, um mit dem Tracken zu starten.",
+    no_tracking_data_text: "Sobald die erste Tracking-Information bei uns eingeht, wird hier die Statistik zusehen sein. Dies passiert in der Regel, sobald der Tracking-Code auf der Seite die erfasst werden soll platziert ist und die Seite aufgerufen wird. Wenn Sie den Tracking-Code noch nicht auf Ihrer Webseite hinzugrfügt haben, dann folgen Sie der Anleitung unterhalb, um mit dem Tracken zu starten.",
 
 
     no_websites_headline: "Es ist noch keine Website eingerichtet",
@@ -217,7 +223,7 @@ export default {
     add_website: "Website hinzufügen",
     statistic: "Statistik",
     tracking_code: "Tracking-Code",
-    tracking_code_info: "Dies ist der Tracking-Code, der auf jeder Seite der Website platziert werden muss, um diese zu tracken. Kopiere diesen Code, um ihn in den <head> Bereich aller Seiten einzufügen, die Sie erfassen möchten.",
+    tracking_code_info: "Dies ist der Tracking-Code, der auf jeder Seite der Website platziert werden muss, um diese zu tracken. Kopieren Sie diesen Code, um diesen in den <head> Bereich aller Seiten einzufügen, die Sie erfassen möchten.",
     rename: "Umbenennen",
     delete: "Löschen",
     delete_website_text: "Möchten Sie diese Website wirklich löschen? Dieser Vorgang entfernt die Website und dessen Statistiken und kann nicht rückgängig gemacht werden! Möchten Sie fortfahren?",

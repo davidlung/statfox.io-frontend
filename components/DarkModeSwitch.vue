@@ -1,7 +1,11 @@
 <template>
-    <v-btn icon @click="switchTheme">
-        <v-icon>{{isDark ? 'mdi-moon-waxing-crescent' : 'mdi-white-balance-sunny'}}</v-icon>
-    </v-btn>
+    <v-switch
+        class="align-center"
+        :input-value="isDark"
+        @change="switchTheme"
+        dense inset prepend-icon="mdi-moon-waxing-crescent"
+        hide-details
+    ></v-switch>
 </template>
 
 <script>

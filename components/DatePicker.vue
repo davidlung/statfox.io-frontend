@@ -17,7 +17,7 @@
                                 {{rangeLabel(picker.startDate, picker.endDate)}}
                             </v-btn>
                         </v-theme-provider>
-                        <v-btn v-else outlined dark min-width="120" class="pa-2 px-3">
+                        <v-btn v-else dark color="primary" min-width="120" class="pa-2 px-3">
                             {{rangeLabel(picker.startDate, picker.endDate)}}
                         </v-btn>
                         <v-spacer v-if="isMobile"></v-spacer>
