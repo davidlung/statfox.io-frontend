@@ -192,7 +192,7 @@ export default {
     ratio: "Anteil",
     views: "Aufrufe",
     uniques: "Nutzer",
-    referrers: "Verweise",
+    referrers: "Besucherquellen",
     channel_title: "Wie wird meine Website gefunden?",
     referrer_links: "Verlinkung",
     organic_search: "Organische Suche (Google, Bing, etc.)",
