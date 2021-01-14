@@ -65,7 +65,7 @@ export default {
 
         let params = {}
 
-        if (this.app.context.route.name === 'analytics-id') {
+        if (this.app.context.route.name === 'share-id') {
             params.sk = this.app.context.route.params.id
         }else{
             let cookieWid = this.$cookies.get('wid')
@@ -126,7 +126,7 @@ export default {
 
     initStatPolling({state, dispatch}) {
         setInterval(() => {
-            (state.websites.length||this.app.context.route.name === 'analytics-id') && dispatch('reloadStatistic')
+            (state.websites.length||this.app.context.route.name === 'share-id') && dispatch('reloadStatistic')
         }, 30000)
     }
 

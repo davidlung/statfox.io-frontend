@@ -5,7 +5,7 @@ export default function ({ store, redirect, route, res, req }) {
     }
 
     if(!store.state.auth.loggedIn) {
-        if(!['login', 'signup', 'verification-token', 'forgot', 'forgot-token', 'analytics-id'].includes(route.name)) {
+        if(!['login', 'signup', 'verification-token', 'forgot', 'forgot-token', 'share-id'].includes(route.name)) {
             return redirect('/login?r='+route.path)
         }
     }

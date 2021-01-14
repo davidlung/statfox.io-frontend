@@ -46,7 +46,7 @@ export const actions = {
             }
         })
 
-        if (state.auth.loggedIn || this.app.context.route.name === 'analytics-id') {
+        if (state.auth.loggedIn || this.app.context.route.name === 'share-id') {
             dispatch('website/initStatPolling', context)
         }
 

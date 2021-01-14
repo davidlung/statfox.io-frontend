@@ -9,7 +9,7 @@
             <div class="pb-1 text-h6">Link</div>
             <div>
                 <v-chip outlined large label class="d-block">
-                    <a :href="`${$config.BASE_BROWSER_URL}/analytics/${shareKey}`" target="_blank">{{$config.BASE_BROWSER_URL}}/analytics/{{shareKey}}</a>
+                    <a :href="`${$config.BASE_BROWSER_URL}/share/${shareKey}`" target="_blank">{{$config.BASE_BROWSER_URL}}/share/{{shareKey}}</a>
                 </v-chip>
             </div>
             <div class="pt-4 pb-1 d-flex">

@@ -78,7 +78,7 @@
                     referrer: item.name
                 }
 
-                if (this.$route.name === 'analytics-id') {
+                if (this.$route.name === 'share-id') {
                     params.sk = this.$route.params.id
                     delete params.wid
                 }
