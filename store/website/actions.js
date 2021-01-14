@@ -40,7 +40,7 @@ export default {
     // STATISTIC
 
     async loadStatistic({commit, state, dispatch}, wid) {
-        await dispatch('reloadStatistic', wid)
+        return await dispatch('reloadStatistic', wid)
     },
 
     async initializeDateRange({commit}) {
@@ -62,22 +62,30 @@ export default {
     },
 
     reloadStatistic({commit, state, dispatch}, wid) {
-        let cookieWid = this.$cookies.get('wid')
 
-        if (wid === undefined) {
-            if (state.statistic.data.websiteId && state.websites.find(w => w.id === state.statistic.data.websiteId)) {
-                wid = state.statistic.data.websiteId
-            }else if (cookieWid && state.websites.find(w => w.id === cookieWid)) {
-                wid = cookieWid
-            }else if (state.websites.length) {
-                wid = state.websites[0].id
-            }else{
-                return
-            }
+        let params = {}
+
+        if (this.app.context.route.name === 'analytics-id') {
+            params.sk = this.app.context.route.params.id
         }else{
-            this.$cookies.set('wid', wid, {
-                expires: this.$time.dateFromTime(undefined, +86400*7)
-            })
+            let cookieWid = this.$cookies.get('wid')
+
+            if (wid === undefined) {
+                if (state.statistic.data.websiteId && state.websites.find(w => w.id === state.statistic.data.websiteId)) {
+                    wid = state.statistic.data.websiteId
+                }else if (cookieWid && state.websites.find(w => w.id === cookieWid)) {
+                    wid = cookieWid
+                }else if (state.websites.length) {
+                    wid = state.websites[0].id
+                }else{
+                    return
+                }
+            }else{
+                this.$cookies.set('wid', wid, {
+                    expires: this.$time.dateFromTime(undefined, +86400*7)
+                })
+            }
+            params.wid = wid
         }
 
         if (state.statistic.dateRange.startDate === null) {
@@ -87,11 +95,8 @@ export default {
         let starDate = new Date(state.statistic.dateRange.startDate),
             endDate = new Date(state.statistic.dateRange.endDate)
 
-        let params = {
-            wid: wid,
-            from: this.$time.unixTime(starDate),
-            to: this.$time.unixTime(endDate),
-        }
+        params.from = this.$time.unixTime(starDate)
+        params.to = this.$time.unixTime(endDate)
 
         this.$cookies.set('dateRangeFrom', starDate.getTime())
         this.$cookies.set('dateRangeEnd', endDate.getTime())
@@ -99,14 +104,29 @@ export default {
         return this.$axios.get('/api/v1/statistic', {params}).then(res => {
             commit('SET_STATISTIC', res.data)
             return res
-        }).catch(() => {
+        }).catch((e) => {
             this.$cookies.remove('wid')
+            throw e
+        })
+    },
+
+    changeShareState({commit, state, dispatch}, {id, shared}) {
+        return this.$axios.patch('/api/v1/websites/'+id, {share: shared}).then(res => {
+            commit('CHANGE_SHARE_STATE', {id, shared})
+            return res
+        })
+    },
+
+    renewShareKey({commit, state, dispatch}, id) {
+        return this.$axios.post('/api/v1/websites:renewShareKey/'+id).then(res => {
+            commit('SET_SHARE_KEY', {id, shareKey: res.data.shareKey})
+            return res
         })
     },
 
     initStatPolling({state, dispatch}) {
         setInterval(() => {
-            state.websites.length && dispatch('reloadStatistic')
+            (state.websites.length||this.app.context.route.name === 'analytics-id') && dispatch('reloadStatistic')
         }, 30000)
     }
 

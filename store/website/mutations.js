@@ -21,6 +21,16 @@ export default {
         website && Vue.set(website, 'name', name)
     },
 
+    CHANGE_SHARE_STATE(state, {id, shared}) {
+        let website = state.websites.find(w => w.id === id)
+        website && Vue.set(website, 'isShared', !!shared)
+    },
+
+    SET_SHARE_KEY(state, {id, shareKey}) {
+        let website = state.websites.find(w => w.id === id)
+        website && Vue.set(website, 'shareKey', shareKey)
+    },
+
     // STATISTIC
 
     SET_STATISTIC(state, statistic) {

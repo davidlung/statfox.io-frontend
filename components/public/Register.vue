@@ -26,9 +26,9 @@
             <template v-slot:label>
                 <span class="text-caption">
                     {{$t('signup.accept_agreement')}}
-                    <a @click.stop target="_blank" href="https://www.statfox.io/termsofservice/">{{$t('terms_of_use')}}</a>
+                    <a @click.stop target="_blank" href="https://www.statfox.io/agb/">{{$t('terms_of_use')}}</a>
                     {{$t('and')}}
-                    <a @click.stop target="_blank" href="https://www.statfox.io/privacy/">{{$t('privacy_policy')}}</a>
+                    <a @click.stop target="_blank" href="https://www.statfox.io/datenschutz/">{{$t('privacy_policy')}}</a>
                 </span>
             </template>
         </v-checkbox>

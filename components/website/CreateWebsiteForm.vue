@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-form v-if="!apiKey" v-model="form.create.valid" ref="formWebsiteCreate" @submit.prevent="submitWebsite">
+        <v-form v-if="!webKey" v-model="form.create.valid" ref="formWebsiteCreate" @submit.prevent="submitWebsite">
             <InputLabel>{{$t('name')}}</InputLabel>
             <v-text-field solo flat required autofocus
                           :placeholder="$t('website_name')"
@@ -53,7 +53,7 @@
             </v-card-actions>
         </v-form>
         <div v-else>
-            <TrackingCode :api-key="apiKey"/>
+            <TrackingCode :web-key="webKey"/>
             <div class="text-center pt-4">
                 <v-btn depressed color="primary" @click="close">{{$t('close')}}</v-btn>
             </div>
@@ -78,7 +78,7 @@
 
         data() {
             return {
-                apiKey: '',
+                webKey: '',
                 validUrl: null,
                 pendingDomainCheck: false,
                 proto: 'https://',
@@ -1849,7 +1849,7 @@
         methods: {
 
             close() {
-                this.apiKey = ''
+                this.webKey = ''
                 if (this.$refs.formWebsiteCreate) {
                     this.$refs.formWebsiteCreate.reset()
                     this.$refs.formWebsiteCreate.resetValidation()
@@ -1868,7 +1868,7 @@
                 }
 
                 this.$store.dispatch('website/createWebsite', data).then(res => {
-                    this.apiKey = res.data.apiKey
+                    this.webKey = res.data.webKey
                 }).catch(e => this.$error(e))
 
             },

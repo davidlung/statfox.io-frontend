@@ -21,7 +21,7 @@
         <div class="pt-4 pb-1 text-h6">Public Website Key</div>
         <v-text-field solo outlined flat
                       class="tracking-code-field"
-                      :value="apiKey"
+                      :value="webKey"
                       @focus="select($event)"
                       @click="select($event)"
                       hide-details>
@@ -38,7 +38,7 @@
     export default {
 
         props: {
-            apiKey: {
+            webKey: {
                 type: String,
                 required: true
             }
@@ -49,7 +49,7 @@
             code() {
                 let tag = 'script',
                     src = this.$config.TRACKING_SCRIPT_URL
-                return `<${tag} src="${src}" wid="${this.apiKey}" defer></${tag}>`
+                return `<${tag} src="${src}" wk="${this.webKey}" defer></${tag}>`
             }
 
         },

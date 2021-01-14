@@ -16,7 +16,7 @@
 
             <!-- INTERVAL + CURRENCY -->
             <div class="d-flex mt-5" v-if="!isIntervalDisabled">
-                <v-switch v-model="annual" dense inset :label="$t('annual_discount_info', [15])"></v-switch>
+                <v-switch v-model="annual" dense inset :label="$t('annual_discount_info', [25])"></v-switch>
                 <v-spacer></v-spacer>
                 <v-select dense solo outlined hide-details flat single-line
                           class="shrink max-w-100 " :value="currency" item-value="v" item-text="t"
@@ -50,10 +50,10 @@
 
             <v-skeleton-loader :loading="!plans.length" type="paragraph">
                 <v-row>
-                    <v-col cols="12" sm="6" md="3">
+                    <v-col cols="12" sm="6" md="4">
                         <v-card flat outlined height="100%">
                             <v-card-title class="text-overline justify-center">Free</v-card-title>
-                            <v-card-text class="text-h4 text-center pb-2">50.000</v-card-text>
+                            <v-card-text class="text-h4 text-center pb-2">10.000</v-card-text>
                             <v-card-text class="text-caption text-center pt-0">{{$t('page_view_month')}}</v-card-text>
                             <v-card-text class="font-weight-regular pt-5 text-center">
                                 <div class="primary--text text-h4" v-if="plans.length">{{price(plans[1]).currencySign}}0</div>
@@ -85,7 +85,7 @@
                             </v-card-actions>
                         </v-card>
                     </v-col>
-                    <v-col cols="12" sm="6" md="3" v-for="plan in plans" :key="plan.name" class="text-center" v-if="price(plan)">
+                    <v-col cols="12" sm="6" md="4" v-for="plan in plans" :key="plan.name" class="text-center" v-if="price(plan)">
                         <v-card flat outlined>
                             <v-card-title class="text-overline justify-center">{{plan.name}}</v-card-title>
                             <v-card-text class="text-h4 text-center pb-2">{{plan.pageViews.toLocaleString()}}</v-card-text>

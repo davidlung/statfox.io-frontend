@@ -3,6 +3,10 @@ html, body, .v-application {
     overflow: auto !important;
 }
 
+a {
+    text-decoration: none !important;
+}
+
 .v-tabs-items {
     background: transparent !important;
 }

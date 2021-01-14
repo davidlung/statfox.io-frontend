@@ -11,7 +11,7 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
 
-            <v-menu bottom left v-if="websites.length>1 && !$route.query.pwk" min-width="200">
+            <v-menu bottom left v-if="websites.length>1 && !$route.query.sk" min-width="200">
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn icon v-bind="attrs" v-on="on">
                         <v-icon>mdi-monitor-dashboard</v-icon>
@@ -88,7 +88,7 @@
             </div>
             <v-card flat outlined>
                 <v-card-text>
-                    <TrackingCode :api-key="website.apiKey"/>
+                    <TrackingCode :web-key="website.webKey"/>
                 </v-card-text>
             </v-card>
 
@@ -161,57 +161,9 @@
                     </v-card>
                 </v-col>
             </v-row>
-            <v-row>
-                <v-col cols="6" lg="3">
-                    <UserCounter/>
-                </v-col>
-                <v-col cols="6" lg="3">
-                    <ViewCounter/>
-                </v-col>
-                <v-col cols="6" lg="3">
-                    <BounceCounter/>
-                </v-col>
-                <v-col cols="6" lg="3">
-                    <AvgVisitTimeCounter/>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col>
-                    <PageViewChart/>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="12" md="6">
-                    <PageList/>
-                </v-col>
-                <v-col cols="12" md="6">
-                    <ReferrerList/>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="12" md="6">
-                    <ChannelList/>
-                </v-col>
-                <v-col cols="12" md="6">
-                    <SocialMediaList/>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col>
-                    <UtmList/>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="12" md="4">
-                    <DeviceTypesList/>
-                </v-col>
-                <v-col cols="12" md="4">
-                    <BrowserList/>
-                </v-col>
-                <v-col cols="12" md="4">
-                    <CountryList/>
-                </v-col>
-            </v-row>
+
+            <Analytics/>
+
         </v-container>
 
     </div>
@@ -223,23 +175,11 @@ import {mapState} from 'vuex'
 import JSectionTitle from "../components/JSectionTitle";
 import Verification from "../components/Verification";
 import SubscriptionProblem from "../components/subscription/SubscriptionProblem";
-import PageList from "@/components/statistic/PageList";
-import ReferrerList from "@/components/statistic/ReferrerList";
-import ChannelList from "@/components/statistic/ChannelList";
-import UserCounter from "@/components/statistic/UserCounter";
-import ViewCounter from "@/components/statistic/ViewCounter";
-import BounceCounter from "@/components/statistic/BounceCounter";
-import SocialMediaList from "@/components/statistic/SocialMediaList";
-import CountryList from "@/components/statistic/CountryList";
-import DeviceTypesList from "@/components/statistic/DeviceTypesList";
-import BrowserList from "@/components/statistic/BrowserList";
-import PageViewChart from "@/components/statistic/PageViewChart";
-import UtmList from "~/components/statistic/UtmList";
 import CreateWebsiteForm from "~/components/website/CreateWebsiteForm";
 import TrackingCode from "~/components/website/TrackingCode";
-import AvgVisitTimeCounter from "@/components/statistic/AvgVisitTimeCounter";
 import DatePicker from "@/components/DatePicker";
 import DarkModeSwitch from "@/components/DarkModeSwitch";
+import Analytics from "@/components/Analytics";
 
 export default {
 
@@ -250,22 +190,10 @@ export default {
     },
 
     components: {
+        Analytics,
         DatePicker,
-        AvgVisitTimeCounter,
         TrackingCode,
         CreateWebsiteForm,
-        UtmList,
-        PageViewChart,
-        BrowserList,
-        DeviceTypesList,
-        CountryList,
-        SocialMediaList,
-        BounceCounter,
-        ViewCounter,
-        UserCounter,
-        ChannelList,
-        ReferrerList,
-        PageList,
         SubscriptionProblem,
         Verification,
         JSectionTitle,
@@ -365,8 +293,8 @@ export default {
     mounted() {
         if (this.websites.length && this.statistic.data.websiteId === null) {
             let websiteId = undefined
-            if (this.$route.query.pwk && this.websites.filter(w => w.apiKey === this.$route.query.pwk)) {
-                websiteId = this.websites.find(w => w.apiKey === this.$route.query.pwk).id
+            if (this.$route.query.sk && this.websites.filter(w => w.shareKey === this.$route.query.sk)) {
+                websiteId = this.websites.find(w => w.shareKey === this.$route.query.sk).id
             }
             this.$store.dispatch('website/loadStatistic', websiteId)
         }
@@ -380,10 +308,3 @@ export default {
     },
 }
 </script>
-
-<style lang="sass">
-
-    .v-data-footer__select
-        display: none !important
-
-</style>

@@ -57,7 +57,7 @@
                 items: [
                     {
                         icon: 'mdi-chart-box-outline',
-                        title: this.$t('statistic'),
+                        title: "Analytics",
                         to: '/'
                     },
                     {

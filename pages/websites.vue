@@ -28,7 +28,8 @@
                             <template v-if="!$vuetify.breakpoint.smAndDown">
                                 <v-chip small outlined>{{website.timezone}}</v-chip>
                                 <v-divider vertical inset class="mx-5"></v-divider>
-                                <v-btn icon @click="dialogCode(website.apiKey, website.name)"><v-icon>mdi-xml</v-icon></v-btn>
+                                <v-btn icon @click="dialogCode(website.webKey, website.name)"><v-icon>mdi-xml</v-icon></v-btn>
+                                <v-btn icon @click="dialogShare(website.id, website.name)"><v-icon>mdi-monitor-share</v-icon></v-btn>
                             </template>
 
                             <v-menu bottom left>
@@ -46,12 +47,20 @@
                                             <v-list-item-title>{{$t('statistic')}}</v-list-item-title>
                                         </v-list-item-content>
                                     </v-list-item>
-                                    <v-list-item @click="dialogCode(website.apiKey, website.name)">
+                                    <v-list-item @click="dialogCode(website.webKey, website.name)">
                                         <v-list-item-icon class="mr-5">
                                             <v-icon>mdi-xml</v-icon>
                                         </v-list-item-icon>
                                         <v-list-item-content>
                                             <v-list-item-title>{{$t('tracking_code')}}</v-list-item-title>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                    <v-list-item @click="dialogShare(website.id, website.name)">
+                                        <v-list-item-icon class="mr-5">
+                                            <v-icon>mdi-monitor-share</v-icon>
+                                        </v-list-item-icon>
+                                        <v-list-item-content>
+                                            <v-list-item-title>{{$t('share_analytics')}}</v-list-item-title>
                                         </v-list-item-content>
                                     </v-list-item>
                                     <v-list-item @click="dialogRename(website.id)">
@@ -125,7 +134,20 @@
                     <v-btn icon @click="dialog.code=false"><v-icon>mdi-close</v-icon></v-btn>
                 </v-card-title>
                 <v-card-text>
-                    <TrackingCode :api-key="websiteId"/>
+                    <TrackingCode :web-key="webKey"/>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="dialog.share" max-width="700">
+            <v-card>
+                <v-card-title>
+                    <span>{{websiteName}}</span>
+                    <v-spacer></v-spacer>
+                    <v-btn icon @click="dialog.share=false"><v-icon>mdi-close</v-icon></v-btn>
+                </v-card-title>
+                <v-card-text>
+                    <ShareCode v-if="websiteId" :website-id="websiteId"/>
                 </v-card-text>
             </v-card>
         </v-dialog>
@@ -152,10 +174,12 @@
     import CreateWebsiteForm from "~/components/website/CreateWebsiteForm";
     import TrackingCode from "~/components/website/TrackingCode";
     import RenameWebsiteForm from "@/components/website/RenameWebsiteForm";
+    import ShareCode from "@/components/website/ShareCode";
 
     export default {
 
         components: {
+            ShareCode,
             RenameWebsiteForm,
             TrackingCode,
             CreateWebsiteForm,
@@ -175,9 +199,12 @@
                 dialog: {
                     create: false,
                     code: false,
-                    rename: false
+                    rename: false,
+                    share: false
                 },
                 websiteId: null,
+                webKey: null,
+                shareKey: null,
                 websiteName: null,
             }
         },
@@ -185,7 +212,11 @@
         methods: {
 
             dialogCode(id, name) {
-                id !== undefined && (this.websiteId = id) && (this.websiteName = name) && (this.dialog.code = true)
+                id !== undefined && (this.webKey = id) && (this.websiteName = name) && (this.dialog.code = true)
+            },
+
+            dialogShare(id, name) {
+                id !== undefined && (this.websiteId = id) && (this.websiteName = name) && (this.dialog.share = true)
             },
 
             dialogRename(id) {

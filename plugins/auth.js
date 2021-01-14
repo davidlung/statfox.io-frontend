@@ -55,7 +55,7 @@ export default function ({store}) {
                 let authenticityToken = this.$cookies.get('auth.token')
 
                 if (!accessToken) {
-                    if (!['login', 'signup', 'verification-token', 'forgot', 'forgot-token'].includes(route.name)) {
+                    if (!['login', 'signup', 'verification-token', 'forgot', 'forgot-token', 'analytics-id'].includes(route.name)) {
                         console.log('User is not logged in, redirect to login page')
                         return redirect('/login?r='+route.path)
                     }

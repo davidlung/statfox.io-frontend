@@ -69,7 +69,7 @@
 
         methods: {
 
-            openReferrer(item) {console.log(item)
+            openReferrer(item) {
                 this.window = 1
                 let params = {
                     wid: this.wid,
@@ -77,6 +77,12 @@
                     to: this.$time.unixTime(new Date(this.statistic.dateRange.endDate)),
                     referrer: item.name
                 }
+
+                if (this.$route.name === 'analytics-id') {
+                    params.sk = this.$route.params.id
+                    delete params.wid
+                }
+
                 this.pendingDetails = true
                 this.details = []
                 this.$axios.get('/api/v1/statistic', {params}).then(res => {
