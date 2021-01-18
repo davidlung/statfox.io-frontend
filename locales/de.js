@@ -117,7 +117,7 @@ export default {
         },
     },
 
-    pwa_new_version: "Es gibt eine neue Version dieser App.",
+    pwa_new_version: "Es gibt eine neue Version dieser App. Bitte nutzen Sie den Button auf der rechten Seite, um diese App neu zu laden.",
 
     vcomp: {
         table: {

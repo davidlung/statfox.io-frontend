@@ -1,5 +1,6 @@
 export const state = () => ({
     systemMessage: '',
+    updateAvailable: false,
     showMenu: undefined,
     overlay: {
         loading: {
@@ -18,6 +19,10 @@ export const mutations = {
 
     SET_SYSTEM_MESSAGE(state, message) {
         state.systemMessage = message
+    },
+
+    SET_UPDATE_AVAILABLE(state, bool) {
+        state.updateAvailable = bool
     },
 
     SHOW_MENU(state, show) {
@@ -51,10 +56,6 @@ export const actions = {
         }
 
         await dispatch('auth/nuxtClientInit', context)
-    },
-
-    showSystemMessage({commit}, message) {
-        commit('SET_SYSTEM_MESSAGE', message)
     },
 
     showLoadingOverlay({commit}, message) {

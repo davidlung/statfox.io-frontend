@@ -1,10 +1,22 @@
 <template>
     <v-app>
 
-        <v-system-bar app color="orange lighten-1" v-if="systemMessage" height="50" class="font-weight-medium black--text">
-            <v-icon class="px-5" size="24">mdi-information-outline</v-icon>
-            {{systemMessage}}
-        </v-system-bar>
+        <v-banner app class="app-banner" v-if="systemMessage||updateAvailable">
+            <div class="orange lighten-1 font-weight-medium black--text pa-2 d-flex">
+                <div>
+                    <template v-if="systemMessage">
+                        {{systemMessage}}
+                    </template>
+                    <template v-if="updateAvailable">
+                        {{$t('pwa_new_version')}}
+                    </template>
+                </div>
+                <v-spacer></v-spacer>
+                <div v-if="updateAvailable" class="shrink">
+                    <v-btn depressed rounded class="px-1" min-width="36" @click="reload" :loading="pendingReload"><v-icon>mdi-reload</v-icon></v-btn>
+                </div>
+            </div>
+        </v-banner>
 
         <v-navigation-drawer v-if="!$route.query.embedded" app :width="300" floating v-model="drawer">
 
@@ -54,6 +66,7 @@
 
         data() {
             return {
+                pendingReload: false,
                 items: [
                     {
                         icon: 'mdi-chart-box-outline',
@@ -87,7 +100,7 @@
             if (workbox) {
                 workbox.addEventListener('installed', (event) => {
                     if (event.isUpdate) {
-                        this.$store.dispatch('showSystemMessage', this.$t('pwa_new_version'))
+                        this.$store.commit('SET_UPDATE_AVAILABLE', true)
                     }
                 });
             }
@@ -98,6 +111,7 @@
             ...mapState({
                 user: state => state.auth.user,
                 systemMessage: state => state.systemMessage,
+                updateAvailable: state => state.updateAvailable,
                 overlay: state => state.overlay,
             }),
 
@@ -109,6 +123,22 @@
                     return this.$store.state.showMenu
                 }
             },
+        },
+
+        methods: {
+            reload() {
+                this.pendingReload = true
+                window.location.reload()
+            }
         }
     }
 </script>
+
+<style lang="sass">
+    .app-banner
+        .v-banner__wrapper
+            padding: 0 !important
+            border: none !important
+        .v-banner__content
+            padding: 0 !important
+</style>

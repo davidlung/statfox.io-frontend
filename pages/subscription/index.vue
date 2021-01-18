@@ -15,8 +15,8 @@
             <subscription-problem/>
 
             <!-- INTERVAL + CURRENCY -->
-            <div class="d-flex mt-5" v-if="!isIntervalDisabled">
-                <v-switch v-model="annual" dense inset :label="$t('annual_discount_info', [25])"></v-switch>
+            <div class="d-flex mt-3" v-if="!isIntervalDisabled">
+                <v-switch v-model="annual" hide-details dense inset :label="$t('annual_discount_info', [25])" class="ma-0"></v-switch>
                 <v-spacer></v-spacer>
                 <v-select dense solo outlined hide-details flat single-line
                           class="shrink max-w-100 " :value="currency" item-value="v" item-text="t"
@@ -164,8 +164,15 @@
                         'BE',/*'BG','CZ',*/'DK','DE','EE','IE','EL','ES','FR',/*'HR',*/'IT','CY','LV','LT',/*'HU',*/'MT',
                         'NL','AT',/*'PL',*/'PT',/*'RO',*/'SI','SK','FI'/*,'SE'*/
                     ]
-                    if (countryCodes.includes(locale.split('-')[0]) || countryCodes.includes(locale.split('-')[1])) {
-                        this.setCurrency('eur')
+
+                    if (locale.includes('-')) {
+                        if (countryCodes.includes(locale.split('-')[1].toUpperCase())) {
+                            this.setCurrency('eur')
+                        }
+                    }else{
+                        if (countryCodes.includes(locale.toUpperCase())) {
+                            this.setCurrency('eur')
+                        }
                     }
                 }
             }

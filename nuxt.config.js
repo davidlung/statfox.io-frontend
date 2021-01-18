@@ -32,6 +32,11 @@ export default {
             theme_color: "#e47522",
             nativeUI: true
         },
+        manifest: {
+            name: 'StatFox Analytics',
+            short_name: 'StatFox.io',
+            description: 'Eine einfache, made in Germany und Datenschutzkonforme Alternative zu Google Analytics.',
+        },
         workbox: {
             /* workbox options */
         }
