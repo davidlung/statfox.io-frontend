@@ -6,7 +6,7 @@
             </v-btn>
             <v-toolbar-title class="d-flex align-center">
                 <div>
-                    {{website?website.name:$t('analytics')}}
+                    {{website?website.name:'Analytics'}}
                 </div>
             </v-toolbar-title>
             <v-spacer></v-spacer>
