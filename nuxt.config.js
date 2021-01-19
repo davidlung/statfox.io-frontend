@@ -38,7 +38,8 @@ export default {
             description: 'Eine einfache, made in Germany und Datenschutzkonforme Alternative zu Google Analytics.',
         },
         workbox: {
-            /* workbox options */
+            offline: false,
+            cleanupOutdatedCaches: true
         }
     },
 
